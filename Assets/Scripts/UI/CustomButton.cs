@@ -7,9 +7,10 @@ namespace UI
 {
     public class CustomButton : Button
     {
-        [SerializeField] private Image indicatorImg;
         public Action<bool, GameObject> OnFocusMouse { get { return onFocusMouse; } set { onFocusMouse = value; } }
         private Action<bool, GameObject> onFocusMouse;
+        public Action<bool, GameObject> OnPressMouse { get { return onPressMouse; } set { onPressMouse = value; } }
+        private Action<bool, GameObject> onPressMouse;
         private GameObject thisObject;
         protected override void Start()
         {
@@ -20,18 +21,20 @@ namespace UI
             base.OnPointerEnter(eventData);
             onFocusMouse?.Invoke(true, thisObject);
         }
-        public override void OnPointerClick(PointerEventData eventData)
-        {
-            Debug.Log("00");
-        }
         public override void OnPointerExit(PointerEventData eventData)
         {
             base.OnPointerExit(eventData);
             onFocusMouse?.Invoke(false, thisObject);
         }
-        private void Update()
+        public override void OnPointerDown(PointerEventData eventData)
         {
-
+            base.OnPointerDown(eventData);
+            onPressMouse?.Invoke(true, thisObject);
+        }
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            base.OnPointerUp(eventData);
+            onPressMouse?.Invoke(false, thisObject);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Anim
                 pathVector[i] = path[i].transform.position;
             }
             sequence = DOTween.Sequence();
+            
             Series();
             //
 
@@ -43,11 +44,17 @@ namespace Anim
             // sequence.SetLoops(-1);
 
             //sequence.OnComplete(CompleteTween);
-             sequence.Append(animSprite.DOPath(pathVector, duration,PathType.CatmullRom));
-             sequence.Join(animSprite.DORotate(new Vector3(0, 0, 180), duration, RotateMode.Fast));
-             sequence.SetEase(Ease.Linear);
-            //sequence.Append(animSprite.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)).SetEase(Ease.Linear);
-            sequence.SetLoops(-1, LoopType.Restart);
+
+            // sequence.SetSpeedBased(true);
+            //  sequence.Append(animSprite.DOPath(pathVector, duration,PathType.CatmullRom));
+            //  sequence.Join(animSprite.DORotate(new Vector3(0, 0, 180), duration, RotateMode.Fast));
+            //  sequence.SetEase(Ease.Linear);
+             
+            // //sequence.Append(animSprite.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)).SetEase(Ease.Linear);
+            // sequence.SetLoops(-1, LoopType.Restart);
+            animSprite.DOPath(pathVector, duration,PathType.CatmullRom).SetLoops(-1);
+
+            
         }
     }
 }
