@@ -199,6 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 172313327}
+  - component: {fileID: 172313329}
   - component: {fileID: 172313326}
   - component: {fileID: 172313328}
   m_Layer: 0
@@ -220,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385e57a28e1743b42bccefaee7982b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animSprite: {fileID: 1015413397}
+  animSprite: {fileID: 1015413395}
   duration: 4.37
   path:
   - {fileID: 1342058644}
@@ -258,8 +259,22 @@ MonoBehaviour:
   testButton: {fileID: 1495183568}
   sizeOnButton: 2
   indicatorImg: {fileID: 1381348025}
-  clockMSec: 5
+  idMainMenuScene: 1
+  clockButton: 5
+  clockScene: 15
   duration: 0
+--- !u!114 &172313329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172313325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b427308fb474102498ed1ab9389355d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &272573506
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,12 +809,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cbda172c0af7bd4b823f93bb0af2bd5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 0
+  m_Size: {x: 3.4446535, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -815,7 +830,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.85, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 272573507}
