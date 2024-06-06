@@ -5,60 +5,59 @@ namespace Anim
 {
     public class AnimSplashScreen : MonoBehaviour
     {
+        [Header("Подключения объекта анимации")]
         [SerializeField] private GameObject animSprite;
+
+        [Header("Время скорости анимации")]
         [SerializeField][Range(0.5f, 10f)] private float duration;
-        // [SerializeField] private GameObject posA, posW, posD, posS;
+
+        [Header("Путь движения анимации")]
         [SerializeField] private GameObject[] path;
+        //
         private Vector3[] pathVector;
+        private bool isStopClass = false, isRun = false;
+        private void OnEnable()
+        {
+
+        }
         void Start()
+        {
+            SetClass();
+        }
+        private void SetClass()
         {
             pathVector = new Vector3[path.Length];
             for (int i = 0; i < path.Length; i++)
             {
                 pathVector[i] = path[i].transform.position;
             }
-            
 
-            Series();
-            //
-
+            if (!isRun && pathVector != null)
+            {
+                isRun = true;
+                AnimSeries();
+            }
         }
-        private void Series()
+        private void AnimSeries()
         {
             Sequence sequence = DOTween.Sequence();
             sequence.Append(animSprite.transform.DOPath(pathVector, duration, PathType.CatmullRom));
             sequence.SetLoops(-1);
             sequence.SetLink(animSprite);
             sequence.OnKill(DoneTween);
+        }
+        void Update()
+        {
+            if (isStopClass) { return; }
+            if (!isRun) { SetClass(); }
+            RunUpdate();
+        }
+        private void RunUpdate()
+        {
 
-
-            // sequence.Append(animSprite.DOMove(posA.transform.position, duration)).PlayForward();
-            // sequence.Join(animSprite.DORotate(posA.transform.rotation.eulerAngles, duration, RotateMode.Fast));
-            // //sequence.Join(animSprite.DORotate(new Vector3(0, 180, 0), duration, RotateMode.Fast));
-            // //sequence.AppendInterval(1);
-            // sequence.Append(animSprite.DOMove(posW.transform.position, duration)).PlayForward();
-            // sequence.Join(animSprite.DORotate(new Vector3(0, 180, 0), duration, RotateMode.Fast));
-            // //sequence.AppendInterval(1);
-            // sequence.Append(animSprite.DOMove(posD.transform.position, duration)).PlayForward();
-            // sequence.Join(animSprite.DORotate(new Vector3(0, 180, 0), duration, RotateMode.Fast));
-            // //sequence.AppendInterval(1);
-            // sequence.Append(animSprite.DOMove(posS.transform.position, duration)).PlayForward();
-            // sequence.Join(animSprite.DORotate(new Vector3(0, 180, 0), duration, RotateMode.Fast));
-            // //sequence.AppendInterval(1);
-            // sequence.Append(animSprite.DOMove(posA.transform.position, duration)).PlayForward();
-            // sequence.Join(animSprite.DORotate(posA.transform.rotation.eulerAngles, duration, RotateMode.Fast));
-            // sequence.SetLoops(-1);
-
-            //sequence.OnComplete(CompleteTween);
-
-            // sequence.SetSpeedBased(true);
-            //  sequence.Append(animSprite.DOPath(pathVector, duration,PathType.CatmullRom));
-            //  sequence.Join(animSprite.DORotate(new Vector3(0, 0, 180), duration, RotateMode.Fast));
-            //  sequence.SetEase(Ease.Linear);
-
-            // //sequence.Append(animSprite.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)).SetEase(Ease.Linear);
-            // sequence.SetLoops(-1, LoopType.Restart);
-
+        }
+        private void OnDisable()
+        {
 
         }
         private void DoneTween()

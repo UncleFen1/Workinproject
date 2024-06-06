@@ -1,7 +1,5 @@
-using DG.Tweening;
 using Scene;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace UI
@@ -16,10 +14,18 @@ namespace UI
         {
             scenes = _scenes;
         }
-
+        private void OnEnable()
+        {
+            scenes.InitScene();
+            scenes.OnSetSettingsScene += AudioVolum;
+        }
+        private void AudioVolum(SettingsScene _settingsScene)
+        {
+            Debug.Log($"{_settingsScene.isLoad}=={_settingsScene.MuzValum}{_settingsScene.EffectValum}");
+        }
         private void Update()
         {
-            if (isRun) { Debug.Log(scenes.LoadTests()); isRun = false; }
+            if (isRun) { scenes.GetSettingsScene(); isRun = false; }
         }
 
     }
