@@ -34,10 +34,12 @@ namespace UI
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
+        private IMenuExecutor panel;
         [Inject]
-        public void Init(ISceneExecutor _scenes)
+        public void Init(ISceneExecutor _scenes, IMenuExecutor _panel)
         {
             scenes = _scenes;
+            panel = _panel;
         }
 
         private void OnEnable()
@@ -58,6 +60,7 @@ namespace UI
         }
         private void ButtonPress(bool _flag, GameObject _objectButton)
         {
+            panel.AudioClick();
             if (_flag)
             {
                 isPress = _flag;
@@ -72,16 +75,20 @@ namespace UI
 
         private void ButtonSize(bool _flag, GameObject _objectButton)
         {
+            Sequence sequence = DOTween.Sequence();
+
             if (_flag)
-            {
-                _objectButton.transform.DOScale(sizeOnButton, duration)
-                                         .SetLink(_objectButton).OnKill(DoneTween);
-            }
+            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
             else
-            {
-                _objectButton.transform.DOScale(1, duration)
-                                         .SetLink(_objectButton).OnKill(DoneTween);
-            }
+            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
+
+            sequence.SetLink(_objectButton);
+            sequence.OnKill(DoneTween);
+
+            // if (_flag)
+            // { _objectButton.transform.DOScale(sizeOnButton, duration).SetLink(_objectButton).OnKill(DoneTween); }
+            // else
+            // { _objectButton.transform.DOScale(1, duration).SetLink(_objectButton).OnKill(DoneTween); }
         }
 
         void Update()
@@ -106,11 +113,14 @@ namespace UI
         }
         private void ClockPressButton()
         {
-            if (timeClick <= Time.time && isPress)
+            if (isPress)
             {
-                timeClick = Time.time;
-                countClockButton++;
-                if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true); }
+                if (timeClick <= Time.time)
+                {
+                    timeClick = Time.time;
+                    countClockButton++;
+                    if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true); }
+                }
             }
             else
             {

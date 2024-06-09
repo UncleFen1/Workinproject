@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 using Zenject;
 
@@ -16,15 +17,18 @@ namespace Scene
         private AudioSource effectAudioSource;
         private bool isStopClass = false, isRun = false;
         //
+        private IMenuExecutor panel;
         private ISceneExecutor scenes;
         [Inject]
-        public void Init(ISceneExecutor _scenes)
+        public void Init(ISceneExecutor _scenes, IMenuExecutor _panel)
         {
             scenes = _scenes;
+            panel = _panel;
         }
         private void OnEnable()
         {
-            scenes.OnSetSettingsScene += AudioVolum;
+            scenes.OnSetSettingsAudioScene += AudioVolum;
+            panel.OnAudioClickl += AudioClick;
         }
         void Start()
         {
@@ -37,12 +41,14 @@ namespace Scene
                 scenes.InitScene();
                 if (muzClip != null && effectClip != null) { isRun = true; }
                 SettingsAudio();
+                scenes.GetSettingsScreenScene();
             }
         }
         private void SettingsAudio()
         {
             if (muzAudioSource == null) { muzAudioSource = gameObject.AddComponent<AudioSource>(); }
             if (effectAudioSource == null) { effectAudioSource = gameObject.AddComponent<AudioSource>(); }
+
             muzAudioSource.clip = muzClip;
             muzAudioSource.loop = loopMuz;
             muzAudioSource.Play();
@@ -50,7 +56,7 @@ namespace Scene
             effectAudioSource.clip = effectClip;
             effectAudioSource.loop = loopEffect;
 
-            scenes.GetSettingsScene();
+            scenes.GetSettingsAudioScene();
         }
         private void AudioVolum(SettingsScene _settingsScene)
         {

@@ -18,6 +18,8 @@ namespace Scene
         private void OnEnable()
         {
             scenes.OnOpenSceneID += OpenScene;
+            scenes.OnReBootScen += ReBootScenID;
+            scenes.OnExitGame += ExitGame;
         }
         void Start()
         {
@@ -47,6 +49,14 @@ namespace Scene
             {
                 yield return null;
             }
+        }
+        private void ReBootScenID()
+        {
+            if (isRun) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
+        }
+        private void ExitGame()
+        {
+            if (isRun) { Application.Quit(); }
         }
         private void RunUpdate()
         {
