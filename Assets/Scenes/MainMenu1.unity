@@ -687,7 +687,8 @@ Transform:
   m_LocalPosition: {x: 0.04377778, y: -0.020083332, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1900775652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &172313329
@@ -1592,7 +1593,7 @@ GameObject:
   - component: {fileID: 438551573}
   - component: {fileID: 438551572}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: StartLevelButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6734,6 +6735,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869889941}
   m_CullTransparentMesh: 1
+--- !u!1 &1900775651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1900775652}
+  - component: {fileID: 1900775653}
+  - component: {fileID: 1900775654}
+  m_Layer: 0
+  m_Name: Txt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1900775652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900775651}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 172313327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900775653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900775651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4c1d927deb15040b8d9277427e6138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathDirectory: Txt
+  nameFile: RusEng
+  isSave: 0
+  gameObjectsText:
+  - {fileID: 1517127497}
+  - {fileID: 438551572}
+  rusTexts:
+  - "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435"
+  - "\u041D\u043E\u0432\u0430\u044F \u0438\u0433\u0440\u0430"
+  engTexts:
+  - TitleName
+  - NewGame
+--- !u!114 &1900775654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900775651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e60bd4a07f14244a64da117247571e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathDirectory: Txt
+  nameFile: RusEng
+  isLoad: 0
 --- !u!1 &1904876527
 GameObject:
   m_ObjectHideFlags: 0
