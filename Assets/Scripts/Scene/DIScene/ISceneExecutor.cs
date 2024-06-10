@@ -4,7 +4,6 @@ namespace Scene
 {
     public interface ISceneExecutor
     {
-        void DefaultSettings();
         #region Inits
         void InitScene();
         void GetSettingsAudioScene();

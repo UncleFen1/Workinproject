@@ -24,9 +24,6 @@ namespace UI
         [Header("Кнопка ReternSettingsButton")]
         [SerializeField] private CustomButton reternSettingsButton;
 
-        [Header("Кнопка DefaultSettings")]
-        [SerializeField] private CustomButton defaultSettingsButton;
-
         [Header("Размеры изменения кнопки")]
         [SerializeField] private float sizeOnButton;
 
@@ -44,10 +41,6 @@ namespace UI
         }
         private void OnEnable()
         {
-
-            defaultSettingsButton.OnFocusMouse += ButtonSize;
-            defaultSettingsButton.OnPressMouse += DefaultSettings;
-
             screenDropdown.onValueChanged.AddListener(NewResolution);
 
             modeScreenDropdown.onValueChanged.AddListener(NewModeScreen);
@@ -80,7 +73,6 @@ namespace UI
         }
         private void NewResolution(int _indexDrop)
         {
-            Debug.Log("--");
             scenes.NewResolution(_indexDrop);
             panel.AudioClick();
         }
@@ -108,19 +100,6 @@ namespace UI
                 //scenes.InitScene();
                 isRun = true;
             }
-        }
-        private void DefaultSettings(bool _flag, GameObject _objectButton)
-        {
-            Sequence sequence = DOTween.Sequence();
-            panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(scenes.DefaultSettings);
         }
         private void ButtonPanel(bool _flag, GameObject _objectButton)
         {

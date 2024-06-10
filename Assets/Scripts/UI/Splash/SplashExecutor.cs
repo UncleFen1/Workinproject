@@ -60,19 +60,17 @@ namespace UI
         }
         private void ButtonPress(bool _flag, GameObject _objectButton)
         {
+            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
             if (_flag)
-            {
-                isPress = _flag;
-                ButtonSize(false, _objectButton);
-            }
+            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
             else
-            {
-                isPress = _flag;
-                ButtonSize(true, _objectButton);
-            }
-        }
+            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
 
+            sequence.SetLink(_objectButton);
+            sequence.OnKill(DoneTween);
+            sequence.OnComplete(() => PressBool(_flag));
+        }
         private void ButtonSize(bool _flag, GameObject _objectButton)
         {
             Sequence sequence = DOTween.Sequence();
@@ -84,13 +82,11 @@ namespace UI
 
             sequence.SetLink(_objectButton);
             sequence.OnKill(DoneTween);
-
-            // if (_flag)
-            // { _objectButton.transform.DOScale(sizeOnButton, duration).SetLink(_objectButton).OnKill(DoneTween); }
-            // else
-            // { _objectButton.transform.DOScale(1, duration).SetLink(_objectButton).OnKill(DoneTween); }
         }
-
+        private void PressBool(bool _isPress)
+        {
+            isPress = _isPress;
+        }
         void Update()
         {
             if (isStopClass) { return; }
@@ -115,16 +111,16 @@ namespace UI
         {
             if (isPress)
             {
-                if (timeClick <= Time.time)
-                {
-                    timeClick = Time.time;
+                // if (timeClick <= Time.time)
+                // {
+                //     timeClick = Time.time;
                     countClockButton++;
-                    if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true); }
-                }
+                    if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true);}
+                // }
             }
             else
             {
-                timeClick = Time.time;
+                // timeClick = Time.time;
                 countClockButton++;
                 if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(false); }
             }
@@ -150,6 +146,7 @@ namespace UI
             if (fillAmountTik <= 0)
             {
                 indicatorImg.fillAmount = 0;
+                fillAmountTik=0;
             }
             else
             {

@@ -64,7 +64,7 @@ namespace Scene
         public void InitScene()
         {
             NewSettings();
-Debug.Log("++");
+
             Resolution currentResolution = Screen.currentResolution;
             settingsScene.CurrentHz = currentResolution.refreshRateRatio.value;
             ListDropdownScreen();
@@ -103,7 +103,6 @@ Debug.Log("++");
         }
         public void NewResolution(int _indexDrop)
         {
-            Debug.Log("++");
             string newTextScreen = tempScreenList.ElementAt(_indexDrop);
             Resolution[] resolutions = Screen.resolutions;
             for (int i = 0; i < resolutions.Length; i++)
@@ -179,10 +178,6 @@ Debug.Log("++");
         #endregion
 
         #region EPROM
-        public void DefaultSettings()
-        {
-            // PlayerPrefs.DeleteAll();
-        }
         private void SetIsLoad(SettingsScene _settingsScene)
         {
             PlayerPrefs.SetInt("EPROMLoad", _settingsScene.isLoad);
