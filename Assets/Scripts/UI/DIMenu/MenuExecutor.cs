@@ -15,6 +15,10 @@ namespace UI
         private Action onInfoPanel;
         public Action OnRezultPanel { get { return onRezultPanel; } set { onRezultPanel = value; } }
         private Action onRezultPanel;
+        public Action OnButtonLvlPanel { get { return onButtonLvlPanel; } set { onButtonLvlPanel = value; } }
+        private Action onButtonLvlPanel;
+        public Action OnGndPanel { get { return onGndPanel; } set { onGndPanel = value; } }
+        private Action onGndPanel;
 
         #region Panels
         public void ButtonPanel()
@@ -32,6 +36,15 @@ namespace UI
         public void RezultPanel()
         {
             onRezultPanel?.Invoke();
+        }
+        //
+        public void ButtonLvlPanel()
+        {
+            onButtonLvlPanel?.Invoke();
+        }
+        public void GndPanel()
+        {
+            onGndPanel?.Invoke();
         }
         #endregion
         #region Sett

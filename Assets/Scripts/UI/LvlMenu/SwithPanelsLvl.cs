@@ -1,12 +1,15 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace UI
 {
-    public class SwithPanels : MonoBehaviour
+    public class SwithPanelsLvl : MonoBehaviour
     {
+        [Header("Панель основная")]
+        [SerializeField] private GameObject panelGnd;
+        [SerializeField] private bool isPanelGnd = true;
+
         [Header("Панель кнопки")]
         [SerializeField] private GameObject buttonPanel;
         [SerializeField] private bool isButtonPanel = true;
@@ -18,10 +21,6 @@ namespace UI
         [Header("Панель информации")]
         [SerializeField] private GameObject infoPanel;
         [SerializeField] private bool isInfoPanel = true;
-
-        [Header("Панель результатов")]
-        [SerializeField] private GameObject rezultPanel;
-        [SerializeField] private bool isRezultPanel = true;
 
         [Header("Нулевой поинт панелей")]
         [SerializeField] private GameObject startPointPanel;
@@ -39,12 +38,11 @@ namespace UI
         }
         private void OnEnable()
         {
-            tempAnimObject = buttonPanel;
-
-            if(isButtonPanel){panel.OnButtonPanel += ButtonPanel;}
-            if(isSettingsPanel){panel.OnSettingsPanel += SettingsPanel;}
-            if(isInfoPanel){panel.OnInfoPanel += InfoPanel;}
-            if(isRezultPanel){panel.OnRezultPanel += RezultPanel;}
+            tempAnimObject = panelGnd;
+            if (isPanelGnd) { panel.OnGndPanel += GndPanel; }
+            if (isButtonPanel) { panel.OnButtonLvlPanel += ButtonPanel; }
+            if (isSettingsPanel) { panel.OnSettingsPanel += SettingsPanel; }
+            if (isInfoPanel) { panel.OnInfoPanel += InfoPanel; }
         }
         void Start()
         {
@@ -55,8 +53,12 @@ namespace UI
             if (!isRun)
             {
                 isRun = true;
-                ButtonPanel();
+                GndPanel();
             }
+        }
+        private void GndPanel()
+        {
+            MovePanel(panelGnd);
         }
         private void ButtonPanel()
         {
@@ -69,10 +71,6 @@ namespace UI
         private void InfoPanel()
         {
             MovePanel(infoPanel);
-        }
-        private void RezultPanel()
-        {
-            MovePanel(rezultPanel);
         }
         private void MovePanel(GameObject _objectButton)
         {
