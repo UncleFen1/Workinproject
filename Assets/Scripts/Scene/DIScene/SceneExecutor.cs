@@ -30,8 +30,8 @@ namespace Scene
         private Action<SettingsScene> onSetSettingsAudioScene;
         public Action<SettingsScene> OnSetSettingsScreenScene { get { return onSetSettingsScreenScene; } set { onSetSettingsScreenScene = value; } }
         private Action<SettingsScene> onSetSettingsScreenScene;
-        public Action<int> OnOpenSceneID { get { return onOpenSceneID; } set { onOpenSceneID = value; } }
-        private Action<int> onOpenSceneID;
+        public Action OnOpenSceneID { get { return onOpenSceneID; } set { onOpenSceneID = value; } }
+        private Action onOpenSceneID;
         public Action OnLoadScen { get { return onLoadScen; } set { onLoadScen = value; } }
         private Action onLoadScen;
         public Action OnReBootScen { get { return onReBootScen; } set { onReBootScen = value; } }
@@ -40,9 +40,14 @@ namespace Scene
         private Action onExitGame;
 
         #region SwitchScene
-        public void OpenScenID(int scenID)
+        public void OpenScenID(int _scenID)
         {
-            onOpenSceneID?.Invoke(scenID);
+            SetIDScene(_scenID);
+            onOpenSceneID?.Invoke();
+        }
+        public int GetOpenScenID()
+        {
+            return GetIDScene();
         }
         public void LoadScen()
         {
@@ -178,6 +183,15 @@ namespace Scene
         #endregion
 
         #region EPROM
+        private void SetIDScene(int _idScene)
+        {
+            PlayerPrefs.SetInt("EPROMIdScene", _idScene);
+        }
+        private int GetIDScene()
+        {
+            int idScene = PlayerPrefs.GetInt("EPROMIdScene");
+            return idScene;
+        }
         private void SetIsLoad(SettingsScene _settingsScene)
         {
             PlayerPrefs.SetInt("EPROMLoad", _settingsScene.isLoad);

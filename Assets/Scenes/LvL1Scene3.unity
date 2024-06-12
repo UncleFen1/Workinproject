@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 109836317}
   - component: {fileID: 109836316}
   - component: {fileID: 109836319}
+  - component: {fileID: 109836320}
   - component: {fileID: 109836318}
   m_Layer: 0
   m_Name: ----Logic
@@ -605,6 +606,25 @@ MonoBehaviour:
   exitMainMenuButton: {fileID: 645375169}
   sizeOnButton: 2
   idMainMenuScene: 1
+  duration: 0
+--- !u!114 &109836320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109836307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8550f808c3882a4499d301350201aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenDropdown: {fileID: 1668157243}
+  modeScreenDropdown: {fileID: 96791254}
+  muzSlider: {fileID: 2075237296}
+  effectSlider: {fileID: 1958950551}
+  reternSettingsButton: {fileID: 303754467}
+  sizeOnButton: 2
   duration: 0
 --- !u!1 &117738421
 GameObject:

@@ -703,6 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b427308fb474102498ed1ab9389355d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idLoadScen: 2
 --- !u!114 &172313330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +739,7 @@ MonoBehaviour:
   rezultButton: {fileID: 1221558720}
   exitButton: {fileID: 1565261769}
   sizeOnButton: 2
-  idLvlScene: 2
+  idLvlScene: 3
   duration: 0
 --- !u!114 &172313332
 MonoBehaviour:

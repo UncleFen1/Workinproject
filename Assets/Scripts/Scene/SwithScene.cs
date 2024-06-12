@@ -7,6 +7,7 @@ namespace Scene
 {
     public class SwithScene : MonoBehaviour
     {
+        [SerializeField] private int idLoadScen = 2;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -38,18 +39,19 @@ namespace Scene
             if (!isRun) { SetClass(); }
             RunUpdate();
         }
-        private void OpenScene(int _idScene)
+        private void OpenScene()
         {
-            if (isRun) { StartCoroutine(LoadYourAsyncScene(_idScene)); }
+            if (isRun) { SceneManager.LoadScene(idLoadScen); }
+            // if (isRun) { StartCoroutine(LoadYourAsyncScene(_idScene)); }
         }
-        IEnumerator LoadYourAsyncScene(int _idScene)
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_idScene);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-        }
+        // IEnumerator LoadYourAsyncScene(int _idScene)
+        // {
+        //     AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_idScene);
+        //     while (!asyncLoad.isDone)
+        //     {
+        //         yield return null;
+        //     }
+        // }
         private void ReBootScenID()
         {
             if (isRun) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
