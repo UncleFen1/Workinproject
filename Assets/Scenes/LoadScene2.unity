@@ -235,10 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 69072918}
-  - component: {fileID: 69072917}
-  - component: {fileID: 69072916}
   - component: {fileID: 69072919}
-  - component: {fileID: 69072915}
   m_Layer: 0
   m_Name: ----Logic
   m_TagString: Untagged
@@ -246,56 +243,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &69072915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69072910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74df27cd274b66e4a988accb980b0795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelGnd: {fileID: 1394751603}
-  isPanelGnd: 1
-  buttonPanel: {fileID: 572616307}
-  isButtonPanel: 1
-  settingsPanel: {fileID: 1334845898}
-  isSettingsPanel: 1
-  infoPanel: {fileID: 798612597}
-  isInfoPanel: 1
-  startPointPanel: {fileID: 1216621077}
-  duration: 1.5
---- !u!114 &69072916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69072910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c91642812ee5474eb0b853d5e840dda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muzClip: {fileID: 8300000, guid: 902a8dc1272c9cf4b89fb79d8cb96b3b, type: 3}
-  loopMuz: 1
-  effectClip: {fileID: 8300000, guid: 531e25dfc388e964289dc5e53dc1eba2, type: 3}
-  loopEffect: 0
---- !u!114 &69072917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69072910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b427308fb474102498ed1ab9389355d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &69072918
 Transform:
   m_ObjectHideFlags: 0
@@ -326,7 +273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadImg: {fileID: 639670531}
   loadTxt: {fileID: 1311905325}
-  duration: 0
 --- !u!1 &87201451
 GameObject:
   m_ObjectHideFlags: 0
@@ -4390,7 +4336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0000
+  m_Text: 
 --- !u!222 &1311905326
 CanvasRenderer:
   m_ObjectHideFlags: 0

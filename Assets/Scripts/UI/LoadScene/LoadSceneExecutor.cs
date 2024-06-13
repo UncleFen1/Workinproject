@@ -19,8 +19,8 @@ namespace UI
         [Header("Текст загрузки")]
         [SerializeField] private Text loadTxt;
 
-        [Header("Скорость анимации перемещения панели")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
+        // [Header("Скорость анимации перемещения панели")]
+        // [SerializeField][Range(0.5f, 10f)] private float duration;
 
         private AsyncOperation asyncOperation;
         //private GameObject tempAnimObject;
@@ -57,15 +57,36 @@ namespace UI
         }
         IEnumerator LoadSceneID(int _idScene)
         {
+            int t = 0;
+            bool isRun = true;
             yield return new WaitForSeconds(1);
-            asyncOperation=SceneManager.LoadSceneAsync(_idScene);
-            while(!asyncOperation.isDone)
+            // asyncOperation=SceneManager.LoadSceneAsync(_idScene);
+            // while(!asyncOperation.isDone)
+            // {
+            //     float progress = asyncOperation.progress / 0.9f;
+            //     loadImg.fillAmount=progress;
+            //     loadTxt.text=$"LOAD  {string.Format("{0:0}%", progress * 100f)}";
+            //     yield return 0;
+            // }
+
+            while (isRun)
             {
-                float progress = asyncOperation.progress / 0.9f;
-                loadImg.fillAmount=progress;
-                loadTxt.text=$"LOAD  {string.Format("{0:0}%", progress * 100f)}";
+                t++;
+                if (t >= 100) { isRun = false; }
+                loadImg.fillAmount = t * 0.01f;
+                loadTxt.text = $"LOAD  {string.Format("{0:0}%", t)}";
                 yield return 0;
+
             }
+            asyncOperation = SceneManager.LoadSceneAsync(_idScene);
+            // while(!asyncOperation.isDone)
+            // {
+            //     float progress = asyncOperation.progress / 0.9f;
+            //     loadImg.fillAmount=progress;
+            //     loadTxt.text=$"LOAD  {string.Format("{0:0}%", progress * 100f)}";
+            //     yield return 0;
+            // }
+
         }
         // private void GndPanel()
         // {
