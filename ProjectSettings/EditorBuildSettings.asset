@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LvL1Scene3.unity
     guid: 191a1390671d9f046b733a2f5b0c3533
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 33d6713353831f7488b39bc93b673038
+  - enabled: 1
+    path: Assets/Scenes/OverScene.unity
+    guid: d7ac2080a3a9b0d408e801af255028e0
   m_configObjects: {}

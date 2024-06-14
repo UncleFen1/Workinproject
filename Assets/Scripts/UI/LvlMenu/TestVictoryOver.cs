@@ -16,10 +16,12 @@ namespace UI
 
         private bool isStopClass = false, isRun = false;
         //
+        private ISceneExecutor scenes;
         private IMenuExecutor panel;
         [Inject]
-        public void Init(IMenuExecutor _panel)
+        public void Init(ISceneExecutor _scenes, IMenuExecutor _panel)
         {
+            scenes = _scenes;
             panel = _panel;
         }
 
@@ -42,10 +44,13 @@ namespace UI
         private void StartVictory(bool _flag, GameObject _objectButton)
         {
             panel.AudioClick();
+            scenes.OpenVictoryScen();
+            
         }
         private void StartOver(bool _flag, GameObject _objectButton)
         {
             panel.AudioClick();
+            scenes.OpenOverScen();
         }
         void Update()
         {

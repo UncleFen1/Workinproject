@@ -6,7 +6,10 @@ namespace Scene
 {
     public class SwithScene : MonoBehaviour
     {
+        [Header("Указать IdScen")]
         [SerializeField] private int idLoadScen = 0;
+        [SerializeField] private int idVictoryScen = 4;
+        [SerializeField] private int idOverScen = 5;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -20,6 +23,8 @@ namespace Scene
             scenes.OnOpenSceneID += OpenScene;
             scenes.OnReBootScen += ReBootScenID;
             scenes.OnExitGame += ExitGame;
+            scenes.OnOpenVictoryScen += OpenVictoryScen;
+            scenes.OnOpenOverScen += OpenOverScen;
         }
         void Start()
         {
@@ -44,13 +49,23 @@ namespace Scene
         }
         private int ReBootScenID()
         {
-            int currentScene=SceneManager.GetActiveScene().buildIndex;
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
             OpenScene();
             return currentScene;
         }
         private void ExitGame()
         {
             if (isRun) { Application.Quit(); }
+        }
+        private int OpenVictoryScen()
+        {
+            OpenScene();
+            return idVictoryScen;
+        }
+        private int OpenOverScen()
+        {
+            OpenScene();
+            return idOverScen;
         }
         private void RunUpdate()
         {

@@ -38,6 +38,10 @@ namespace Scene
         private Func<int> onReBootScen;
         public Action OnExitGame { get { return onExitGame; } set { onExitGame = value; } }
         private Action onExitGame;
+        public Func<int> OnOpenVictoryScen { get { return onOpenVictoryScen; } set { onOpenVictoryScen = value; } }
+        private Func<int> onOpenVictoryScen;
+        public Func<int> OnOpenOverScen { get { return onOpenOverScen; } set { onOpenOverScen = value; } }
+        private Func<int> onOpenOverScen;
 
         #region SwitchScene
         public void OpenScenID(int _scenID)
@@ -61,6 +65,16 @@ namespace Scene
         public void ExitGame()
         {
             onExitGame?.Invoke();
+        }
+        public void OpenVictoryScen()
+        {
+            int victoryScene=(int)onOpenVictoryScen?.Invoke();
+            SetIDScene(victoryScene);
+        }
+        public void OpenOverScen()
+        {
+            int overScene=(int)onOpenOverScen?.Invoke();
+            SetIDScene(overScene);
         }
         #endregion
 

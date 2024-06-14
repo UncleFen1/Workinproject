@@ -24,10 +24,15 @@ namespace Scene
         Action OnLoadScen { get; set; }
         Func<int> OnReBootScen { get; set; }
         Action OnExitGame { get; set; }
+        Func<int> OnOpenVictoryScen { get; set; }
+        Func<int> OnOpenOverScen { get; set; }
         void OpenScenID(int scenID);
         int GetOpenScenID();
         void LoadScen();
         void ReBootScen();
         void ExitGame();
+        void OpenVictoryScen();
+        void OpenOverScen();
+
     }
 }

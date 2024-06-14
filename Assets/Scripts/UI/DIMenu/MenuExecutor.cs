@@ -41,6 +41,7 @@ namespace UI
         public void ButtonLvlPanel()
         {
             onButtonLvlPanel?.Invoke();
+            GameTimer(false);
         }
         public void GndPanel()
         {
@@ -51,6 +52,11 @@ namespace UI
         public void AudioClick()
         {
             onAudioClickl?.Invoke();
+        }
+        private void GameTimer(bool isRun)
+        {
+            if (isRun) { Time.timeScale = 1; }
+            else { Time.timeScale = 0; }
         }
         #endregion
 
