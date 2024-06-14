@@ -22,14 +22,12 @@ namespace Scene
 
         Action OnOpenSceneID { get; set; }
         Action OnLoadScen { get; set; }
-        Action OnReBootScen { get; set; }
+        Func<int> OnReBootScen { get; set; }
         Action OnExitGame { get; set; }
         void OpenScenID(int scenID);
         int GetOpenScenID();
         void LoadScen();
         void ReBootScen();
         void ExitGame();
-
-
     }
 }

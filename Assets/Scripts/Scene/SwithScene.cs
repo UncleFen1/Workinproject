@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -7,7 +6,7 @@ namespace Scene
 {
     public class SwithScene : MonoBehaviour
     {
-        [SerializeField] private int idLoadScen = 2;
+        [SerializeField] private int idLoadScen = 0;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -42,19 +41,12 @@ namespace Scene
         private void OpenScene()
         {
             if (isRun) { SceneManager.LoadScene(idLoadScen); }
-            // if (isRun) { StartCoroutine(LoadYourAsyncScene(_idScene)); }
         }
-        // IEnumerator LoadYourAsyncScene(int _idScene)
-        // {
-        //     AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_idScene);
-        //     while (!asyncLoad.isDone)
-        //     {
-        //         yield return null;
-        //     }
-        // }
-        private void ReBootScenID()
+        private int ReBootScenID()
         {
-            if (isRun) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
+            int currentScene=SceneManager.GetActiveScene().buildIndex;
+            OpenScene();
+            return currentScene;
         }
         private void ExitGame()
         {

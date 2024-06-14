@@ -356,7 +356,7 @@ MonoBehaviour:
   missButton: {fileID: 1495183568}
   sizeOnButton: 2
   indicatorImg: {fileID: 1381348025}
-  idMainMenuScene: 1
+  idMainMenuScene: 2
   clockScene: 15
   clockButton: 5
   duration: 0.5
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b427308fb474102498ed1ab9389355d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idLoadScen: 2
+  idLoadScen: 0
 --- !u!114 &172313330
 MonoBehaviour:
   m_ObjectHideFlags: 0

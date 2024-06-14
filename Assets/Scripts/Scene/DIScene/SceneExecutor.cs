@@ -34,8 +34,8 @@ namespace Scene
         private Action onOpenSceneID;
         public Action OnLoadScen { get { return onLoadScen; } set { onLoadScen = value; } }
         private Action onLoadScen;
-        public Action OnReBootScen { get { return onReBootScen; } set { onReBootScen = value; } }
-        private Action onReBootScen;
+        public Func<int> OnReBootScen { get { return onReBootScen; } set { onReBootScen = value; } }
+        private Func<int> onReBootScen;
         public Action OnExitGame { get { return onExitGame; } set { onExitGame = value; } }
         private Action onExitGame;
 
@@ -49,14 +49,14 @@ namespace Scene
         {
             return GetIDScene();
         }
-        public void LoadScen()
+        public void LoadScen()//меню не сделал
         {
-            // SceneData.IntTest = scenID;
             onLoadScen?.Invoke();
         }
         public void ReBootScen()
         {
-            onReBootScen?.Invoke();
+            int currentScene=(int)onReBootScen?.Invoke();
+            SetIDScene(currentScene);
         }
         public void ExitGame()
         {
@@ -202,7 +202,6 @@ namespace Scene
         }
         private void SetResolution(SettingsScene _settingsScene)
         {
-            Debug.Log(_settingsScene.Width);
             PlayerPrefs.SetInt("EPROMWidth", _settingsScene.Width);
             PlayerPrefs.SetInt("EPROMHeight", _settingsScene.Height);
             PlayerPrefs.SetInt("EPROMModeScreen", _settingsScene.IdCurrentModeScreen);

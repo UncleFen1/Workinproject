@@ -21,9 +21,7 @@ namespace UI
 
         // [Header("Скорость анимации перемещения панели")]
         // [SerializeField][Range(0.5f, 10f)] private float duration;
-
         private AsyncOperation asyncOperation;
-        //private GameObject tempAnimObject;
         private bool isStopClass = false, isRun = false;
         private ISceneExecutor scenes;
         [Inject]
@@ -33,9 +31,7 @@ namespace UI
         }
         private void OnEnable()
         {
-            //scenes.OnOpenSceneID += OpenScene;
-            // tempAnimObject = panelGnd;
-            // if (isPanelGnd) { panel.OnGndPanel += GndPanel; }
+
         }
         void Start()
         {
@@ -45,9 +41,7 @@ namespace UI
         {
             if (!isRun)
             {
-                // StartCoroutine(LoadSceneID(5));
                 isRun = true;
-                //GndPanel();
                 OpenScene(scenes.GetOpenScenID());
             }
         }
@@ -72,35 +66,22 @@ namespace UI
             while (isRun)
             {
                 t++;
-                if (t >= 100) { isRun = false; }
+                if (t >= 101)
+                {
+                    isRun = false;
+                    t=100;
+                    
+                    asyncOperation = SceneManager.LoadSceneAsync(_idScene);
+                    if (!asyncOperation.isDone)
+                    {
+                        isRun = true;
+                    }
+                }
                 loadImg.fillAmount = t * 0.01f;
                 loadTxt.text = $"LOAD  {string.Format("{0:0}%", t)}";
                 yield return 0;
-
-            }
-            asyncOperation = SceneManager.LoadSceneAsync(_idScene);
-            // while(!asyncOperation.isDone)
-            // {
-            //     float progress = asyncOperation.progress / 0.9f;
-            //     loadImg.fillAmount=progress;
-            //     loadTxt.text=$"LOAD  {string.Format("{0:0}%", progress * 100f)}";
-            //     yield return 0;
-            // }
-
+           }
         }
-        // private void GndPanel()
-        // {
-        //     MovePanel(panelGnd);
-        // }
-        // private void MovePanel(GameObject _objectButton)
-        // {
-        //     Sequence sequence = DOTween.Sequence();
-        //     sequence.Append(tempAnimObject.transform.DOMove(startPointPanel.transform.position, duration));
-        //     tempAnimObject = _objectButton;
-        //     sequence.Append(_objectButton.transform.DOMove(new Vector3(0, 0, 0), duration));
-        //     sequence.SetLink(_objectButton);
-        //     sequence.OnKill(DoneTween);
-        // }
         void Update()
         {
             if (isStopClass) { return; }
