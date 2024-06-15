@@ -24,7 +24,6 @@ namespace UI
         {
             panel = _panel;
         }
-
         private void OnEnable()
         {
             menuButton.OnFocusMouse += ButtonSize;

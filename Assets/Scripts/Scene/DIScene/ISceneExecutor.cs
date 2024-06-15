@@ -33,6 +33,6 @@ namespace Scene
         void ExitGame();
         void OpenVictoryScen();
         void OpenOverScen();
-
+        void GameTimer(bool isRun);
     }
 }

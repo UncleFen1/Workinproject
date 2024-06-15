@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Scene;
 using UnityEngine;
 using Zenject;
 
@@ -30,11 +31,13 @@ namespace UI
         private GameObject tempAnimObject;
         private bool isStopClass = false, isRun = false;
         //
+        private ISceneExecutor scenes;
         private IMenuExecutor panel;
         [Inject]
-        public void Init(IMenuExecutor _panel)
+        public void Init(ISceneExecutor _scenes, IMenuExecutor _panel)
         {
             panel = _panel;
+            scenes = _scenes;
         }
         private void OnEnable()
         {
@@ -59,10 +62,12 @@ namespace UI
         private void GndPanel()
         {
             MovePanel(panelGnd);
+            //scenes.GameTimer(true);
         }
         private void ButtonPanel()
         {
             MovePanel(buttonPanel);
+            //scenes.GameTimer(false);
         }
         private void SettingsPanel()
         {

@@ -59,7 +59,7 @@ namespace Scene
         }
         public void ReBootScen()
         {
-            int currentScene=(int)onReBootScen?.Invoke();
+            int currentScene = (int)onReBootScen?.Invoke();
             SetIDScene(currentScene);
         }
         public void ExitGame()
@@ -68,13 +68,18 @@ namespace Scene
         }
         public void OpenVictoryScen()
         {
-            int victoryScene=(int)onOpenVictoryScen?.Invoke();
+            int victoryScene = (int)onOpenVictoryScen?.Invoke();
             SetIDScene(victoryScene);
         }
         public void OpenOverScen()
         {
-            int overScene=(int)onOpenOverScen?.Invoke();
+            int overScene = (int)onOpenOverScen?.Invoke();
             SetIDScene(overScene);
+        }
+        public void GameTimer(bool isRun)
+        {
+            if (isRun) { Time.timeScale = 1; }
+            else { Time.timeScale = 0; }
         }
         #endregion
 
