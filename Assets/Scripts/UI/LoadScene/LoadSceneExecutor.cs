@@ -42,7 +42,12 @@ namespace UI
             if (!isRun)
             {
                 isRun = true;
-                OpenScene(scenes.GetOpenScenID());
+                int idScen = scenes.GetOpenScenID();
+                if (idScen == 0)
+                {
+                    OpenScene(1);
+                }
+                else{OpenScene(scenes.GetOpenScenID());}
             }
         }
         private void OpenScene(int _idScene)
@@ -69,8 +74,8 @@ namespace UI
                 if (t >= 101)
                 {
                     isRun = false;
-                    t=100;
-                    
+                    t = 100;
+
                     asyncOperation = SceneManager.LoadSceneAsync(_idScene);
                     if (!asyncOperation.isDone)
                     {
@@ -80,7 +85,7 @@ namespace UI
                 loadImg.fillAmount = t * 0.01f;
                 loadTxt.text = $"LOAD  {string.Format("{0:0}%", t)}";
                 yield return 0;
-           }
+            }
         }
         void Update()
         {

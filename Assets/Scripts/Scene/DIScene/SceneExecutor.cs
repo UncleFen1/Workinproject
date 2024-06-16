@@ -101,7 +101,7 @@ namespace Scene
 
                 settingsScene.Height = currentResolution.height;
                 settingsScene.Width = currentResolution.width;
-                settingsScene.IdCurrentModeScreen = 0;
+                settingsScene.IdCurrentModeScreen = 1;
                 SetResolution(settingsScene);
 
                 settingsScene.isLoad = 1;
