@@ -7,7 +7,7 @@ namespace Player
     public class MovePlayer : MonoBehaviour
     {
         [SerializeField][Range(0, 10)] private float moveSpeed = 5f;
-        [SerializeField][Range(0, 1f)] private float defaultSpeed = 0.5f;
+        //[SerializeField][Range(0, 1f)] private float defaultSpeed = 0.5f;
         [SerializeField][Range(0, 100)] private float speedTurn = 10f;
         private Rigidbody2D rbThisObject;
         private Vector3 moveDirection;
