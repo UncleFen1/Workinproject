@@ -1,4 +1,5 @@
 ﻿using System;
+using Texts;
 
 namespace Scene
 {
@@ -10,9 +11,12 @@ namespace Scene
         Action<SettingsScene> OnSetSettingsAudioScene { get; set; }
         void GetSettingsScreenScene();
         Action<SettingsScene> OnSetSettingsScreenScene { get; set; }
+        Action<SettingsScene> OnModeTxt { get; set; }
+        void GetModeTxtScene();
         #endregion
 
         #region Set
+        void NewLangText(ModeTxt _modeTxt);
         void NewResolution(int indexDrop);
         void NewModeScreen(int _fullScreenMode);
         void AudioNewValueMuz(float value);
@@ -20,6 +24,7 @@ namespace Scene
         void ListDropdownScreen();
         #endregion
 
+        
         Action OnOpenSceneID { get; set; }
         Action OnLoadScen { get; set; }
         Func<int> OnReBootScen { get; set; }

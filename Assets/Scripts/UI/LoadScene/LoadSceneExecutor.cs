@@ -22,6 +22,7 @@ namespace UI
         // [Header("Скорость анимации перемещения панели")]
         // [SerializeField][Range(0.5f, 10f)] private float duration;
         private AsyncOperation asyncOperation;
+        private string tempTxt;
         private bool isStopClass = false, isRun = false;
         private ISceneExecutor scenes;
         [Inject]
@@ -47,7 +48,10 @@ namespace UI
                 {
                     OpenScene(1);
                 }
-                else{OpenScene(scenes.GetOpenScenID());}
+                else { OpenScene(scenes.GetOpenScenID()); }
+
+                tempTxt = loadTxt.text;
+                if (tempTxt == "") { isRun = false; }
             }
         }
         private void OpenScene(int _idScene)
@@ -83,7 +87,7 @@ namespace UI
                     }
                 }
                 loadImg.fillAmount = t * 0.01f;
-                loadTxt.text = $"LOAD  {string.Format("{0:0}%", t)}";
+                loadTxt.text = $"{tempTxt} {string.Format("{0:0}%", t)}";// {string.Format("{0:0}%", t)}
                 yield return 0;
             }
         }

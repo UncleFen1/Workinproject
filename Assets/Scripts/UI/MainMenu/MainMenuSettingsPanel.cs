@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using Scene;
+using Texts;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -20,6 +21,10 @@ namespace UI
 
         [Header("Slider эффектов")]
         [SerializeField] private Slider effectSlider;
+
+        [Header("Bool выбора языка")]
+        [SerializeField] private Toggle rusToggle;
+        [SerializeField] private Toggle engToggle;
 
         [Header("Кнопка ReternSettingsButton")]
         [SerializeField] private CustomButton reternSettingsButton;
@@ -53,23 +58,50 @@ namespace UI
 
             scenes.OnSetSettingsAudioScene += SetSettingsAudioScene;
             scenes.OnSetSettingsScreenScene += SetSettingsScreenScene;
+
+            rusToggle.onValueChanged.AddListener(RusToggle);
+            engToggle.onValueChanged.AddListener(EngToggle);
+            scenes.OnModeTxt += ModeText;
         }
+        private void ModeText(SettingsScene _settingsScene)
+        {
+            if (_settingsScene.ModeText == Texts.ModeTxt.Rus)
+            {
+                engToggle.isOn = false;
+                rusToggle.isOn = true;
+            }
+            if (_settingsScene.ModeText == Texts.ModeTxt.Eng)
+            {
+                engToggle.isOn = true;
+                rusToggle.isOn = false;
+            }
+        }
+        private void RusToggle(bool _isRus)
+        {
+            if (_isRus) { engToggle.isOn = false; scenes.NewLangText(ModeTxt.Rus); }
+            else { engToggle.isOn = true; }
+        }
+        private void EngToggle(bool _isEng)
+        {
+            if (_isEng) { rusToggle.isOn = false; scenes.NewLangText(ModeTxt.Eng);}
+            else { rusToggle.isOn = true; }
+        }
+
         private void SetSettingsAudioScene(SettingsScene _settingsScene)
         {
-
-                muzSlider.value = _settingsScene.MuzValum;
-                effectSlider.value = _settingsScene.EffectValum;
+            muzSlider.value = _settingsScene.MuzValum;
+            effectSlider.value = _settingsScene.EffectValum;
         }
         private void SetSettingsScreenScene(SettingsScene _settingsScene)
         {
 
-                screenDropdown.ClearOptions();
-                screenDropdown.AddOptions(_settingsScene.ItemsScreen);
-                screenDropdown.value = _settingsScene.IdCurrentScreen;
+            screenDropdown.ClearOptions();
+            screenDropdown.AddOptions(_settingsScene.ItemsScreen);
+            screenDropdown.value = _settingsScene.IdCurrentScreen;
 
-                modeScreenDropdown.ClearOptions();
-                modeScreenDropdown.AddOptions(_settingsScene.ScreenModeList);
-                modeScreenDropdown.value = _settingsScene.IdCurrentModeScreen;
+            modeScreenDropdown.ClearOptions();
+            modeScreenDropdown.AddOptions(_settingsScene.ScreenModeList);
+            modeScreenDropdown.value = _settingsScene.IdCurrentModeScreen;
         }
         private void NewResolution(int _indexDrop)
         {
@@ -97,6 +129,7 @@ namespace UI
         {
             if (!isRun)
             {
+
                 //scenes.InitScene();
                 isRun = true;
             }

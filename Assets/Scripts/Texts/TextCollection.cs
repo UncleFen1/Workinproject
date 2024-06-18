@@ -4,9 +4,9 @@ using UnityEngine.UI;
 namespace Texts
 {
     [Serializable]
-    public struct TextCollection: ITextCollection
+    public struct TextCollection
     {
-        public string NameObject { get; set; }
+        public string NameObject;
         public Text PoleTxt;
         public ModeTxt ModeTxt;
         public string RusText;

@@ -1,28 +1,22 @@
 {
     "Items": [
         {
-            "NameObject": "Title",
-            "TextId": "0",
-            "RusText": "Наименование",
-            "EngText": "TitleName"
+            "NameObject": "LoadPanelTitle",
+            "PoleTxt": {
+                "instanceID": 57590
+            },
+            "ModeTxt": 0,
+            "RusText": "Сцена загрузки",
+            "EngText": "Load Scene"
         },
         {
-            "NameObject": "StartLevelButtonText",
-            "TextId": "1",
-            "RusText": "Новая игра",
-            "EngText": "NewGame"
-        },
-        {
-            "NameObject": "ExitButtonText",
-            "TextId": "2",
-            "RusText": "Выход",
-            "EngText": "Exit"
-        },
-        {
-            "NameObject": "RezultButtonText",
-            "TextId": "3",
-            "RusText": "Результат",
-            "EngText": "Rezult"
+            "NameObject": "IndikatorTxt",
+            "PoleTxt": {
+                "instanceID": 57654
+            },
+            "ModeTxt": 0,
+            "RusText": "Загрузка",
+            "EngText": "Load"
         }
     ]
 }

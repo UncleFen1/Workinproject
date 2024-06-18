@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Texts;
 using UnityEngine;
 
 namespace Scene
@@ -10,6 +11,8 @@ namespace Scene
         public int isLoad;//true=1 false=0
         public float MuzValum;
         public float EffectValum;
+        //
+        public ModeTxt ModeText;
         //
         public List<string> ItemsScreen;
         public int Width;
@@ -38,6 +41,8 @@ namespace Scene
         private Func<int> onReBootScen;
         public Action OnExitGame { get { return onExitGame; } set { onExitGame = value; } }
         private Action onExitGame;
+        public Action<SettingsScene> OnModeTxt { get { return onModeTxt; } set { onModeTxt = value; } }
+        private Action<SettingsScene> onModeTxt;
         public Func<int> OnOpenVictoryScen { get { return onOpenVictoryScen; } set { onOpenVictoryScen = value; } }
         private Func<int> onOpenVictoryScen;
         public Func<int> OnOpenOverScen { get { return onOpenOverScen; } set { onOpenOverScen = value; } }
@@ -84,7 +89,6 @@ namespace Scene
         #endregion
 
         #region SettingsScene
-
         public void InitScene()
         {
             NewSettings();
@@ -107,6 +111,9 @@ namespace Scene
                 settingsScene.isLoad = 1;
                 SetIsLoad(settingsScene);
 
+                settingsScene.ModeText = ModeTxt.Rus;
+                SetLangScene(settingsScene.ModeText);
+
             }
             Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
         }
@@ -116,6 +123,16 @@ namespace Scene
             GetIsLoad();
             GetResolution();
             GetAudioParametr();
+            GetLangScene();
+        }
+        public void NewLangText(ModeTxt _modeTxt)
+        {
+            settingsScene.ModeText = _modeTxt;
+            SetLangScene(settingsScene.ModeText);
+        }
+        public void GetModeTxtScene()
+        {
+            onModeTxt?.Invoke(settingsScene);
         }
         public void GetSettingsAudioScene()
         {
@@ -202,6 +219,14 @@ namespace Scene
         #endregion
 
         #region EPROM
+        private void SetLangScene(ModeTxt _modeTxt)
+        {
+            PlayerPrefs.SetInt("EPROMLangScene", (int)_modeTxt);
+        }
+        private void GetLangScene()
+        {
+            settingsScene.ModeText = (ModeTxt)PlayerPrefs.GetInt("EPROMLangScene");
+        }
         private void SetIDScene(int _idScene)
         {
             PlayerPrefs.SetInt("EPROMIdScene", _idScene);
