@@ -52,7 +52,6 @@ namespace Texts
         {
             for (int i = 0; i < textCollections.Length; i++)
             {
-                Debug.Log(textCollections[i].TextId);
                 Debug.Log(textCollections[i].NameObject);
             }
         }

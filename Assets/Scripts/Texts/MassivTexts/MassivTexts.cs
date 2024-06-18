@@ -1,15 +1,15 @@
 using System;
 
-namespace Registrator
+namespace Texts
 {
-    public class Masiv<T> where T : IConstruction
+    public class MassivTexts<T> where T : ITextCollection
     {
         public bool Compare(T[] massivObject, T constructor)
         {
             for (int i = 0; i < massivObject.Length; i++)
             {
 
-                if (constructor.Hash == massivObject[i].Hash)
+                if (constructor.NameObject == massivObject[i].NameObject )
                 {
                     return true;
                 }
@@ -25,7 +25,7 @@ namespace Registrator
                 {
                     if (!isStop)
                     {
-                        if (massivObject[i].Hash == 0)
+                        if (massivObject[i].NameObject  == "")
                         {
                             massivObject[i] = intObject;
                             isStop = true;

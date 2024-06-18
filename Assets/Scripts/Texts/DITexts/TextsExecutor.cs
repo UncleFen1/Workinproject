@@ -1,16 +1,21 @@
 using System.Collections.Generic;
 
-namespace Registrator
+namespace Texts
 {
-public class RegistratorExecutor : IRegistrator
+    public enum ModeTxt
     {
-        private List<Construction> listData = new List<Construction>();
-        private Construction[] temp;
-        public void SetData(Construction registrator)
+        Rus,
+        Eng
+    }
+public class TextsExecutor : ITexts
+    {
+        private List<TextCollection> listData = new List<TextCollection>();
+        private TextCollection[] temp;
+        public void SetData(TextCollection _textCollection)
         {
-            listData.Add(registrator);
+            listData.Add(_textCollection);
         }
-        private List<Construction> GetData()
+        private List<TextCollection> GetData()
         {
             return listData;
         }
@@ -19,32 +24,31 @@ public class RegistratorExecutor : IRegistrator
             listData.Clear();
             if (listData.Count == 0) { return true; } else { return false; }
         }
-
-        public Construction[] SetList()
+        public TextCollection[] SetList()
         {
-            MassivRegistrator<Construction> tempMassiv = new MassivRegistrator<Construction>();
+            MassivTexts<TextCollection> tempMassiv = new MassivTexts<TextCollection>();
             listData = GetData();
             if (temp != null) { tempMassiv.Clean(temp); }
             for (int i = 0; i < listData.Count; i++)
             {
-                if (listData[i].Hash!=0)
+                if (listData[i].NameObject!="")
                 {
                     temp = tempMassiv.Creat(listData[i], temp);
                 }
             }
             return temp;
         }
-        public Construction SetObjectHash(int hash)
+        public TextCollection SetObjectName(string _name)
         {
             listData = GetData();
             for (int i = 0; i < listData.Count; i++)
             {
-                if (listData[i].Hash == hash)
+                if (listData[i].NameObject == _name)
                 {
                     return listData[i];
                 }
             }
-            return new Construction();
+            return new TextCollection();
         }
         // public Construction[] SetEnemys()
         // {

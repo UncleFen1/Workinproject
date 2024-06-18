@@ -60,7 +60,6 @@ namespace Texts
             for (int i = 0; i < textCollections.Length; i++)
             {
                 textCollections[i].NameObject = $"{gameObjectsText[i].name}";
-                textCollections[i].TextId = $"{i}";
 
                 if (rusTexts[i] == null) { textCollections[i].RusText = "-"; }
                 else { textCollections[i].RusText = rusTexts[i]; }
