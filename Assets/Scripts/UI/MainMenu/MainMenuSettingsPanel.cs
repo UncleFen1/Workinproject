@@ -65,12 +65,12 @@ namespace UI
         }
         private void ModeText(SettingsScene _settingsScene)
         {
-            if (_settingsScene.ModeText == Texts.ModeTxt.Rus)
+            if (_settingsScene.ModeText == ModeTxt.Rus)
             {
                 engToggle.isOn = false;
                 rusToggle.isOn = true;
             }
-            if (_settingsScene.ModeText == Texts.ModeTxt.Eng)
+            if (_settingsScene.ModeText == ModeTxt.Eng)
             {
                 engToggle.isOn = true;
                 rusToggle.isOn = false;

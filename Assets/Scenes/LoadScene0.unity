@@ -200,7 +200,6 @@ GameObject:
   m_Component:
   - component: {fileID: 69072918}
   - component: {fileID: 69072919}
-  - component: {fileID: 69072920}
   m_Layer: 0
   m_Name: ----Logic
   m_TagString: Untagged
@@ -237,20 +236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadImg: {fileID: 639670531}
   loadTxt: {fileID: 1311905325}
---- !u!114 &69072920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69072910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e10502569526dd4da0aafa20bd36c06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisHash: 0
-  tempChildrenHash: 0
 --- !u!1 &71110814
 GameObject:
   m_ObjectHideFlags: 0

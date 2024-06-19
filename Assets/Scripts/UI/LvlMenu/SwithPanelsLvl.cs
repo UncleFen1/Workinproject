@@ -62,15 +62,16 @@ namespace UI
         private void GndPanel()
         {
             MovePanel(panelGnd);
-            //scenes.GameTimer(true);
+            //scenes.PauseGame(true);
         }
         private void ButtonPanel()
         {
             MovePanel(buttonPanel);
-            //scenes.GameTimer(false);
+            //scenes.PauseGame(false);
         }
         private void SettingsPanel()
         {
+            Debug.Log("+");
             MovePanel(settingsPanel);
         }
         private void InfoPanel()
@@ -80,11 +81,14 @@ namespace UI
         private void MovePanel(GameObject _objectButton)
         {
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(tempAnimObject.transform.DOMove(startPointPanel.transform.position, duration));
+            sequence.Append(tempAnimObject.transform.DOMove(startPointPanel.transform.position, duration)).SetUpdate(UpdateType.Late, true);;
             tempAnimObject = _objectButton;
-            sequence.Append(_objectButton.transform.DOMove(new Vector3(0, 0, 0), duration));
+            sequence.Append(_objectButton.transform.DOMove(new Vector3(0, 0, 0), duration)).SetUpdate(UpdateType.Late, true);;
             sequence.SetLink(_objectButton);
+            
+            // sequence.OnComplete(panel.ButtonLvlPanel);
             sequence.OnKill(DoneTween);
+            sequence.SetUpdate(true);
         }
         void Update()
         {

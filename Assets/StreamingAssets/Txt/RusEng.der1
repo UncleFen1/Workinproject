@@ -3,7 +3,7 @@
         {
             "NameObject": "LoadPanelTitle",
             "PoleTxt": {
-                "instanceID": 57590
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Сцена загрузки",
@@ -12,11 +12,155 @@
         {
             "NameObject": "IndikatorTxt",
             "PoleTxt": {
-                "instanceID": 57654
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Загрузка",
             "EngText": "Load"
+        },
+        {
+            "NameObject": "MissButtonText",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Далее",
+            "EngText": "Pass"
+        },
+        {
+            "NameObject": "MMExitButtonText",
+            "PoleTxt": {
+                "instanceID": 87918
+            },
+            "ModeTxt": 0,
+            "RusText": "Выход",
+            "EngText": "Exit"
+        },
+        {
+            "NameObject": "MMInfoButtonText",
+            "PoleTxt": {
+                "instanceID": 88314
+            },
+            "ModeTxt": 0,
+            "RusText": "Инфо",
+            "EngText": "Info"
+        },
+        {
+            "NameObject": "MMRezultButtonText",
+            "PoleTxt": {
+                "instanceID": 88100
+            },
+            "ModeTxt": 0,
+            "RusText": "Статистика",
+            "EngText": "Statistic"
+        },
+        {
+            "NameObject": "MMSettingsButtonText",
+            "PoleTxt": {
+                "instanceID": 87670
+            },
+            "ModeTxt": 0,
+            "RusText": "Настройка",
+            "EngText": "Settings"
+        },
+        {
+            "NameObject": "MMLoadLevelButtonText",
+            "PoleTxt": {
+                "instanceID": 88338
+            },
+            "ModeTxt": 0,
+            "RusText": "Закрузка игры",
+            "EngText": "Load Game"
+        },
+        {
+            "NameObject": "MMStartLevelButtonText",
+            "PoleTxt": {
+                "instanceID": 87822
+            },
+            "ModeTxt": 0,
+            "RusText": "Новая игра",
+            "EngText": "New Game"
+        },
+        {
+            "NameObject": "MMPanelTitle",
+            "PoleTxt": {
+                "instanceID": 88274
+            },
+            "ModeTxt": 0,
+            "RusText": "Меню",
+            "EngText": "Menu"
+        },
+        {
+            "NameObject": "EngToggleLabel",
+            "PoleTxt": {
+                "instanceID": 87798
+            },
+            "ModeTxt": 0,
+            "RusText": "Английский",
+            "EngText": "Eng"
+        },
+        {
+            "NameObject": "RusToggleLabel",
+            "PoleTxt": {
+                "instanceID": 88206
+            },
+            "ModeTxt": 0,
+            "RusText": "Русский",
+            "EngText": "Rus"
+        },
+        {
+            "NameObject": "MMEffectSliderTitle",
+            "PoleTxt": {
+                "instanceID": 87934
+            },
+            "ModeTxt": 0,
+            "RusText": "Звук.эффекты",
+            "EngText": "Muz.effect"
+        },
+        {
+            "NameObject": "MMMuzSliderTitle",
+            "PoleTxt": {
+                "instanceID": 87910
+            },
+            "ModeTxt": 0,
+            "RusText": "Музыка",
+            "EngText": "Music"
+        },
+        {
+            "NameObject": "MMModeScreenDropdownTitle",
+            "PoleTxt": {
+                "instanceID": 87862
+            },
+            "ModeTxt": 0,
+            "RusText": "Режим монитора",
+            "EngText": "Mode screen"
+        },
+        {
+            "NameObject": "MMScreenDropdownTitle",
+            "PoleTxt": {
+                "instanceID": 88198
+            },
+            "ModeTxt": 0,
+            "RusText": "Экран",
+            "EngText": "Screen"
+        },
+        {
+            "NameObject": "MMReternSettingsButtonText",
+            "PoleTxt": {
+                "instanceID": 87926
+            },
+            "ModeTxt": 0,
+            "RusText": "Назад",
+            "EngText": "Retern"
+        },
+        {
+            "NameObject": "MMSettingsPanelTitle",
+            "PoleTxt": {
+                "instanceID": 88372
+            },
+            "ModeTxt": 0,
+            "RusText": "Настройки",
+            "EngText": "Settings"
         }
     ]
 }

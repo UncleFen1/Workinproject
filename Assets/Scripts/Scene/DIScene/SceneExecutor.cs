@@ -47,6 +47,8 @@ namespace Scene
         private Func<int> onOpenVictoryScen;
         public Func<int> OnOpenOverScen { get { return onOpenOverScen; } set { onOpenOverScen = value; } }
         private Func<int> onOpenOverScen;
+        public Action<bool> OnPauseGame { get { return onPauseGame; } set { onPauseGame = value; } }
+        private Action<bool> onPauseGame;
 
         #region SwitchScene
         public void OpenScenID(int _scenID)
@@ -81,8 +83,9 @@ namespace Scene
             int overScene = (int)onOpenOverScen?.Invoke();
             SetIDScene(overScene);
         }
-        public void GameTimer(bool isRun)
+        public void PauseGame(bool isRun)
         {
+            //onPauseGame?.Invoke(isRun);
             if (isRun) { Time.timeScale = 1; }
             else { Time.timeScale = 0; }
         }
@@ -129,6 +132,7 @@ namespace Scene
         {
             settingsScene.ModeText = _modeTxt;
             SetLangScene(settingsScene.ModeText);
+            GetModeTxtScene();
         }
         public void GetModeTxtScene()
         {

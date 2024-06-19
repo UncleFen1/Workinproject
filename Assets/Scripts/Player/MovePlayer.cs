@@ -1,4 +1,5 @@
 using Inputs;
+using Scene;
 using UnityEngine;
 using Zenject;
 
@@ -14,18 +15,26 @@ namespace Player
         private Quaternion deltaRotation, directionRotation;
         private Vector2 inputDirection, residualDirection, tempInputDirection;
         //
+        private bool isStopClass = false, isRun = false;
+        //
+        private ISceneExecutor scenes;
         private IInputPlayerExecutor inputs;
 
         [Inject]
-        public void Init(IInputPlayerExecutor _inputs)
+        public void Init(ISceneExecutor _scenes, IInputPlayerExecutor _inputs)
         {
+            scenes = _scenes;
             inputs = _inputs;
         }
-        private bool isStopClass = false, isRun = false;
         private void OnEnable()
         {
+            scenes.OnPauseGame += PauseGame;
             inputs.Enable();
             inputs.OnMoveButton += MoveButton;
+        }
+        private void PauseGame(bool _isRun)
+        {
+            isStopClass = _isRun;
         }
         private void MoveButton(InputButtonData data)
         {

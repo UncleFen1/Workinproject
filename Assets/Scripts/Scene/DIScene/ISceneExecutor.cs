@@ -31,6 +31,7 @@ namespace Scene
         Action OnExitGame { get; set; }
         Func<int> OnOpenVictoryScen { get; set; }
         Func<int> OnOpenOverScen { get; set; }
+        Action<bool> OnPauseGame { get; set; }
         void OpenScenID(int scenID);
         int GetOpenScenID();
         void LoadScen();
@@ -38,6 +39,6 @@ namespace Scene
         void ExitGame();
         void OpenVictoryScen();
         void OpenOverScen();
-        void GameTimer(bool isRun);
+        void PauseGame(bool isRun);
     }
 }
