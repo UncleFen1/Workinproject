@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Scene;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +9,6 @@ namespace UI
     {
         [Header("Кнопка Пропустить")]
         [SerializeField] private CustomButton missButton;
-
-        [Header("Размеры изменения кнопки")]
-        [SerializeField] private float sizeOnButton;
 
         [Header("Подключить спрайт индикатора нажатия")]
         [SerializeField] private Image indicatorImg;
@@ -26,8 +22,6 @@ namespace UI
         [Header("Время паузы удержания кнопки")]
         [SerializeField][Range(1, 50)] private int clockButton = 1;
 
-        [Header("Скорость анимации кнопки")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
         private float countClockButton, timeClick, countClockSec, timeSec;
         private float fillAmountTik = 0;
         private bool isPress;
@@ -44,8 +38,7 @@ namespace UI
 
         private void OnEnable()
         {
-            missButton.OnFocusMouse += ButtonSize;
-            missButton.OnPressMouse += ButtonPress;
+            missButton.onClick.AddListener(()=>ButtonPress(true));
         }
         void Start()
         {
@@ -58,30 +51,10 @@ namespace UI
                 isRun = true;
             }
         }
-        private void ButtonPress(bool _flag, GameObject _objectButton)
+        private void ButtonPress(bool _flag)
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(() => PressBool(_flag));
-        }
-        private void ButtonSize(bool _flag, GameObject _objectButton)
-        {
-            Sequence sequence = DOTween.Sequence();
-
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
+            PressBool(true);
         }
         private void PressBool(bool _isPress)
         {
@@ -111,16 +84,11 @@ namespace UI
         {
             if (isPress)
             {
-                // if (timeClick <= Time.time)
-                // {
-                //     timeClick = Time.time;
-                    countClockButton++;
-                    if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true);}
-                // }
+                countClockButton++;
+                if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(true); }
             }
             else
             {
-                // timeClick = Time.time;
                 countClockButton++;
                 if (countClockButton >= clockButton) { countClockButton = 0f; TrigerFillAmount(false); }
             }
@@ -146,7 +114,7 @@ namespace UI
             if (fillAmountTik <= 0)
             {
                 indicatorImg.fillAmount = 0;
-                fillAmountTik=0;
+                fillAmountTik = 0;
             }
             else
             {
@@ -154,10 +122,6 @@ namespace UI
             }
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }

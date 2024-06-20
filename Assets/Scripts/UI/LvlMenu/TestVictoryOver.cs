@@ -1,7 +1,5 @@
-using DG.Tweening;
 using Scene;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace UI
@@ -27,8 +25,8 @@ namespace UI
 
         private void OnEnable()
         {
-            victoryButton.OnPressMouse += StartVictory;
-            overButton.OnPressMouse += StartOver;
+           victoryButton.onClick.AddListener(() => StartVictory());
+           overButton.onClick.AddListener(() => StartOver());
         }
         void Start()
         {
@@ -41,13 +39,13 @@ namespace UI
                 isRun = true;
             }
         }
-        private void StartVictory(bool _flag, GameObject _objectButton)
+        private void StartVictory()
         {
             panel.AudioClick();
             scenes.OpenVictoryScen();
             
         }
-        private void StartOver(bool _flag, GameObject _objectButton)
+        private void StartOver()
         {
             panel.AudioClick();
             scenes.OpenOverScen();
@@ -63,10 +61,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }

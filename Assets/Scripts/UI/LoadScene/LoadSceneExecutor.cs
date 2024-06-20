@@ -19,8 +19,6 @@ namespace UI
         [Header("Текст загрузки")]
         [SerializeField] private Text loadTxt;
 
-        // [Header("Скорость анимации перемещения панели")]
-        // [SerializeField][Range(0.5f, 10f)] private float duration;
         private AsyncOperation asyncOperation;
         private string tempTxt;
         private bool isStopClass = false, isRun = false;
@@ -32,7 +30,7 @@ namespace UI
         }
         private void OnEnable()
         {
-
+            //scenes.OnModeTxt += ModeText;
         }
         void Start()
         {
@@ -43,6 +41,9 @@ namespace UI
             if (!isRun)
             {
                 isRun = true;
+
+                scenes.GetModeTxtScene();
+
                 int idScen = scenes.GetOpenScenID();
                 if (idScen == 0)
                 {

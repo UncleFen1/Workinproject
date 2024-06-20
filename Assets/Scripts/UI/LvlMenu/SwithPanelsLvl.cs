@@ -62,16 +62,13 @@ namespace UI
         private void GndPanel()
         {
             MovePanel(panelGnd);
-            //scenes.PauseGame(true);
         }
         private void ButtonPanel()
         {
             MovePanel(buttonPanel);
-            //scenes.PauseGame(false);
         }
         private void SettingsPanel()
         {
-            Debug.Log("+");
             MovePanel(settingsPanel);
         }
         private void InfoPanel()

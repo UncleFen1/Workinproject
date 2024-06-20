@@ -85,8 +85,7 @@ namespace Scene
         }
         public void PauseGame(bool isRun)
         {
-            //onPauseGame?.Invoke(isRun);
-            if (isRun) { Time.timeScale = 1; }
+            if (!isRun) { Time.timeScale = 1; }
             else { Time.timeScale = 0; }
         }
         #endregion

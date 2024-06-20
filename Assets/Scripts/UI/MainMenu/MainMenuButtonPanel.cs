@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Scene;
 using UnityEngine;
 using Zenject;
@@ -25,14 +24,9 @@ namespace UI
         [Header("Кнопка ExitButton")]
         [SerializeField] private CustomButton exitButton;
 
-        [Header("Размеры изменения кнопки")]
-        [SerializeField] private float sizeOnButton;
-
         [Header("Указать ID загружаемой сцены")]
         [SerializeField] private int idLvlScene = 0;
 
-        [Header("Скорость анимации кнопки")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -46,23 +40,17 @@ namespace UI
 
         private void OnEnable()
         {
-            startLevelButton.OnFocusMouse += ButtonSize;
-            startLevelButton.OnPressMouse += StartLevel;
+            startLevelButton.onClick.AddListener(() => StartLevel());
 
-            loadLevelButton.OnFocusMouse += ButtonSize;
-            loadLevelButton.OnPressMouse += LoadLevel;
+            loadLevelButton.onClick.AddListener(() => LoadLevel());
 
-            settingsButton.OnFocusMouse += ButtonSize;
-            settingsButton.OnPressMouse += Settings;
+            settingsButton.onClick.AddListener(() => Settings());
 
-            infoButton.OnFocusMouse += ButtonSize;
-            infoButton.OnPressMouse += Info;
+            infoButton.onClick.AddListener(() => Info());
 
-            rezultButton.OnFocusMouse += ButtonSize;
-            rezultButton.OnPressMouse += Rezult;
+            rezultButton.onClick.AddListener(() => Rezult());
 
-            exitButton.OnFocusMouse += ButtonSize;
-            exitButton.OnPressMouse += Exit;
+            exitButton.onClick.AddListener(() => Exit());
         }
         void Start()
         {
@@ -75,99 +63,37 @@ namespace UI
                 isRun = true;
             }
         }
-        private void StartLevel(bool _flag, GameObject _objectButton)
+        private void StartLevel()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(() => scenes.OpenScenID(idLvlScene));
+            scenes.OpenScenID(idLvlScene);
         }
-        private void LoadLevel(bool _flag, GameObject _objectButton)
+        private void LoadLevel()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(scenes.LoadScen);
+            scenes.LoadScen();
         }
-        private void Settings(bool _flag, GameObject _objectButton)
+        private void Settings()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.SettingsPanel);
+            panel.SettingsPanel();
         }
-        private void Info(bool _flag, GameObject _objectButton)
+        private void Info()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.InfoPanel);
+            panel.InfoPanel();
         }
-        private void Rezult(bool _flag, GameObject _objectButton)
+        private void Rezult()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.RezultPanel);
+            panel.RezultPanel();
 
         }
-        private void Exit(bool _flag, GameObject _objectButton)
+        private void Exit()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(scenes.ExitGame);
+            scenes.ExitGame();
         }
-
-        private void ButtonSize(bool _flag, GameObject _objectButton)
-        {
-            Sequence sequence = DOTween.Sequence();
-
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-        }
-
         void Update()
         {
             if (isStopClass) { return; }
@@ -179,10 +105,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }

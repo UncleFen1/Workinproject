@@ -803,9 +803,7 @@ MonoBehaviour:
   infoButton: {fileID: 1059627049}
   rezultButton: {fileID: 1221558720}
   exitButton: {fileID: 1565261769}
-  sizeOnButton: 2
   idLvlScene: 3
-  duration: 0
 --- !u!114 &172313332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,8 +845,6 @@ MonoBehaviour:
   rusToggle: {fileID: 2046563022}
   engToggle: {fileID: 943540700}
   reternSettingsButton: {fileID: 1619977685}
-  sizeOnButton: 2
-  duration: 0
 --- !u!114 &172313334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,8 +858,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reternInfoButton: {fileID: 608048030}
-  sizeOnButton: 2
-  duration: 0
 --- !u!114 &172313335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,8 +871,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reternRezultButton: {fileID: 12480750}
-  sizeOnButton: 2
-  duration: 0
 --- !u!1 &205247520
 GameObject:
   m_ObjectHideFlags: 0

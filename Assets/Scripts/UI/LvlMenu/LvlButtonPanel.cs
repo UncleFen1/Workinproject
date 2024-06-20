@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Scene;
 using UnityEngine;
 using Zenject;
@@ -28,8 +27,6 @@ namespace UI
         [Header("Указать ID сцены главного меню")]
         [SerializeField] private int idMainMenuScene = 0;
 
-        [Header("Скорость анимации кнопки")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -43,20 +40,15 @@ namespace UI
 
         private void OnEnable()
         {
-            continueLevelButton.OnFocusMouse += ButtonSize;
-            continueLevelButton.OnPressMouse += ContinueLevelButton;
+            continueLevelButton.onClick.AddListener(() => ContinueLevelButton());
 
-            reBootLevelButton.OnFocusMouse += ButtonSize;
-            reBootLevelButton.OnPressMouse += ReBootLevelButton;
+            reBootLevelButton.onClick.AddListener(() => ReBootLevelButton());
 
-            settingsButton.OnFocusMouse += ButtonSize;
-            settingsButton.OnPressMouse += Settings;
+            settingsButton.onClick.AddListener(() => Settings());
 
-            infoButton.OnFocusMouse += ButtonSize;
-            infoButton.OnPressMouse += Info;
+            infoButton.onClick.AddListener(() => Info());
 
-            exitMainMenuButton.OnFocusMouse += ButtonSize;
-            exitMainMenuButton.OnPressMouse += ExitMainMenuButton;
+            exitMainMenuButton.onClick.AddListener(() => ExitMainMenuButton());
         }
         void Start()
         {
@@ -69,83 +61,34 @@ namespace UI
                 isRun = true;
             }
         }
-        private void ContinueLevelButton(bool _flag, GameObject _objectButton)
+        private void ContinueLevelButton()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.GndPanel);
+            panel.GndPanel();
+            scenes.PauseGame(false);
+            
         }
-        private void ReBootLevelButton(bool _flag, GameObject _objectButton)
+        private void ReBootLevelButton()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(scenes.ReBootScen);
+            scenes.ReBootScen();
+            scenes.PauseGame(false);
         }
-        private void Settings(bool _flag, GameObject _objectButton)
+        private void Settings()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.SettingsPanel);
+            panel.SettingsPanel();
         }
-        private void Info(bool _flag, GameObject _objectButton)
+        private void Info()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.InfoPanel);
+            panel.InfoPanel();
         }
-        private void ExitMainMenuButton(bool _flag, GameObject _objectButton)
+        private void ExitMainMenuButton()
         {
-            Sequence sequence = DOTween.Sequence();
+            scenes.PauseGame(false);
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(()=>scenes.OpenScenID(idMainMenuScene));
-        }
-
-        private void ButtonSize(bool _flag, GameObject _objectButton)
-        {
-            Sequence sequence = DOTween.Sequence();
-
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
+            scenes.OpenScenID(idMainMenuScene);
         }
 
         void Update()
@@ -159,10 +102,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }

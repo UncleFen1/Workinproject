@@ -1,5 +1,3 @@
-using System;
-using DG.Tweening;
 using Scene;
 using Texts;
 using UnityEngine;
@@ -29,11 +27,6 @@ namespace UI
         [Header("Кнопка ReternSettingsButton")]
         [SerializeField] private CustomButton reternSettingsButton;
 
-        [Header("Размеры изменения кнопки")]
-        [SerializeField] private float sizeOnButton;
-
-        [Header("Скорость анимации кнопки")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
@@ -53,8 +46,7 @@ namespace UI
             muzSlider.onValueChanged.AddListener(AudioNewValueMuz);
             effectSlider.onValueChanged.AddListener(AudioNewValueEffect);
 
-            reternSettingsButton.OnFocusMouse += ButtonSize;
-            reternSettingsButton.OnPressMouse += ButtonPanel;
+            reternSettingsButton.onClick.AddListener(ButtonPanel);
 
             scenes.OnSetSettingsAudioScene += SetSettingsAudioScene;
             scenes.OnSetSettingsScreenScene += SetSettingsScreenScene;
@@ -83,7 +75,7 @@ namespace UI
         }
         private void EngToggle(bool _isEng)
         {
-            if (_isEng) { rusToggle.isOn = false; scenes.NewLangText(ModeTxt.Eng);}
+            if (_isEng) { rusToggle.isOn = false; scenes.NewLangText(ModeTxt.Eng); }
             else { rusToggle.isOn = true; }
         }
 
@@ -129,32 +121,14 @@ namespace UI
         {
             if (!isRun)
             {
-
-                //scenes.InitScene();
                 isRun = true;
             }
         }
-        private void ButtonPanel(bool _flag, GameObject _objectButton)
+        private void ButtonPanel()
         {
-            Sequence sequence = DOTween.Sequence();
             panel.AudioClick();
-            if (_flag)
-            { sequence.Append(_objectButton.transform.DOScale(sizeOnButton, duration)); }
-            else
-            { sequence.Append(_objectButton.transform.DOScale(1, duration)); }
-
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
-            sequence.OnComplete(panel.ButtonPanel);
+            panel.ButtonPanel();
         }
-        private void ButtonSize(bool _flag, GameObject _objectButton)
-        {
-            if (_flag)
-            { _objectButton.transform.DOScale(sizeOnButton, duration).SetLink(_objectButton).OnKill(DoneTween); }
-            else
-            { _objectButton.transform.DOScale(1, duration).SetLink(_objectButton).OnKill(DoneTween); }
-        }
-
         void Update()
         {
             if (isStopClass) { return; }
@@ -166,10 +140,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }
