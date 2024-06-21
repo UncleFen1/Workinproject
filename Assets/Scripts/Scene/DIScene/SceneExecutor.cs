@@ -71,6 +71,7 @@ namespace Scene
         }
         public void ExitGame()
         {
+            SetIDScene(0);//запишм 0 по выходу
             onExitGame?.Invoke();
         }
         public void OpenVictoryScen()

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OverScene.unity
     guid: d7ac2080a3a9b0d408e801af255028e0
+  - enabled: 1
+    path: Assets/Scenes/RouletteProperties6.unity
+    guid: 374d887572659704095b82ea3b5e2e90
   m_configObjects: {}

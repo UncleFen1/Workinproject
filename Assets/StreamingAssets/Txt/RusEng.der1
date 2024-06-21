@@ -30,7 +30,7 @@
         {
             "NameObject": "MMExitButtonText",
             "PoleTxt": {
-                "instanceID": 87918
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Выход",
@@ -39,7 +39,7 @@
         {
             "NameObject": "MMInfoButtonText",
             "PoleTxt": {
-                "instanceID": 88314
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Инфо",
@@ -48,7 +48,7 @@
         {
             "NameObject": "MMRezultButtonText",
             "PoleTxt": {
-                "instanceID": 88100
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Статистика",
@@ -57,7 +57,7 @@
         {
             "NameObject": "MMSettingsButtonText",
             "PoleTxt": {
-                "instanceID": 87670
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Настройка",
@@ -66,7 +66,7 @@
         {
             "NameObject": "MMLoadLevelButtonText",
             "PoleTxt": {
-                "instanceID": 88338
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Закрузка игры",
@@ -75,7 +75,7 @@
         {
             "NameObject": "MMStartLevelButtonText",
             "PoleTxt": {
-                "instanceID": 87822
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Новая игра",
@@ -84,7 +84,7 @@
         {
             "NameObject": "MMPanelTitle",
             "PoleTxt": {
-                "instanceID": 88274
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Меню",
@@ -93,7 +93,7 @@
         {
             "NameObject": "EngToggleLabel",
             "PoleTxt": {
-                "instanceID": 87798
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Английский",
@@ -102,7 +102,7 @@
         {
             "NameObject": "RusToggleLabel",
             "PoleTxt": {
-                "instanceID": 88206
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Русский",
@@ -111,7 +111,7 @@
         {
             "NameObject": "MMEffectSliderTitle",
             "PoleTxt": {
-                "instanceID": 87934
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Звук.эффекты",
@@ -120,7 +120,7 @@
         {
             "NameObject": "MMMuzSliderTitle",
             "PoleTxt": {
-                "instanceID": 87910
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Музыка",
@@ -129,7 +129,7 @@
         {
             "NameObject": "MMModeScreenDropdownTitle",
             "PoleTxt": {
-                "instanceID": 87862
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Режим монитора",
@@ -138,7 +138,7 @@
         {
             "NameObject": "MMScreenDropdownTitle",
             "PoleTxt": {
-                "instanceID": 88198
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Экран",
@@ -147,7 +147,7 @@
         {
             "NameObject": "MMReternSettingsButtonText",
             "PoleTxt": {
-                "instanceID": 87926
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Назад",
@@ -156,11 +156,38 @@
         {
             "NameObject": "MMSettingsPanelTitle",
             "PoleTxt": {
-                "instanceID": 88372
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "Настройки",
             "EngText": "Settings"
+        },
+        {
+            "NameObject": "RPPanelTitle",
+            "PoleTxt": {
+                "instanceID": -27512
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "ReternRoulProper3Text",
+            "PoleTxt": {
+                "instanceID": -27582
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "RP3PanelTitle",
+            "PoleTxt": {
+                "instanceID": -27428
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
         }
     ]
 }

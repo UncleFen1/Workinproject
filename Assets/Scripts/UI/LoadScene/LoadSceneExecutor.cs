@@ -40,8 +40,8 @@ namespace UI
         {
             if (!isRun)
             {
+                scenes.InitScene();
                 isRun = true;
-
                 scenes.GetModeTxtScene();
 
                 int idScen = scenes.GetOpenScenID();
@@ -103,10 +103,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }
