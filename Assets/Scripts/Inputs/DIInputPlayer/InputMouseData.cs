@@ -1,4 +1,5 @@
 ﻿using Unity.Mathematics;
+using UnityEngine;
 
 namespace Inputs
 {
@@ -9,6 +10,7 @@ namespace Inputs
         public float MouseLeftButton;//мыш левая
         public float MouseMiddleButton;//мыш колесо
         public float MouseRightButton;//мыш правая
+        public GameObject HitObject;
     }
 }
 

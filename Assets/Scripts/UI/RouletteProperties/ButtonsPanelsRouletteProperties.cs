@@ -1,3 +1,5 @@
+using System;
+using Inputs;
 using UnityEngine;
 using Zenject;
 
@@ -25,11 +27,13 @@ namespace UI
 
         private bool isStopClass = false, isRun = false;
         //
+        private IInputPlayerExecutor inputs;
         private IUIGameExecutor uiGame;
         [Inject]
-        public void Init(IUIGameExecutor _uiGame)
+        public void Init(IUIGameExecutor _uiGame, IInputPlayerExecutor _inputs)
         {
             uiGame = _uiGame;
+            inputs = _inputs;
         }
         private void OnEnable()
         {
@@ -40,6 +44,13 @@ namespace UI
             reternRoulProper3.onClick.AddListener(() => SetGndPanel());
             reternRoulProper4.onClick.AddListener(() => SetGndPanel());
             reternRoulProper8.onClick.AddListener(() => SetGndPanel());
+            
+            inputs.Enable();
+            inputs.OnMousePoint += MousePoint;
+        }
+        private void MousePoint(Vector2 hit)
+        {
+            //Debug.Log(hit);
         }
         void Start()
         {
