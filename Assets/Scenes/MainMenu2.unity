@@ -803,7 +803,7 @@ MonoBehaviour:
   infoButton: {fileID: 1059627049}
   rezultButton: {fileID: 1221558720}
   exitButton: {fileID: 1565261769}
-  idLvlScene: 3
+  idLvlScene: 6
 --- !u!114 &172313332
 MonoBehaviour:
   m_ObjectHideFlags: 0

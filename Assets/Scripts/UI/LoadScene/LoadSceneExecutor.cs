@@ -9,10 +9,6 @@ namespace UI
 {
     public class LoadSceneExecutor : MonoBehaviour
     {
-        // [Header("Панель основная")]
-        // [SerializeField] private GameObject panelGnd;
-        // [SerializeField] private bool isPanelGnd = true;
-
         [Header("Индикатор загрузки")]
         [SerializeField] private Image loadImg;
 
@@ -30,7 +26,7 @@ namespace UI
         }
         private void OnEnable()
         {
-            //scenes.OnModeTxt += ModeText;
+
         }
         void Start()
         {

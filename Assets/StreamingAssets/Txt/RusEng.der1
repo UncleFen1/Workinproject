@@ -165,7 +165,7 @@
         {
             "NameObject": "RPPanelTitle",
             "PoleTxt": {
-                "instanceID": -27512
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "ноль",
@@ -174,7 +174,7 @@
         {
             "NameObject": "ReternRoulProper3Text",
             "PoleTxt": {
-                "instanceID": -27582
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "ноль",
@@ -183,7 +183,43 @@
         {
             "NameObject": "RP3PanelTitle",
             "PoleTxt": {
-                "instanceID": -27428
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "RP4PanelTitle",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "RP8PanelTitle",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "ReternRoulProper8Text",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ноль",
+            "EngText": "null"
+        },
+        {
+            "NameObject": "ReternRoulProper4Text",
+            "PoleTxt": {
+                "instanceID": 163350
             },
             "ModeTxt": 0,
             "RusText": "ноль",

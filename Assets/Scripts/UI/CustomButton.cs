@@ -8,7 +8,6 @@ namespace UI
     {
         private int sizeOnButton = 2;
 
-
         public override void OnPointerEnter(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);

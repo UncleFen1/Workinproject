@@ -25,8 +25,8 @@ namespace Inputs
 
         public Action<InputMouseData> OnMoveMouse { get { return onMoveMouse; } set { onMoveMouse = value; } }
         private Action<InputMouseData> onMoveMouse;
-        public Action<Vector2> OnMousePoint { get { return onMousePoint; } set { onMousePoint = value; } }
-        private Action<Vector2> onMousePoint;
+        public Action<InputMouseData> OnMousePoint { get { return onMousePoint; } set { onMousePoint = value; } }
+        private Action<InputMouseData> onMousePoint;
         public Action<InputMouseData> OnStartPressMouse { get { return onStartPressMouse; } set { onStartPressMouse = value; } }
         private Action<InputMouseData> onStartPressMouse;
         public Action<InputMouseData> OnCancelPressMouse { get { return onCancelPressMouse; } set { onCancelPressMouse = value; } }
@@ -51,7 +51,7 @@ namespace Inputs
             {
                 EnableMouse();
                 EnableButton();
-                //Карта UI
+                //пїЅпїЅпїЅпїЅпїЅ UI
                 {
                     inputActions.UIMap.WASDUI.started += contex => inputButtonData.WASD = contex.ReadValue<Vector2>();
                     inputActions.UIMap.WASDUI.performed += contex => inputButtonData.WASD = contex.ReadValue<Vector2>();
@@ -89,7 +89,7 @@ namespace Inputs
         #region Mouse
         private void EnableMouse()
         {
-            //Карта Key Mouse
+            //Key Mouse
             inputActions.KeyMap.MousePosition.started += contex => { inputMouseData.MouseAxes = contex.ReadValue<Vector2>(); inputMouseData.MousePosition = Mouse.current.position.ReadValue(); MoveMouse(inputMouseData); };
             inputActions.KeyMap.MousePosition.performed += contex => { inputMouseData.MouseAxes = contex.ReadValue<Vector2>(); inputMouseData.MousePosition = Mouse.current.position.ReadValue(); };
             inputActions.KeyMap.MousePosition.canceled += contex => { inputMouseData.MouseAxes = contex.ReadValue<Vector2>(); inputMouseData.MousePosition = Mouse.current.position.ReadValue(); };
@@ -110,8 +110,8 @@ namespace Inputs
         {
             if (camera != null)
             {
-                tempRaycastHit=mausExecutor.MausMoveControl(inputMouseData, camera);
-                onMousePoint?.Invoke(tempRaycastHit);
+                inputMouseData =mausExecutor.MausMoveControl(inputMouseData, camera);
+                onMousePoint?.Invoke(inputMouseData);
             }
 
             onMoveMouse?.Invoke(inputMouseData);
@@ -128,7 +128,7 @@ namespace Inputs
         #region Button
         private void EnableButton()
         {
-            //Карта Key Button
+            //пїЅпїЅпїЅпїЅпїЅ Key Button
 
             inputActions.KeyMap.WASD.started += contex => { inputButtonData.WASD = contex.ReadValue<Vector2>(); MoveButton(inputButtonData); };
             inputActions.KeyMap.WASD.performed += contex => { inputButtonData.WASD = contex.ReadValue<Vector2>(); MoveButton(inputButtonData); };

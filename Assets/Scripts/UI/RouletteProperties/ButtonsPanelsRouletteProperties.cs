@@ -1,5 +1,6 @@
 using System;
 using Inputs;
+using Scene;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +8,7 @@ namespace UI
 {
     public class ButtonsPanelsRouletteProperties : MonoBehaviour
     {
+
         [Header("Кнопка RoulProper3Button")]
         [SerializeField] private CustomButton roulProper3Button;
 
@@ -44,14 +46,27 @@ namespace UI
             reternRoulProper3.onClick.AddListener(() => SetGndPanel());
             reternRoulProper4.onClick.AddListener(() => SetGndPanel());
             reternRoulProper8.onClick.AddListener(() => SetGndPanel());
-            
-            inputs.Enable();
-            inputs.OnMousePoint += MousePoint;
+            // inputs.Enable();
+            // inputs.OnMousePoint += MousePoint;
+            // inputs.OnStartPressMouse += MousePress;
         }
-        private void MousePoint(Vector2 hit)
-        {
-            //Debug.Log(hit);
-        }
+        // private void MousePoint(InputMouseData _data)
+        // {
+        //     if (_data.HitObject != null)
+        //     {
+        //         tempGameObject=_data.HitObject;
+        //         Debug.Log(_data.HitObject.name);
+        //     }
+        //     else{tempGameObject=null;}
+        // }
+        // private void MousePress(InputMouseData _data)
+        // {
+        //      if (tempGameObject != null & _data.MouseLeftButton!=0)
+        //     {
+        //         Debug.Log($"{tempGameObject.name} + {_data.MouseLeftButton} = нажата кнопка");
+        //     }
+
+        // }
         void Start()
         {
             SetClass();
