@@ -21,9 +21,6 @@ namespace UI
         [Header("Кнопка ExitMainMenuButton")]
         [SerializeField] private CustomButton exitMainMenuButton;
 
-        [Header("Размеры изменения кнопки")]
-        [SerializeField] private float sizeOnButton;
-
         [Header("Указать ID сцены главного меню")]
         [SerializeField] private int idMainMenuScene = 0;
 

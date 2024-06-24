@@ -1,5 +1,7 @@
+using System;
 using Scene;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
@@ -38,8 +40,12 @@ namespace UI
 
         private void OnEnable()
         {
-            missButton.onClick.AddListener(()=>ButtonPress(true));
+            //missButton.onClick.AddListener(()=>ButtonPress(true));
+            missButton.OnDown+=ButtonDownPress;
+            missButton.OnUp+=ButtonUpPress;
         }
+
+
         void Start()
         {
             SetClass();
@@ -51,20 +57,21 @@ namespace UI
                 isRun = true;
             }
         }
-        private void ButtonPress(bool _flag)
-        {
-            panel.AudioClick();
-            PressBool(true);
-        }
-        private void PressBool(bool _isPress)
-        {
-            isPress = _isPress;
-        }
         void Update()
         {
             if (isStopClass) { return; }
             if (!isRun) { SetClass(); }
             RunUpdate();
+        }
+        private void ButtonDownPress()
+        {
+            panel.AudioClick();
+            isPress =true;
+        }
+        private void ButtonUpPress()
+        {
+            panel.AudioClick();
+            isPress =false;
         }
         private void RunUpdate()
         {

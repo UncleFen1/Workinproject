@@ -2,228 +2,173 @@
     "Items": [
         {
             "NameObject": "LoadPanelTitle",
+            "NameScene": "LoadScene1",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Сцена загрузки",
-            "EngText": "Load Scene"
+            "RusText": "LoadPanelTitle",
+            "EngText": "LoadPanelTitle"
         },
         {
             "NameObject": "IndikatorTxt",
+            "NameScene": "LoadScene1",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Загрузка",
-            "EngText": "Load"
+            "RusText": "IndikatorTxt",
+            "EngText": "IndikatorTxt"
         },
         {
-            "NameObject": "MissButtonText",
+            "NameObject": "SettingsButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Далее",
-            "EngText": "Pass"
+            "RusText": "SettingsButtonText",
+            "EngText": "SettingsButtonText"
         },
         {
-            "NameObject": "MMExitButtonText",
+            "NameObject": "StartLevelButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Выход",
-            "EngText": "Exit"
+            "RusText": "StartLevelButtonText",
+            "EngText": "StartLevelButtonText"
         },
         {
-            "NameObject": "MMInfoButtonText",
+            "NameObject": "ExitButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Инфо",
-            "EngText": "Info"
+            "RusText": "ExitButtonText",
+            "EngText": "ExitButtonText"
         },
         {
-            "NameObject": "MMRezultButtonText",
+            "NameObject": "RezultButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Статистика",
-            "EngText": "Statistic"
+            "RusText": "RezultButtonText",
+            "EngText": "RezultButtonText"
         },
         {
-            "NameObject": "MMSettingsButtonText",
+            "NameObject": "PanelGndTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Настройка",
-            "EngText": "Settings"
+            "RusText": "PanelGndTitle",
+            "EngText": "PanelGndTitle"
         },
         {
-            "NameObject": "MMLoadLevelButtonText",
+            "NameObject": "InfoButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Закрузка игры",
-            "EngText": "Load Game"
+            "RusText": "InfoButtonText",
+            "EngText": "InfoButtonText"
         },
         {
-            "NameObject": "MMStartLevelButtonText",
+            "NameObject": "LoadLevelButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Новая игра",
-            "EngText": "New Game"
+            "RusText": "LoadLevelButtonText",
+            "EngText": "LoadLevelButtonText"
         },
         {
-            "NameObject": "MMPanelTitle",
+            "NameObject": "SettingsPanelTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 161282
             },
             "ModeTxt": 0,
-            "RusText": "Меню",
-            "EngText": "Menu"
-        },
-        {
-            "NameObject": "EngToggleLabel",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "Английский",
-            "EngText": "Eng"
+            "RusText": "SettingsPanelTitle",
+            "EngText": "SettingsPanelTitle"
         },
         {
             "NameObject": "RusToggleLabel",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 161122
             },
             "ModeTxt": 0,
-            "RusText": "Русский",
-            "EngText": "Rus"
+            "RusText": "RusToggleLabel",
+            "EngText": "RusToggleLabel"
         },
         {
-            "NameObject": "MMEffectSliderTitle",
+            "NameObject": "ScreenDropdownTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 161112
             },
             "ModeTxt": 0,
-            "RusText": "Звук.эффекты",
-            "EngText": "Muz.effect"
+            "RusText": "ScreenDropdownTitle",
+            "EngText": "ScreenDropdownTitle"
         },
         {
-            "NameObject": "MMMuzSliderTitle",
+            "NameObject": "EffectSliderTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 160874
             },
             "ModeTxt": 0,
-            "RusText": "Музыка",
-            "EngText": "Music"
+            "RusText": "EffectSliderTitle",
+            "EngText": "EffectSliderTitle"
         },
         {
-            "NameObject": "MMModeScreenDropdownTitle",
+            "NameObject": "ReternSettingsButtonText",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 160864
             },
             "ModeTxt": 0,
-            "RusText": "Режим монитора",
-            "EngText": "Mode screen"
+            "RusText": "ReternSettingsButtonText",
+            "EngText": "ReternSettingsButtonText"
         },
         {
-            "NameObject": "MMScreenDropdownTitle",
+            "NameObject": "MuzSliderTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 160844
             },
             "ModeTxt": 0,
-            "RusText": "Экран",
-            "EngText": "Screen"
+            "RusText": "MuzSliderTitle",
+            "EngText": "MuzSliderTitle"
         },
         {
-            "NameObject": "MMReternSettingsButtonText",
+            "NameObject": "ModeScreenDropdownTitle",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 160794
             },
             "ModeTxt": 0,
-            "RusText": "Назад",
-            "EngText": "Retern"
+            "RusText": "ModeScreenDropdownTitle",
+            "EngText": "ModeScreenDropdownTitle"
         },
         {
-            "NameObject": "MMSettingsPanelTitle",
+            "NameObject": "EngToggleLabel",
+            "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 0
+                "instanceID": 160730
             },
             "ModeTxt": 0,
-            "RusText": "Настройки",
-            "EngText": "Settings"
-        },
-        {
-            "NameObject": "RPPanelTitle",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "ReternRoulProper3Text",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "RP3PanelTitle",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "RP4PanelTitle",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "RP8PanelTitle",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "ReternRoulProper8Text",
-            "PoleTxt": {
-                "instanceID": 0
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
-        },
-        {
-            "NameObject": "ReternRoulProper4Text",
-            "PoleTxt": {
-                "instanceID": 163350
-            },
-            "ModeTxt": 0,
-            "RusText": "ноль",
-            "EngText": "null"
+            "RusText": "EngToggleLabel",
+            "EngText": "EngToggleLabel"
         }
     ]
 }

@@ -7,7 +7,7 @@ namespace Scene
     public class SwithScene : MonoBehaviour
     {
         [Header("Указать IdScen")]
-        [SerializeField] private int idLoadScen = 0;
+        [SerializeField] private int idLoadScen = 1;
         [SerializeField] private int idVictoryScen = 4;
         [SerializeField] private int idOverScen = 5;
         private bool isStopClass = false, isRun = false;

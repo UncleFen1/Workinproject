@@ -1,5 +1,5 @@
-using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Anim
 {
@@ -9,12 +9,12 @@ namespace Anim
         [SerializeField] private GameObject animSprite;
 
         [Header("Время скорости анимации")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
-
-        [Header("Путь движения анимации")]
-        [SerializeField] private GameObject[] path;
+        [SerializeField][Range(1f, 60f)] private float duration = 1;
         //
-        private Vector3[] pathVector;
+        private SpriteRenderer spriteRenderer;
+        private Color countColor;
+        private bool isTrig = true;
+        private float clock, countClock = 0f;
         private bool isStopClass = false, isRun = false;
         private void OnEnable()
         {
@@ -26,41 +26,59 @@ namespace Anim
         }
         private void SetClass()
         {
-            pathVector = new Vector3[path.Length];
-            for (int i = 0; i < path.Length; i++)
+            if (!isRun)
             {
-                pathVector[i] = path[i].transform.position;
+                spriteRenderer = animSprite.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    isRun = true;
+                    countColor = spriteRenderer.color;
+                }
             }
-
-            if (!isRun && pathVector != null)
-            {
-                isRun = true;
-                AnimSeries();
-            }
-        }
-        private void AnimSeries()
-        {
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(animSprite.transform.DOPath(pathVector, duration, PathType.CatmullRom));
-            sequence.SetLoops(-1);
-            sequence.SetLink(animSprite);
-            sequence.OnKill(DoneTween);
         }
         void Update()
         {
             if (isStopClass) { return; }
             if (!isRun) { SetClass(); }
             RunUpdate();
+            Clock();
+        }
+        private void Anim()
+        {
+            if (isTrig)
+            {
+                countColor.a = countColor.a + 0.1f;
+                if (countColor.a >= 1) { isTrig = false; }
+            }
+            else
+            {
+                countColor.a = countColor.a - 0.1f;
+                if (countColor.a <= 0) { isTrig = true; }
+            }
+
+            spriteRenderer.color = countColor;
+        }
+        private void Clock()
+        {
+            countClock++;
+            if (countClock >= duration)
+            {
+                Anim();
+                countClock = 0f;
+            }
+
+            // if (clock + 1 <= Time.time)
+            // {
+            //     clock = Time.time;
+            //     countClock++;
+            //     if (countClock >= duration) { Anim(); countClock = 0f; }
+            // }
         }
         private void RunUpdate()
         {
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }

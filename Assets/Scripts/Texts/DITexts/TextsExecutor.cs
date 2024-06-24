@@ -37,9 +37,8 @@ namespace Texts
             //
             if (isContorlSaveTextCollection)
             {
-                _textCollection.RusText = "ноль";
-                _textCollection.EngText = "null";
-                Debug.Log(_textCollection.NameObject);
+                _textCollection.RusText = _textCollection.NameObject;
+                _textCollection.EngText = _textCollection.NameObject;
                 listData = Creat(_textCollection, listData);
                 SaveFile(listData);
             }

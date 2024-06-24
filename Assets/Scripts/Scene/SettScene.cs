@@ -29,8 +29,6 @@ namespace Scene
         {
             scenes.OnSetSettingsAudioScene += AudioVolum;
             panel.OnAudioClickl += AudioClick;
-
-            // scenes.OnModeTxt+=ModeTxt;
         }
         void Start()
         {
@@ -46,6 +44,12 @@ namespace Scene
                 scenes.GetSettingsScreenScene();
                 scenes.GetModeTxtScene();
             }
+        }
+        void Update()
+        {
+            if (isStopClass) { return; }
+            if (!isRun) { SetClass(); }
+            RunUpdate();
         }
         private void SettingsAudio()
         {
@@ -70,13 +74,6 @@ namespace Scene
         {
             effectAudioSource.Play();
         }
-        void Update()
-        {
-            if (isStopClass) { return; }
-            if (!isRun) { SetClass(); }
-            RunUpdate();
-        }
-
         private void RunUpdate()
         {
 

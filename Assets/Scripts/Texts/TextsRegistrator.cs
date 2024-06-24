@@ -1,5 +1,6 @@
 using Scene;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -53,6 +54,7 @@ namespace Texts
             element = new TextCollection
             {
                 NameObject = thisName,
+                NameScene = SceneManager.GetActiveScene().name,
                 PoleTxt = poleTxt,
             };
             texts.SetData(element);

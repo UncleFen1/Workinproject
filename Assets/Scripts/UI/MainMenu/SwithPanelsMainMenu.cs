@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -22,12 +21,6 @@ namespace UI
         [SerializeField] private GameObject rezultPanel;
         [SerializeField] private bool isRezultPanel = true;
 
-        [Header("Нулевой поинт панелей")]
-        [SerializeField] private GameObject startPointPanel;
-
-        [Header("Скорость анимации перемещения панели")]
-        [SerializeField][Range(0.5f, 10f)] private float duration;
-        private GameObject tempAnimObject;
         private bool isStopClass = false, isRun = false;
         //
         private IMenuExecutor panel;
@@ -38,8 +31,6 @@ namespace UI
         }
         private void OnEnable()
         {
-            tempAnimObject = buttonPanel;
-
             if (isButtonPanel) { panel.OnButtonPanel += ButtonPanel; }
             if (isSettingsPanel) { panel.OnSettingsPanel += SettingsPanel; }
             if (isInfoPanel) { panel.OnInfoPanel += InfoPanel; }
@@ -59,28 +50,31 @@ namespace UI
         }
         private void ButtonPanel()
         {
-            MovePanel(buttonPanel);
+            buttonPanel.SetActive(true);
+            settingsPanel.SetActive(false);
+            infoPanel.SetActive(false);
+            rezultPanel.SetActive(false);
         }
         private void SettingsPanel()
         {
-            MovePanel(settingsPanel);
+            buttonPanel.SetActive(false);
+            settingsPanel.SetActive(true);
+            infoPanel.SetActive(false);
+            rezultPanel.SetActive(false);
         }
         private void InfoPanel()
         {
-            MovePanel(infoPanel);
+            buttonPanel.SetActive(false);
+            settingsPanel.SetActive(false);
+            infoPanel.SetActive(true);
+            rezultPanel.SetActive(false);
         }
         private void RezultPanel()
         {
-            MovePanel(rezultPanel);
-        }
-        private void MovePanel(GameObject _objectButton)
-        {
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(tempAnimObject.transform.DOMove(startPointPanel.transform.position, duration));
-            tempAnimObject = _objectButton;
-            sequence.Append(_objectButton.transform.DOMove(new Vector3(0, 0, 0), duration));
-            sequence.SetLink(_objectButton);
-            sequence.OnKill(DoneTween);
+            buttonPanel.SetActive(false);
+            settingsPanel.SetActive(false);
+            infoPanel.SetActive(false);
+            rezultPanel.SetActive(true);
         }
         void Update()
         {
@@ -93,10 +87,6 @@ namespace UI
 
         }
         private void OnDisable()
-        {
-
-        }
-        private void DoneTween()
         {
 
         }
