@@ -1,6 +1,16 @@
 {
     "Items": [
         {
+            "NameObject": "MissButtonText",
+            "NameScene": "SplashScreen0",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "MissButtonText",
+            "EngText": "MissButtonText"
+        },
+        {
             "NameObject": "LoadPanelTitle",
             "NameScene": "LoadScene1",
             "PoleTxt": {
@@ -91,20 +101,70 @@
             "EngText": "LoadLevelButtonText"
         },
         {
+            "NameObject": "ReternRezultButtonText",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReternRezultButtonText",
+            "EngText": "ReternRezultButtonText"
+        },
+        {
+            "NameObject": "RezultPanelTitle",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RezultPanelTitle",
+            "EngText": "RezultPanelTitle"
+        },
+        {
+            "NameObject": "ReternInfoButtonText",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReternInfoButtonText",
+            "EngText": "ReternInfoButtonText"
+        },
+        {
+            "NameObject": "InfoPanelTitle",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "InfoPanelTitle",
+            "EngText": "InfoPanelTitle"
+        },
+        {
             "NameObject": "SettingsPanelTitle",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 161282
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "SettingsPanelTitle",
             "EngText": "SettingsPanelTitle"
         },
         {
+            "NameObject": "Label",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Label",
+            "EngText": "Label"
+        },
+        {
             "NameObject": "RusToggleLabel",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 161122
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "RusToggleLabel",
@@ -114,7 +174,7 @@
             "NameObject": "ScreenDropdownTitle",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 161112
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "ScreenDropdownTitle",
@@ -124,7 +184,7 @@
             "NameObject": "EffectSliderTitle",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 160874
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "EffectSliderTitle",
@@ -134,7 +194,7 @@
             "NameObject": "ReternSettingsButtonText",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 160864
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "ReternSettingsButtonText",
@@ -144,7 +204,7 @@
             "NameObject": "MuzSliderTitle",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 160844
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "MuzSliderTitle",
@@ -154,7 +214,7 @@
             "NameObject": "ModeScreenDropdownTitle",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 160794
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "ModeScreenDropdownTitle",
@@ -164,11 +224,91 @@
             "NameObject": "EngToggleLabel",
             "NameScene": "MainMenu2",
             "PoleTxt": {
-                "instanceID": 160730
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "EngToggleLabel",
             "EngText": "EngToggleLabel"
+        },
+        {
+            "NameObject": "VictoryButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "VictoryButtonText",
+            "EngText": "VictoryButtonText"
+        },
+        {
+            "NameObject": "OverButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "OverButtonText",
+            "EngText": "OverButtonText"
+        },
+        {
+            "NameObject": "MenuButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "MenuButtonText",
+            "EngText": "MenuButtonText"
+        },
+        {
+            "NameObject": "ContinueLevelButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ContinueLevelButtonText",
+            "EngText": "ContinueLevelButtonText"
+        },
+        {
+            "NameObject": "ExitMainMenuButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ExitMainMenuButtonText",
+            "EngText": "ExitMainMenuButtonText"
+        },
+        {
+            "NameObject": "ReBootLevelButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReBootLevelButtonText",
+            "EngText": "ReBootLevelButtonText"
+        },
+        {
+            "NameObject": "ButtonPanelTitle",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ButtonPanelTitle",
+            "EngText": "ButtonPanelTitle"
+        },
+        {
+            "NameObject": "VictoryOverPanelTitle",
+            "NameScene": "OverScene",
+            "PoleTxt": {
+                "instanceID": 62830
+            },
+            "ModeTxt": 0,
+            "RusText": "VictoryOverPanelTitle",
+            "EngText": "VictoryOverPanelTitle"
         }
     ]
 }

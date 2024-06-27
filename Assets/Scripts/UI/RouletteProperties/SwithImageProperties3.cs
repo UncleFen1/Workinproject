@@ -124,9 +124,9 @@ namespace UI
             }
             else { tempGameObject = null; TextLabelImg($""); }
         }
-        protected virtual void MousePress(InputMouseData _data)
+        protected virtual void StartRandom()
         {
-            if (tempGameObject != null & _data.MouseLeftButton != 0)
+                        if (tempGameObject != null)
             {
                 if (roulPersImage.gameObject == tempGameObject)
                 {
@@ -172,6 +172,55 @@ namespace UI
                 //Переход в сцену
                 StartLvl();
             }
+        }
+        protected virtual void MousePress(InputMouseData _data)
+        {
+            // if (tempGameObject != null & _data.MouseLeftButton != 0)
+            // {
+            //     if (roulPersImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imagePropertiesPers.Length);
+            //         roulPersImage.sprite = imagePropertiesPers[nomer];
+            //         TextLabelImg($"{roulPersImage.gameObject.name} {imagePropertiesPers[nomer].name}");
+            //     }
+
+            //     if (roulModPersImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imageMods.Length);
+            //         roulModPersImage.sprite = imageMods[nomer];
+            //         TextLabelImg($"{roulModPersImage.gameObject.name} {imageMods[nomer].name}");
+            //     }
+
+            //     if (roulEnemyImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imagePropertiesEnemy.Length);
+            //         roulEnemyImage.sprite = imagePropertiesEnemy[nomer];
+            //         TextLabelImg($"{roulEnemyImage.gameObject.name} {imagePropertiesEnemy[nomer].name}");
+            //     }
+
+            //     if (roulModEnemyImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imageMods.Length);
+            //         roulModEnemyImage.sprite = imageMods[nomer];
+            //         TextLabelImg($"{roulModEnemyImage.gameObject.name} {imageMods[nomer].name}");
+            //     }
+
+            //     if (roulMirImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imagePropertiesMir.Length);
+            //         roulMirImage.sprite = imagePropertiesMir[nomer];
+            //         TextLabelImg($"{roulMirImage.gameObject.name} {imagePropertiesMir[nomer].name}");
+            //     }
+
+            //     if (roulModMirImage.gameObject == tempGameObject)
+            //     {
+            //         nomer = RandomImg(imageMods.Length);
+            //         roulModMirImage.sprite = imageMods[nomer];
+            //         TextLabelImg($"{roulModMirImage.gameObject.name} {imageMods[nomer].name}");
+            //     }
+            //     //Переход в сцену
+            //     StartLvl();
+            // }
 
         }
         private void StartLvl()
