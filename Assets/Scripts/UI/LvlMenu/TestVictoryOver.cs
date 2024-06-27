@@ -6,6 +6,10 @@ namespace UI
 {
     public class TestVictoryOver : MonoBehaviour
     {
+        [Header("Кнопка FollowLvl")]
+        [SerializeField] private CustomButton followLvlButton;
+        [SerializeField] private int followSceneId=0;
+
         [Header("Кнопка Victory")]
         [SerializeField] private CustomButton victoryButton;
 
@@ -25,8 +29,9 @@ namespace UI
 
         private void OnEnable()
         {
-           victoryButton.onClick.AddListener(() => StartVictory());
-           overButton.onClick.AddListener(() => StartOver());
+            followLvlButton.onClick.AddListener(() => FollowLvl());
+            victoryButton.onClick.AddListener(() => StartVictory());
+            overButton.onClick.AddListener(() => StartOver());
         }
         void Start()
         {
@@ -39,11 +44,15 @@ namespace UI
                 isRun = true;
             }
         }
+        private void FollowLvl()
+        {
+            panel.AudioClick();
+            scenes.OpenScenID(followSceneId);
+        }
         private void StartVictory()
         {
             panel.AudioClick();
             scenes.OpenVictoryScen();
-            
         }
         private void StartOver()
         {

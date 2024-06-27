@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 14070349}
   - component: {fileID: 14070348}
   m_Layer: 5
-  m_Name: ReternRoulProper8Button
+  m_Name: FollowLvl8Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 124987223}
   - component: {fileID: 124987222}
   m_Layer: 5
-  m_Name: ReternRoulProper4Button
+  m_Name: FollowLvl4Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2498,7 +2498,7 @@ GameObject:
   - component: {fileID: 746808440}
   - component: {fileID: 746808438}
   m_Layer: 5
-  m_Name: ReternRoulProper3Text
+  m_Name: FollowLvl3Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2556,7 +2556,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ReternRoulProper3Button
+  m_Text: FollowLvl3Button
 --- !u!222 &746808439
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3443,7 +3443,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894214795}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 504cc4cd1f9b7b04ea26738edbbbaaa1, type: 3}
   m_Name: 
@@ -3454,6 +3454,7 @@ MonoBehaviour:
   reternRoulProper3: {fileID: 1704624910}
   reternRoulProper4: {fileID: 124987222}
   reternRoulProper8: {fileID: 14070348}
+  idLvlScene: 7
 --- !u!114 &894214806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3502,7 +3503,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c3e913175c6c553419278669bb0ea8ba, type: 3}
   - {fileID: 21300000, guid: 7c6147f10fec9294593cf9e4306447e5, type: 3}
   - {fileID: 21300000, guid: ffd3a2518ba780f478532f4de38c12cf, type: 3}
-  idLvlScene: 3
+  idLvlScene: 7
+  followLvl3Button: {fileID: 0}
 --- !u!114 &894214807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3551,7 +3553,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c3e913175c6c553419278669bb0ea8ba, type: 3}
   - {fileID: 21300000, guid: 7c6147f10fec9294593cf9e4306447e5, type: 3}
   - {fileID: 21300000, guid: ffd3a2518ba780f478532f4de38c12cf, type: 3}
-  idLvlScene: 3
+  idLvlScene: 7
+  followLvl3Button: {fileID: 0}
   roulRune1Image: {fileID: 1755090965}
   roulModRune1Image: {fileID: 228517878}
 --- !u!114 &894214808
@@ -3602,7 +3605,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c3e913175c6c553419278669bb0ea8ba, type: 3}
   - {fileID: 21300000, guid: 7c6147f10fec9294593cf9e4306447e5, type: 3}
   - {fileID: 21300000, guid: ffd3a2518ba780f478532f4de38c12cf, type: 3}
-  idLvlScene: 3
+  idLvlScene: 0
+  followLvl3Button: {fileID: 0}
   roulRune1Image: {fileID: 1480947259}
   roulModRune1Image: {fileID: 107477252}
   roulRune2Image: {fileID: 1353002819}
@@ -4543,7 +4547,7 @@ GameObject:
   - component: {fileID: 1148273151}
   - component: {fileID: 1148273150}
   m_Layer: 5
-  m_Name: ReternRoulProper8Text
+  m_Name: FollowLvl8Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4614,7 +4618,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ReternRoulProper8Button
+  m_Text: FollowLvl8Button
 --- !u!222 &1148273152
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6783,7 +6787,7 @@ GameObject:
   - component: {fileID: 1704624911}
   - component: {fileID: 1704624910}
   m_Layer: 5
-  m_Name: ReternRoulProper3Button
+  m_Name: FollowLvl3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8031,7 +8035,7 @@ GameObject:
   - component: {fileID: 2070283374}
   - component: {fileID: 2070283373}
   m_Layer: 5
-  m_Name: ReternRoulProper4Text
+  m_Name: FollowLvl4Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8102,7 +8106,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ReternRoulProper4Button
+  m_Text: FollowLvl4Button
 --- !u!222 &2070283375
 CanvasRenderer:
   m_ObjectHideFlags: 0

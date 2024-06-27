@@ -47,6 +47,8 @@ namespace UI
         [Header("Указать ID загружаемой сцены")]
         [SerializeField] protected int idLvlScene = 0;
 
+        [Header("Кнопка ReternRoulProper3")]
+        [SerializeField] private CustomButton followLvl3Button;
         protected Sprite[] imagePropertiesSumm;
         protected GameObject tempGameObject;
         protected int nomer;
@@ -67,6 +69,8 @@ namespace UI
             inputs.Enable();
             inputs.OnMousePoint += MousePoint;
             inputs.OnStartPressMouse += MousePress;
+            //
+            followLvl3Button.onClick.AddListener(() => OpenLvl());
         }
         protected virtual void MousePoint(InputMouseData _data)
         {
@@ -126,52 +130,30 @@ namespace UI
         }
         protected virtual void StartRandom()
         {
-                        if (tempGameObject != null)
-            {
-                if (roulPersImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imagePropertiesPers.Length);
-                    roulPersImage.sprite = imagePropertiesPers[nomer];
-                    TextLabelImg($"{roulPersImage.gameObject.name} {imagePropertiesPers[nomer].name}");
-                }
+            nomer = RandomImg(imagePropertiesPers.Length);
+            roulPersImage.sprite = imagePropertiesPers[nomer];
 
-                if (roulModPersImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imageMods.Length);
-                    roulModPersImage.sprite = imageMods[nomer];
-                    TextLabelImg($"{roulModPersImage.gameObject.name} {imageMods[nomer].name}");
-                }
+            nomer = RandomImg(imageMods.Length);
+            roulModPersImage.sprite = imageMods[nomer];
 
-                if (roulEnemyImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imagePropertiesEnemy.Length);
-                    roulEnemyImage.sprite = imagePropertiesEnemy[nomer];
-                    TextLabelImg($"{roulEnemyImage.gameObject.name} {imagePropertiesEnemy[nomer].name}");
-                }
+            nomer = RandomImg(imagePropertiesEnemy.Length);
+            roulEnemyImage.sprite = imagePropertiesEnemy[nomer];
 
-                if (roulModEnemyImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imageMods.Length);
-                    roulModEnemyImage.sprite = imageMods[nomer];
-                    TextLabelImg($"{roulModEnemyImage.gameObject.name} {imageMods[nomer].name}");
-                }
+            nomer = RandomImg(imageMods.Length);
+            roulModEnemyImage.sprite = imageMods[nomer];
 
-                if (roulMirImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imagePropertiesMir.Length);
-                    roulMirImage.sprite = imagePropertiesMir[nomer];
-                    TextLabelImg($"{roulMirImage.gameObject.name} {imagePropertiesMir[nomer].name}");
-                }
+            nomer = RandomImg(imagePropertiesMir.Length);
+            roulMirImage.sprite = imagePropertiesMir[nomer];
 
-                if (roulModMirImage.gameObject == tempGameObject)
-                {
-                    nomer = RandomImg(imageMods.Length);
-                    roulModMirImage.sprite = imageMods[nomer];
-                    TextLabelImg($"{roulModMirImage.gameObject.name} {imageMods[nomer].name}");
-                }
-                //Переход в сцену
-                StartLvl();
-            }
+            nomer = RandomImg(imageMods.Length);
+            roulModMirImage.sprite = imageMods[nomer];
+
+            //Переход в сцену
+            //StartLvl();
+        }
+        private void OpenLvl()
+        {
+            scenes.OpenScenID(idLvlScene);
         }
         protected virtual void MousePress(InputMouseData _data)
         {
@@ -223,15 +205,15 @@ namespace UI
             // }
 
         }
-        private void StartLvl()
-        {
-            if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
-            roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
-            roulMirImage.sprite != null & roulModMirImage.sprite != null)
-            {
-                scenes.OpenScenID(idLvlScene);
-            }
-        }
+        // private void StartLvl()
+        // {
+        //     if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
+        //     roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
+        //     roulMirImage.sprite != null & roulModMirImage.sprite != null)
+        //     {
+        //         scenes.OpenScenID(idLvlScene);
+        //     }
+        // }
         void Start()
         {
             SetClass();
@@ -253,10 +235,10 @@ namespace UI
                 imagePropertiesSumm = Creat(imagePropertiesMir[i], imagePropertiesSumm);
             }
 
+            StartRandom();
 
             if (!isRun)
             {
-
                 isRun = true;
             }
         }

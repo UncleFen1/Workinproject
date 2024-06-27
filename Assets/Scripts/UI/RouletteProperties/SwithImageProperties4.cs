@@ -147,20 +147,20 @@ namespace UI
                     TextLabelImg($"{roulModRune1Image.gameObject.name} {imageMods[nomer].name}");
                 }
                 //Переход в сцену
-                StartLvl();
+                // StartLvl();
             }
 
         }
-        private void StartLvl()
-        {
-            if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
-            roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
-            roulMirImage.sprite != null & roulModMirImage.sprite != null &
-            roulRune1Image.sprite != null & roulModRune1Image.sprite != null)
-            {
-                scenes.OpenScenID(idLvlScene);
-            }
-        }
+        // private void StartLvl()
+        // {
+        //     if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
+        //     roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
+        //     roulMirImage.sprite != null & roulModMirImage.sprite != null &
+        //     roulRune1Image.sprite != null & roulModRune1Image.sprite != null)
+        //     {
+        //         scenes.OpenScenID(idLvlScene);
+        //     }
+        // }
     }
 }
 

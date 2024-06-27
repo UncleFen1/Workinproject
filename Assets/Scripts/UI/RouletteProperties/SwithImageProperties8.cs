@@ -286,24 +286,24 @@ namespace UI
                     TextLabelImg($"{roulModRune5Image.gameObject.name} {imageMods[nomer].name}");
                 }
                 //Переход в сцену
-                StartLvl();
+                // StartLvl();
             }
 
         }
-        private void StartLvl()
-        {
-            if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
-            roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
-            roulMirImage.sprite != null & roulModMirImage.sprite != null &
-            roulRune1Image.sprite != null & roulModRune1Image.sprite != null &
-            roulRune2Image.sprite != null & roulModRune2Image.sprite != null &
-            roulRune3Image.sprite != null & roulModRune3Image.sprite != null &
-            roulRune4Image.sprite != null & roulModRune4Image.sprite != null &
-            roulRune5Image.sprite != null & roulModRune5Image.sprite != null)
-            {
-                scenes.OpenScenID(idLvlScene);
-            }
-        }
+        // private void StartLvl()
+        // {
+        //     if (roulPersImage.sprite != null & roulModPersImage.sprite != null &
+        //     roulEnemyImage.sprite != null & roulModEnemyImage.sprite != null &
+        //     roulMirImage.sprite != null & roulModMirImage.sprite != null &
+        //     roulRune1Image.sprite != null & roulModRune1Image.sprite != null &
+        //     roulRune2Image.sprite != null & roulModRune2Image.sprite != null &
+        //     roulRune3Image.sprite != null & roulModRune3Image.sprite != null &
+        //     roulRune4Image.sprite != null & roulModRune4Image.sprite != null &
+        //     roulRune5Image.sprite != null & roulModRune5Image.sprite != null)
+        //     {
+        //         scenes.OpenScenID(idLvlScene);
+        //     }
+        // }
 
     }
 }

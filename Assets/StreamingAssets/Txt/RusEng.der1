@@ -304,11 +304,151 @@
             "NameObject": "VictoryOverPanelTitle",
             "NameScene": "OverScene",
             "PoleTxt": {
-                "instanceID": 62830
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "VictoryOverPanelTitle",
             "EngText": "VictoryOverPanelTitle"
+        },
+        {
+            "NameObject": "FollowLvlButtonText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "FollowLvlButtonText",
+            "EngText": "FollowLvlButtonText"
+        },
+        {
+            "NameObject": "LabelRoulElement3Button",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "LabelRoulElement3Button",
+            "EngText": "LabelRoulElement3Button"
+        },
+        {
+            "NameObject": "RoulProper8ButtonText",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RoulProper8ButtonText",
+            "EngText": "RoulProper8ButtonText"
+        },
+        {
+            "NameObject": "ReternRoulProper3Text",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReternRoulProper3Text",
+            "EngText": "ReternRoulProper3Text"
+        },
+        {
+            "NameObject": "RoulProper3ButtonText",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RoulProper3ButtonText",
+            "EngText": "RoulProper3ButtonText"
+        },
+        {
+            "NameObject": "RoulProper4ButtonText",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RoulProper4ButtonText",
+            "EngText": "RoulProper4ButtonText"
+        },
+        {
+            "NameObject": "RP3PanelTitle",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RP3PanelTitle",
+            "EngText": "RP3PanelTitle"
+        },
+        {
+            "NameObject": "ReternRoulProper4Text",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReternRoulProper4Text",
+            "EngText": "ReternRoulProper4Text"
+        },
+        {
+            "NameObject": "RP4PanelTitle",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RP4PanelTitle",
+            "EngText": "RP4PanelTitle"
+        },
+        {
+            "NameObject": "LabelRoulElement4Button",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "LabelRoulElement4Button",
+            "EngText": "LabelRoulElement4Button"
+        },
+        {
+            "NameObject": "RP8PanelTitle",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "RP8PanelTitle",
+            "EngText": "RP8PanelTitle"
+        },
+        {
+            "NameObject": "ReternRoulProper8Text",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "ReternRoulProper8Text",
+            "EngText": "ReternRoulProper8Text"
+        },
+        {
+            "NameObject": "LabelRoulElement8Button",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "LabelRoulElement8Button",
+            "EngText": "LabelRoulElement8Button"
+        },
+        {
+            "NameObject": "FollowLvl3Text",
+            "NameScene": "RouletteProperties6",
+            "PoleTxt": {
+                "instanceID": 54218
+            },
+            "ModeTxt": 0,
+            "RusText": "FollowLvl3Text",
+            "EngText": "FollowLvl3Text"
         }
     ]
 }

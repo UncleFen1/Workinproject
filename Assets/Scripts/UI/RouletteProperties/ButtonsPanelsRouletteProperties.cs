@@ -27,25 +27,30 @@ namespace UI
         [Header("Кнопка ReternRoulProper8")]
         [SerializeField] private CustomButton reternRoulProper8;
 
+        [Header("Указать ID загружаемой сцены")]
+        [SerializeField] protected int idLvlScene = 0;
+
         private bool isStopClass = false, isRun = false;
         //
         private IInputPlayerExecutor inputs;
         private IUIGameExecutor uiGame;
+        private ISceneExecutor scenes;
         [Inject]
-        public void Init(IUIGameExecutor _uiGame, IInputPlayerExecutor _inputs)
+        public void Init(IUIGameExecutor _uiGame, IInputPlayerExecutor _inputs, ISceneExecutor _scenes)
         {
             uiGame = _uiGame;
             inputs = _inputs;
+            scenes = _scenes;
         }
         private void OnEnable()
         {
-            roulProper3Button.onClick.AddListener(() => RoulProper3());
-            roulProper4Button.onClick.AddListener(() => RoulProper4());
-            roulProper8Button.onClick.AddListener(() => RoulProper8());
+            // roulProper3Button.onClick.AddListener(() => RoulProper3());
+            // roulProper4Button.onClick.AddListener(() => RoulProper4());
+            // roulProper8Button.onClick.AddListener(() => RoulProper8());
 
-            reternRoulProper3.onClick.AddListener(() => SetGndPanel());
-            reternRoulProper4.onClick.AddListener(() => SetGndPanel());
-            reternRoulProper8.onClick.AddListener(() => SetGndPanel());
+            reternRoulProper3.onClick.AddListener(() => OpenLvl());
+            reternRoulProper4.onClick.AddListener(() => OpenLvl());
+            reternRoulProper8.onClick.AddListener(() => OpenLvl());
             // inputs.Enable();
             // inputs.OnMousePoint += MousePoint;
             // inputs.OnStartPressMouse += MousePress;
@@ -78,9 +83,9 @@ namespace UI
                 isRun = true;
             }
         }
-        private void SetGndPanel()
+        private void OpenLvl()
         {
-            uiGame.SetGndPanel();
+            scenes.OpenScenID(idLvlScene);
         }
         private void RoulProper3()
         {
