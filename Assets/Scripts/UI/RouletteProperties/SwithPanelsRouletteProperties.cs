@@ -8,14 +8,8 @@ namespace UI
         [Header("Панель GND")]
         [SerializeField] private GameObject gndPanel;
 
-        [Header("Панель RoulProper3Panel")]
-        [SerializeField] private GameObject roulProper3Panel;
-
-        [Header("Панель RoulProper4Panel")]
-        [SerializeField] private GameObject roulProper4Panel;
-
-        [Header("Панель RoulProper8Panel")]
-        [SerializeField] private GameObject roulProper8Panel;
+        [Header("Панель RoulProperPanel")]
+        [SerializeField] private GameObject roulProperPanel;
 
         private bool isStopClass = false, isRun = false;
         //
@@ -27,9 +21,7 @@ namespace UI
         }
         private void OnEnable()
         {
-            uiGame.OnRoulProper3Panel += RoulProper3Panel;
-            uiGame.OnRoulProper4Panel += RoulProper4Panel;
-            uiGame.OnRoulProper8Panel += RoulProper8Panel;
+            uiGame.OnRoulProper3Panel += RoulProperPanel;
 
             uiGame.OnSetGndPanel += SetGndPanel;
         }
@@ -42,34 +34,19 @@ namespace UI
             if (!isRun)
             {
                 isRun = true;
-                roulProper3Panel.SetActive(false);
-                roulProper4Panel.SetActive(false);
-                roulProper8Panel.SetActive(false);
+                gndPanel.SetActive(false);
+                roulProperPanel.SetActive(true);
             }
         }
         private void SetGndPanel()
         {
-            roulProper3Panel.SetActive(false);
-            roulProper4Panel.SetActive(false);
-            roulProper8Panel.SetActive(false);
+            gndPanel.SetActive(true);
+            roulProperPanel.SetActive(false);
         }
-        private void RoulProper3Panel()
+        private void RoulProperPanel()
         {
-            roulProper3Panel.SetActive(true);
-            roulProper4Panel.SetActive(false);
-            roulProper8Panel.SetActive(false);
-        }
-        private void RoulProper4Panel()
-        {
-            roulProper3Panel.SetActive(false);
-            roulProper4Panel.SetActive(true);
-            roulProper8Panel.SetActive(false);
-        }
-        private void RoulProper8Panel()
-        {
-            roulProper3Panel.SetActive(false);
-            roulProper4Panel.SetActive(false);
-            roulProper8Panel.SetActive(true);
+            gndPanel.SetActive(false);
+            roulProperPanel.SetActive(true);
         }
         void Update()
         {

@@ -60,6 +60,14 @@ namespace Scene
         {
             return GetIDScene();
         }
+        public void SetCurrentFlagRoulette(bool _isFlag)
+        {
+            SetFlagRoulette(_isFlag);
+        }
+        public bool GetCurrentFlagRoulette()
+        {
+            return GetFlagRoulette();
+        }
         public void LoadScen()//меню не сделал
         {
             onLoadScen?.Invoke();
@@ -118,6 +126,7 @@ namespace Scene
                 SetLangScene(settingsScene.ModeText);
 
             }
+            Debug.Log($"{settingsScene.Width}x{settingsScene.Height}");
             Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
         }
         private void NewSettings()
@@ -223,6 +232,16 @@ namespace Scene
         #endregion
 
         #region EPROM
+        private void SetFlagRoulette(bool _isFlag)
+        {
+            if(_isFlag){PlayerPrefs.SetInt("EPROMFlagRoulette", 1);}
+            else{PlayerPrefs.SetInt("EPROMFlagRoulette", 0);}
+        }
+        private bool GetFlagRoulette()
+        {
+            if(PlayerPrefs.GetInt("EPROMFlagRoulette")==1){return true;}
+            return false;
+        }
         private void SetLangScene(ModeTxt _modeTxt)
         {
             PlayerPrefs.SetInt("EPROMLangScene", (int)_modeTxt);

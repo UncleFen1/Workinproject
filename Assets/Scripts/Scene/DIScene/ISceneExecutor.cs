@@ -33,12 +33,13 @@ namespace Scene
         Func<int> OnOpenOverScen { get; set; }
         Action<bool> OnPauseGame { get; set; }
         void OpenScenID(int scenID);
+        void SetCurrentFlagRoulette(bool _isFlag);
+        bool GetCurrentFlagRoulette();
         int GetOpenScenID();
         void LoadScen();
         void ReBootScen();
         void ExitGame();
         void OpenVictoryScen();
         void OpenOverScen();
-        void PauseGame(bool isRun);
-    }
+        void PauseGame(bool isRun);    }
 }

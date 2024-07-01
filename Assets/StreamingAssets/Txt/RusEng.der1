@@ -444,11 +444,31 @@
             "NameObject": "FollowLvl3Text",
             "NameScene": "RouletteProperties6",
             "PoleTxt": {
-                "instanceID": 54218
+                "instanceID": 0
             },
             "ModeTxt": 0,
             "RusText": "FollowLvl3Text",
             "EngText": "FollowLvl3Text"
+        },
+        {
+            "NameObject": "FollowLvl4Text",
+            "NameScene": "Roulette4Properties7",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "FollowLvl4Text",
+            "EngText": "FollowLvl4Text"
+        },
+        {
+            "NameObject": "FollowLvl8Text",
+            "NameScene": "Roulette8Properties8",
+            "PoleTxt": {
+                "instanceID": 52586
+            },
+            "ModeTxt": 0,
+            "RusText": "FollowLvl8Text",
+            "EngText": "FollowLvl8Text"
         }
     ]
 }

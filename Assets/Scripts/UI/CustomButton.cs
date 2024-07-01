@@ -27,14 +27,14 @@ namespace UI
         }
         public override void OnPointerDown(PointerEventData eventData)
         {
-            base.OnPointerDown(eventData);
             AnimScale(1);
+            base.OnPointerDown(eventData);
             onDown?.Invoke();
         }
         public override void OnPointerUp(PointerEventData eventData)
         {
+            AnimScale(1);
             base.OnPointerUp(eventData);
-            AnimScale(sizeOnButton);
             onUp?.Invoke();
         }
         //

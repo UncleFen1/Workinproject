@@ -336,6 +336,9 @@ MonoBehaviour:
   idLoadScen: 1
   idVictoryScen: 4
   idOverScen: 5
+  idRulette3Properties: 6
+  idRulette4Properties: 7
+  idRulette8Properties: 8
 --- !u!114 &172313330
 MonoBehaviour:
   m_ObjectHideFlags: 0

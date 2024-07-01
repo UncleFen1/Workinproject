@@ -1,7 +1,6 @@
 using System;
 using Scene;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
@@ -24,7 +23,7 @@ namespace UI
         [Header("Время паузы удержания кнопки")]
         [SerializeField][Range(1, 50)] private int clockButton = 1;
 
-        private float countClockButton, timeClick, countClockSec, timeSec;
+        private float countClockButton, countClockSec, timeSec;
         private float fillAmountTik = 0;
         private bool isPress;
         private bool isStopClass = false, isRun = false;

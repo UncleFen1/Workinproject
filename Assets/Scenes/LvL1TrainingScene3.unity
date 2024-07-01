@@ -572,6 +572,9 @@ MonoBehaviour:
   idLoadScen: 1
   idVictoryScen: 4
   idOverScen: 5
+  idRulette3Properties: 6
+  idRulette4Properties: 7
+  idRulette8Properties: 8
 --- !u!4 &109836315
 Transform:
   m_ObjectHideFlags: 0
@@ -681,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followLvlButton: {fileID: 120228604}
-  followSceneId: 6
+  followSceneId: 9
   victoryButton: {fileID: 541428436}
   overButton: {fileID: 152311663}
 --- !u!1 &117738421

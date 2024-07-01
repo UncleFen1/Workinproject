@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Inputs;
 using Scene;
 using UnityEngine;
@@ -44,11 +43,11 @@ namespace UI
         [Header("ImageMods")]
         [SerializeField] protected Sprite[] imageMods;
 
-        [Header("Указать ID загружаемой сцены")]
-        [SerializeField] protected int idLvlScene = 0;
+        // [Header("Указать ID загружаемой сцены")]
+        // [SerializeField] protected int idLvlScene = 0;
 
-        [Header("Кнопка ReternRoulProper3")]
-        [SerializeField] private CustomButton followLvl3Button;
+        [Header("Кнопка FollowLvlButton")]
+        [SerializeField] private CustomButton followLvlButton;
         protected Sprite[] imagePropertiesSumm;
         protected GameObject tempGameObject;
         protected int nomer;
@@ -70,7 +69,7 @@ namespace UI
             inputs.OnMousePoint += MousePoint;
             inputs.OnStartPressMouse += MousePress;
             //
-            followLvl3Button.onClick.AddListener(() => OpenLvl());
+            followLvlButton.onClick.AddListener(() => OpenLvl());
         }
         protected virtual void MousePoint(InputMouseData _data)
         {
@@ -153,7 +152,8 @@ namespace UI
         }
         private void OpenLvl()
         {
-            scenes.OpenScenID(idLvlScene);
+            scenes.SetCurrentFlagRoulette(true);
+            scenes.OpenScenID(scenes.GetOpenScenID());
         }
         protected virtual void MousePress(InputMouseData _data)
         {

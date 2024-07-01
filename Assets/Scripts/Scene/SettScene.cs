@@ -43,6 +43,7 @@ namespace Scene
                 SettingsAudio();
                 scenes.GetSettingsScreenScene();
                 scenes.GetModeTxtScene();
+                scenes.SetCurrentFlagRoulette(false);
             }
         }
         void Update()

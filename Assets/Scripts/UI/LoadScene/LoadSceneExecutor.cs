@@ -45,7 +45,18 @@ namespace UI
                 {
                     OpenScene(1);
                 }
-                else { OpenScene(scenes.GetOpenScenID()); }
+                else
+                {
+                    if ((idScen == 9 || idScen == 10) && !scenes.GetCurrentFlagRoulette())
+                    {
+                        OpenScene(6);
+                    }
+                    else
+                    {
+                        OpenScene(scenes.GetOpenScenID());
+                    }
+
+                }
 
                 tempTxt = loadTxt.text;
                 if (tempTxt == "") { isRun = false; }

@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followLvlButton: {fileID: 120228604}
-  followSceneId: 10
+  followSceneId: 9
   victoryButton: {fileID: 541428436}
   overButton: {fileID: 152311663}
 --- !u!1 &117738421
@@ -6631,7 +6631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Lvl2
+  m_Text: Lvl3
 --- !u!222 &1704142410
 CanvasRenderer:
   m_ObjectHideFlags: 0
