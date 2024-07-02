@@ -37,8 +37,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "SettingsButtonText",
-            "EngText": "SettingsButtonText"
+            "RusText": "НАСТРОЙКИ",
+            "EngText": "SETTINGS"
         },
         {
             "NameObject": "StartLevelButtonText",
@@ -47,8 +47,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "StartLevelButtonText",
-            "EngText": "StartLevelButtonText"
+            "RusText": "НОВАЯ ИГРА",
+            "EngText": "NEW GAME"
         },
         {
             "NameObject": "ExitButtonText",
@@ -57,8 +57,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ExitButtonText",
-            "EngText": "ExitButtonText"
+            "RusText": "ВЫХОД",
+            "EngText": "EXIT"
         },
         {
             "NameObject": "RezultButtonText",
@@ -67,8 +67,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "RezultButtonText",
-            "EngText": "RezultButtonText"
+            "RusText": "СТАТИСТИКА",
+            "EngText": "STATISTICS"
         },
         {
             "NameObject": "PanelGndTitle",
@@ -87,8 +87,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "InfoButtonText",
-            "EngText": "InfoButtonText"
+            "RusText": "АВТОРЫ",
+            "EngText": "AUTHORS"
         },
         {
             "NameObject": "LoadLevelButtonText",
@@ -97,8 +97,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "LoadLevelButtonText",
-            "EngText": "LoadLevelButtonText"
+            "RusText": "ЗАГРУЗИТЬ",
+            "EngText": "LOAD GAME"
         },
         {
             "NameObject": "ReternRezultButtonText",
@@ -107,8 +107,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ReternRezultButtonText",
-            "EngText": "ReternRezultButtonText"
+            "RusText": "НАЗАД",
+            "EngText": "RETURN"
         },
         {
             "NameObject": "RezultPanelTitle",
@@ -117,8 +117,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "RezultPanelTitle",
-            "EngText": "RezultPanelTitle"
+            "RusText": "СТАТИСТИКА",
+            "EngText": "STATISTICS"
         },
         {
             "NameObject": "ReternInfoButtonText",
@@ -127,8 +127,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ReternInfoButtonText",
-            "EngText": "ReternInfoButtonText"
+            "RusText": "НАЗАД",
+            "EngText": "RETURN"
         },
         {
             "NameObject": "InfoPanelTitle",
@@ -137,8 +137,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "InfoPanelTitle",
-            "EngText": "InfoPanelTitle"
+            "RusText": "АВТОРЫ",
+            "EngText": "AUTHORS"
         },
         {
             "NameObject": "SettingsPanelTitle",
@@ -147,8 +147,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "SettingsPanelTitle",
-            "EngText": "SettingsPanelTitle"
+            "RusText": "НАСТРОЙКИ",
+            "EngText": "SETTINGS"
         },
         {
             "NameObject": "Label",
@@ -157,8 +157,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "Label",
-            "EngText": "Label"
+            "RusText": "label",
+            "EngText": "label"
         },
         {
             "NameObject": "RusToggleLabel",
@@ -167,8 +167,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "RusToggleLabel",
-            "EngText": "RusToggleLabel"
+            "RusText": "РУС",
+            "EngText": "RUS"
         },
         {
             "NameObject": "ScreenDropdownTitle",
@@ -177,8 +177,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ScreenDropdownTitle",
-            "EngText": "ScreenDropdownTitle"
+            "RusText": "РАЗРЕШЕНИЕ ЭКРАНА",
+            "EngText": "SCREEN RESOLUTION"
         },
         {
             "NameObject": "EffectSliderTitle",
@@ -187,8 +187,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "EffectSliderTitle",
-            "EngText": "EffectSliderTitle"
+            "RusText": "ГРОМКОСТЬ ЗВУКОВ",
+            "EngText": "EFFECTS VOLUME"
         },
         {
             "NameObject": "ReternSettingsButtonText",
@@ -197,8 +197,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ReternSettingsButtonText",
-            "EngText": "ReternSettingsButtonText"
+            "RusText": "НАЗАД",
+            "EngText": "RETURN"
         },
         {
             "NameObject": "MuzSliderTitle",
@@ -207,8 +207,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "MuzSliderTitle",
-            "EngText": "MuzSliderTitle"
+            "RusText": "ГРОМКОСТЬ МУЗЫКИ",
+            "EngText": "MUSIC VOLUME"
         },
         {
             "NameObject": "ModeScreenDropdownTitle",
@@ -217,8 +217,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ModeScreenDropdownTitle",
-            "EngText": "ModeScreenDropdownTitle"
+            "RusText": "РЕЖИМ ЭКРАНА",
+            "EngText": "SCREEN MODE"
         },
         {
             "NameObject": "EngToggleLabel",
@@ -227,8 +227,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "EngToggleLabel",
-            "EngText": "EngToggleLabel"
+            "RusText": "АНГЛ",
+            "EngText": "ENG"
         },
         {
             "NameObject": "VictoryButtonText",
@@ -257,8 +257,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "MenuButtonText",
-            "EngText": "MenuButtonText"
+            "RusText": "ПАУЗА",
+            "EngText": "PAUSE"
         },
         {
             "NameObject": "ContinueLevelButtonText",
@@ -267,8 +267,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ContinueLevelButtonText",
-            "EngText": "ContinueLevelButtonText"
+            "RusText": "ПРОДОЛЖИТЬ",
+            "EngText": "CONTINUE"
         },
         {
             "NameObject": "ExitMainMenuButtonText",
@@ -277,8 +277,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ExitMainMenuButtonText",
-            "EngText": "ExitMainMenuButtonText"
+            "RusText": "В ГЛАВНОЕ МЕНЮ",
+            "EngText": "TO MAIN MENU"
         },
         {
             "NameObject": "ReBootLevelButtonText",
@@ -287,8 +287,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ReBootLevelButtonText",
-            "EngText": "ReBootLevelButtonText"
+            "RusText": "ЗАНОВО",
+            "EngText": "RETRY"
         },
         {
             "NameObject": "ButtonPanelTitle",
@@ -297,8 +297,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "ButtonPanelTitle",
-            "EngText": "ButtonPanelTitle"
+            "RusText": "ПАУЗА",
+            "EngText": "PAUSE"
         },
         {
             "NameObject": "VictoryOverPanelTitle",
