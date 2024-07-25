@@ -12,6 +12,19 @@ public class EnemyShooting : MonoBehaviour
 
     private float nextFireTime = 1f;   // Время до следующего выстрела
 
+    void Start()
+    {
+        // Поиск игрока в сцене по тегу
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Присваиваем ссылку на игрока
+        }
+        else
+        {
+            Debug.LogWarning("Игрок не найден. Убедитесь, что у него установлен тег 'Player'.");
+        }
+    }
     void Update()
     {
         // Проверяем расстояние до игрока

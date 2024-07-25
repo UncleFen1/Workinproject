@@ -13,6 +13,19 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 movementDirection;
     private float nextChangeTime;
 
+    void Start()
+    {
+        // Поиск игрока в сцене по тегу
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Присваиваем ссылку на игрока
+        }
+        else
+        {
+            Debug.LogWarning("Игрок не найден. Убедитесь, что у него установлен тег 'Player'.");
+        }
+    }
     void Update()
     {
         if (player != null)
