@@ -136,6 +136,14 @@ namespace Player
         {
 
         }
+
+        public float GetMovementSpeed() {
+            return moveSpeed;
+        }
+        
+        public void SetMovementSpeed(float speed) {
+            moveSpeed = speed;
+        }
     }
 }
 
