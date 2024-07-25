@@ -10,9 +10,9 @@ namespace Scene
         [SerializeField] private int idLoadScen = 1;//
         [SerializeField] private int idVictoryScen = 4;
         [SerializeField] private int idOverScen = 5;
-        [SerializeField] private int idRulette3Properties = 6;
-        [SerializeField] private int idRulette4Properties = 7;
-        [SerializeField] private int idRulette8Properties = 8;
+        // [SerializeField] private int idRulette3Properties = 6;
+        // [SerializeField] private int idRulette4Properties = 7;
+        // [SerializeField] private int idRulette8Properties = 8;
         private bool isStopClass = false, isRun = false;
         //
         private ISceneExecutor scenes;
