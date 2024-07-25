@@ -118,7 +118,9 @@ namespace Player
             //baseSpeed = moveSpeed;
             //
             moveDirection = rbThisObject.velocity;
-            deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            if (moveDirection.sqrMagnitude > 0) { 
+                deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            }
             directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, speedTurn);
             rbThisObject.MoveRotation(directionRotation);
         }
