@@ -122,6 +122,8 @@ MonoBehaviour:
   shootingPoint: {fileID: 283741440909914711}
   shootingRange: 10
   fireRate: 1
+  maxFlightTime1: 3
+  scatterAngle: 10
 --- !u!114 &5654003193071382816
 MonoBehaviour:
   m_ObjectHideFlags: 0
