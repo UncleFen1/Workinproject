@@ -23,6 +23,13 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void HealPlayer(int heal)
+    {
+        currentPlayerHealth += heal;
+        if (currentPlayerHealth >= 100) currentPlayerHealth = 100;
+        Debug.Log($"Player healed on: {heal}. Current health: {currentPlayerHealth}");
+    }
+
     void PlayerDie()
     {
         // Здесь можно добавить эффект смерти, анимацию или звук

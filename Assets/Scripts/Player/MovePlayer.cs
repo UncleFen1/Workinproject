@@ -137,10 +137,11 @@ namespace Player
 
         }
 
+        // TODO _j not sure if needed, but public methods added to demonstrate interaction with environment
         public float GetMovementSpeed() {
             return moveSpeed;
         }
-        
+
         public void SetMovementSpeed(float speed) {
             moveSpeed = speed;
         }
