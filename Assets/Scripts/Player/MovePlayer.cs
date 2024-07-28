@@ -118,7 +118,9 @@ namespace Player
             //baseSpeed = moveSpeed;
             //
             moveDirection = rbThisObject.velocity;
-            deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            if (moveDirection.sqrMagnitude > 0) { 
+                deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            }
             directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, speedTurn);
             rbThisObject.MoveRotation(directionRotation);
         }
@@ -133,6 +135,15 @@ namespace Player
         private void OnDisable()
         {
 
+        }
+
+        // TODO _j not sure if needed, but public methods added to demonstrate interaction with environment
+        public float GetMovementSpeed() {
+            return moveSpeed;
+        }
+
+        public void SetMovementSpeed(float speed) {
+            moveSpeed = speed;
         }
     }
 }

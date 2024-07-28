@@ -286,6 +286,7 @@ namespace Scene
         }
         private void GetAudioParametr()
         {
+            // TODO _j check all PlayerPrefs
             settingsScene.MuzValum = PlayerPrefs.GetFloat("EPROMMuzVol");
             settingsScene.EffectValum = PlayerPrefs.GetFloat("EPROMEfectVol");
         }
