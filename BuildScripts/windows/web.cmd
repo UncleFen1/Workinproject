@@ -1,1 +1,1 @@
-"C:\unity\editor\2022.3.13f1\Editor\Unity.exe" -quit -batchmode -nographics -buildTarget webgl -executeMethod BuildScript.BuildForWeb -projectPath ..\.. -username %UNITY_USERNAME% -password %UNITY_PASSWORD%
+"C:\unity\editor\2022.3.13f1\Editor\Unity.exe" -quit -batchmode -nographics -buildTarget webgl -executeMethod BuildScript.BuildForWeb -projectPath ..\..
