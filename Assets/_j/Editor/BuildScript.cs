@@ -90,7 +90,7 @@ public class BuildScript : MonoBehaviour
                 releasePath += $"{Path.DirectorySeparatorChar}{PlayerSettings.productName}.app";
                 break;
             default:
-                releasePath += $"{Path.DirectorySeparatorChar}";
+                releasePath += $"{Path.DirectorySeparatorChar}{PlayerSettings.productName}";
                 break;
         }
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
