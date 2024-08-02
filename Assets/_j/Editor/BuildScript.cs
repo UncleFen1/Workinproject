@@ -89,6 +89,9 @@ public class BuildScript : MonoBehaviour
             case BuildTarget.StandaloneOSX:
                 releasePath += $"{Path.DirectorySeparatorChar}{PlayerSettings.productName}.app";
                 break;
+            default:
+                releasePath += $"{Path.DirectorySeparatorChar}";
+                break;
         }
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
