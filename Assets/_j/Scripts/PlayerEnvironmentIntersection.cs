@@ -24,8 +24,6 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         { EnvironmentKind.Wall, false },
     };
 
-    // TODO _j Andrey, if heal/damage is single event, we need to setup zones to distinguish the whole amount of "walls" to parts, and memorize for parts that event has happend
-    // much simplier with periodic events
     public float eventInterval = 1f;
     private float lastEventTime = float.MinValue;
 

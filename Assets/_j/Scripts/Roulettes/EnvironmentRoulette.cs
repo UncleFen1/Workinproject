@@ -5,7 +5,6 @@ using EnvironmentUtils;
 // TODO _j no need to be MonoBehaviour, it's only a background logic
 public class EnvironmentRoulette : MonoBehaviour
 {
-    // TODO _j Andrey, please distinguish walls and columns (pillars)
     public class EnvironmentEntity
     {
         public string type;
