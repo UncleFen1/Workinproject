@@ -6,10 +6,10 @@ namespace EventBus
     // [RequireComponent(typeof(MeshRenderer))]
     public class EventReceiver : MonoBehaviour, IEventReceiver<RedEvent>, IEventReceiver<GreenEvent>, IEventReceiver<BlueEvent>
     {
-        private EventBus _eventBus;
+        private EventBus eventBus;
         [Inject]
-        private void InitBindings(EventBus eventBus) {
-            _eventBus = eventBus;
+        private void InitBindings(EventBus eb) {
+            eventBus = eb;
         }
 
         #region fields
@@ -24,13 +24,12 @@ namespace EventBus
         // private void OnEnable()
         private void Start()
         {
-            _eventBus.Register(this as IEventReceiver<RedEvent>);
-            _eventBus.Register(this as IEventReceiver<GreenEvent>);
-            _eventBus.Register(this as IEventReceiver<BlueEvent>);
+            eventBus.Register(this as IEventReceiver<RedEvent>);
+            eventBus.Register(this as IEventReceiver<GreenEvent>);
+            eventBus.Register(this as IEventReceiver<BlueEvent>);
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _initialSpriteColor = _spriteRenderer.color;
-            Debug.Log("_j _initialSpriteColor: " + _initialSpriteColor);
         }
 
         private void OnDestroy()
@@ -40,9 +39,9 @@ namespace EventBus
 
         private void OnDisable()
         {
-            _eventBus.Unregister(this as IEventReceiver<RedEvent>);
-            _eventBus.Unregister(this as IEventReceiver<GreenEvent>);
-            _eventBus.Unregister(this as IEventReceiver<BlueEvent>);
+            eventBus.Unregister(this as IEventReceiver<RedEvent>);
+            eventBus.Unregister(this as IEventReceiver<GreenEvent>);
+            eventBus.Unregister(this as IEventReceiver<BlueEvent>);
         }
 
         #endregion
