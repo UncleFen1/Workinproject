@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace EventBus
 {
     // [RequireComponent(typeof(MeshRenderer))]
     public class EventReceiver : MonoBehaviour, IEventReceiver<RedEvent>, IEventReceiver<GreenEvent>, IEventReceiver<BlueEvent>
     {
+        private EventBus _eventBus;
+        [Inject]
+        private void InitBindings(EventBus eventBus) {
+            _eventBus = eventBus;
+        }
+
         #region fields
 
-        [SerializeField] private EventBusHolder _eventBusHolder;
         private SpriteRenderer _spriteRenderer;
         private Color _initialSpriteColor;
 
@@ -15,13 +21,12 @@ namespace EventBus
 
         #region engine methods
 
-        // TODO _j _eventBusHolder isn't ready, DIme
         // private void OnEnable()
         private void Start()
         {
-            _eventBusHolder.EventBus.Register(this as IEventReceiver<RedEvent>);
-            _eventBusHolder.EventBus.Register(this as IEventReceiver<GreenEvent>);
-            _eventBusHolder.EventBus.Register(this as IEventReceiver<BlueEvent>);
+            _eventBus.Register(this as IEventReceiver<RedEvent>);
+            _eventBus.Register(this as IEventReceiver<GreenEvent>);
+            _eventBus.Register(this as IEventReceiver<BlueEvent>);
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _initialSpriteColor = _spriteRenderer.color;
@@ -35,9 +40,9 @@ namespace EventBus
 
         private void OnDisable()
         {
-            _eventBusHolder.EventBus.Unregister(this as IEventReceiver<RedEvent>);
-            _eventBusHolder.EventBus.Unregister(this as IEventReceiver<GreenEvent>);
-            _eventBusHolder.EventBus.Unregister(this as IEventReceiver<BlueEvent>);
+            _eventBus.Unregister(this as IEventReceiver<RedEvent>);
+            _eventBus.Unregister(this as IEventReceiver<GreenEvent>);
+            _eventBus.Unregister(this as IEventReceiver<BlueEvent>);
         }
 
         #endregion
