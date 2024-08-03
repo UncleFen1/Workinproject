@@ -1,0 +1,1 @@
+/Applications/Unity/Hub/Editor/2022.3.13f1/Unity.app/Contents/MacOS/Unity -quit -batchmode -nographics -buildTarget webgl -executeMethod BuildScript.BuildForWeb -projectPath ../..
