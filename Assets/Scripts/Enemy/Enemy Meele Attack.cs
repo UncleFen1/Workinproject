@@ -1,64 +1,92 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject.SpaceFighter;
-
+using EnemiesUtils;
 
 public class EnemyMeleeAttack : MonoBehaviour
 {
-    public float attackRange = 1f; // Дистанция атаки
-    public int attackDamage = 20; // Урон
-    public float attackRate = 2f; // Частота атак
-    private float nextAttackTime = 0f; // Время следующей доступной атаки
+    public float attackRange = 1f;
+    public int attackDamage = 20;
+    public float attackRate = 2f;
+    private float nextAttackTime = 0f;
 
-    public Transform player; // Ссылка на игрока
-    public PlayerHealth playerHealth; // Ссылка на компонент здоровья игрока
+    public Transform player;
+    public PlayerHealth playerHealth;
+
+    // TODO _j since it's instantiated from Spawner, there should be some other way to bind dependencies (check similar LinkEnemyRoulette() in other classes)
+    private EnemyRoulette enemyRoulette;
+    public void LinkEnemyRoulette(EnemyRoulette er) {
+        enemyRoulette = er;
+        ApplyRouletteModifiers();
+    }
+    void ApplyRouletteModifiers() {
+        var mod = enemyRoulette.enemyKindsMap[EnemyKind.MeleeDamage].modifier;
+        switch (mod) {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                attackDamage *= 2;
+                break;
+            case EnemyModifier.Decreased:
+                attackDamage /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+
+        mod = enemyRoulette.enemyKindsMap[EnemyKind.AttackRate].modifier;
+        switch (mod) {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                attackRate *= 2;
+                break;
+            case EnemyModifier.Decreased:
+                attackRate /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
 
     void Start()
     {
-        // Находим игрока в сцене (вы можете использовать другой способ получения ссылки)
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             player = playerObject.transform;
-            playerHealth = playerObject.GetComponent<PlayerHealth>(); // Получаем компонент PlayerHealth
+            playerHealth = playerObject.GetComponent<PlayerHealth>();
         }
     }
 
     void Update()
     {
-        // Проверяем, существует ли игрок и расстояние до него
         if (player != null && playerHealth != null)
         {
-            // Проверяем расстояние до игрока
             if (Vector2.Distance(transform.position, player.position) <= attackRange && Time.time >= nextAttackTime)
             {
-                nextAttackTime = Time.time + 1f / attackRate; // Устанавливаем следующее время атаки
+                nextAttackTime = Time.time + 1f / attackRate;
                 Attack();
             }
 
-            // Проверяем, уничтожен ли игрок
             if (playerHealth.currentPlayerHealth <= 0)
             {
-                player = null; // Удаляем ссылку на игрока
-                playerHealth = null; // Удаляем ссылку на компонент здоровья
+                player = null;
+                playerHealth = null;
             }
         }
     }
 
     void Attack()
     {
-        // Проверяем, если игрок находится в пределах диапазона
         if (player != null && Vector2.Distance(transform.position, player.position) <= attackRange)
         {
-            // Наносим урон игроку
-            playerHealth.TakePlayerDamage(attackDamage); // Предполагаем, что у игрока есть компонент PlayerHealth
+            playerHealth.TakePlayerDamage(attackDamage); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ PlayerHealth
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Отображение радиуса атаки в редакторе
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }

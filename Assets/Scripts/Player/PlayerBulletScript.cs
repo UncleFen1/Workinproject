@@ -1,26 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using EnemiesUtils;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage = 20;                            // Урон пули
+    public int damage = 20;
+
+    private EnemyRoulette enemyRoulette;
+    public void LinkEnemyRoulette(EnemyRoulette er)
+    {
+        enemyRoulette = er;
+        ApplyRouletteModifiers();
+    }
+    void ApplyRouletteModifiers()
+    {
+        var mod = enemyRoulette.enemyKindsMap[EnemyKind.RangeDamage].modifier;
+        switch (mod)
+        {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                damage *= 2;
+                break;
+            case EnemyModifier.Decreased:
+                damage /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
 
 
-  
-   
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Проверяем, попала ли пуля в объект с тегом "Enemy"
         if (other.CompareTag("enemy"))
         {
-            // Получаем ссылку на компонент здоровья противника и наносим урон
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>(); // Используйте ваш скрипт для здоровья врага
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage); // Метод для нанесения урона
+                enemyHealth.TakeDamage(damage);
             }
-            Destroy(gameObject); // Уничтожаем пулю
+            Destroy(gameObject);
         }
     }
 }

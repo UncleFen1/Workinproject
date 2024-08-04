@@ -1,69 +1,123 @@
-using System.Collections;
-using System.Collections.Generic;
+using EnemiesUtils;
 using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-    public Transform player;           // Ссылка на объект игрока
-    public GameObject bullet1;         // Префаб пули
-    public Transform shootingPoint;     // Точка, откуда будут вылетать пули
-    public float shootingRange = 10f;   // Дальность стрельбы
-    public float fireRate = 1f;         // Частота выстрелов (выстрелов в секунду)
-    public float maxFlightTime1;        // Время до уничтожения пули
-    public float scatterAngle = 5f;     // Угол разброса в градусах
-    private float nextFireTime = 1f;    // Время до следующего выстрела
+    public Transform player;
+    public GameObject bullet1;
+    public Transform shootingPoint;
+    public float shootingRange = 10f;
+    public float fireRate = 1f;
+    public float maxFlightTime1;
+    public float scatterAngle = 5f;
+    private float nextFireTime = 1f;
+
+    private EnemyRoulette enemyRoulette;
+    public void LinkEnemyRoulette(EnemyRoulette er)
+    {
+        enemyRoulette = er;
+        ApplyRouletteModifiers();
+    }
+    void ApplyRouletteModifiers()
+    {
+        var mod = enemyRoulette.enemyKindsMap[EnemyKind.AttackRange].modifier;
+        switch (mod)
+        {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                shootingRange *= 2;
+                break;
+            case EnemyModifier.Decreased:
+                shootingRange /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+
+        mod = enemyRoulette.enemyKindsMap[EnemyKind.AttackRate].modifier;
+        switch (mod)
+        {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                fireRate *= 2;
+                break;
+            case EnemyModifier.Decreased:
+                fireRate /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+
+        // TODO _j Andrey setup angles and accuracy
+        mod = enemyRoulette.enemyKindsMap[EnemyKind.AttackAccuracy].modifier;
+        switch (mod)
+        {
+            case EnemyModifier.Unchanged:
+                break;
+            case EnemyModifier.Increased:
+                Debug.LogWarning("Andrey setup accuracy modifier");
+                break;
+            case EnemyModifier.Decreased:
+                Debug.LogWarning("Andrey setup accuracy modifier");
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
 
     void Start()
     {
-        // Поиск игрока в сцене по тегу
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
-            player = playerObject.transform; // Присваиваем ссылку на игрока
+            player = playerObject.transform;
         }
         else
         {
-            Debug.LogWarning("Игрок не найден. Убедитесь, что у него установлен тег 'Player'.");
+            Debug.LogWarning("Can't find GO with Tag Player");
         }
     }
 
     void Update()
     {
-        // Проверяем расстояние до игрока
         if (player != null && Vector2.Distance(transform.position, player.position) <= shootingRange)
         {
-            // Проверка, пора ли стрелять по времени
             if (Time.time >= nextFireTime)
             {
                 Shoot();
-                nextFireTime = Time.time + 1f / fireRate; // Обновляем следующее время выстрела
+                nextFireTime = Time.time + 1f / fireRate;
             }
         }
     }
 
     void Shoot()
     {
-        // Создаем пулю
         GameObject bullet = Instantiate(bullet1, shootingPoint.position, shootingPoint.rotation);
+        var bulletInstance = bullet.GetComponent<Bullet>();
+        if (bulletInstance && bulletInstance.isActiveAndEnabled)
+        {
+            bulletInstance.LinkEnemyRoulette(enemyRoulette);
+        }
 
-        // Получаем направление к игроку
         Vector2 direction = (player.position - shootingPoint.position).normalized;
 
-        // Генерируем случайный угол разброса
         float randomAngle = Random.Range(-scatterAngle, scatterAngle);
         float angleInRadians = randomAngle * Mathf.Deg2Rad;
 
-        // Рассчитываем новое направление с учетом разброса
         Vector2 scatterDirection = new Vector2(
             direction.x * Mathf.Cos(angleInRadians) - direction.y * Mathf.Sin(angleInRadians),
             direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
         );
 
-        // Получаем компонент Rigidbody2D пули и добавляем силу для движения
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = scatterDirection * 10f; // Установите скорость пули по вашему усмотрению
+            rb.velocity = scatterDirection * 10f;
         }
         Destroy(bullet, maxFlightTime1);
     }
