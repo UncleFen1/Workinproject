@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnvironmentUtils;
 
-// TODO _j no need to be MonoBehaviour, it's only a background logic
-public class EnvironmentRoulette : MonoBehaviour
+public class EnvironmentRoulette
 {
     public class EnvironmentEntity
     {
@@ -15,23 +14,12 @@ public class EnvironmentRoulette : MonoBehaviour
     public Dictionary<EnvironmentKind, EnvironmentEntity> environmentKindsMap = new Dictionary<EnvironmentKind, EnvironmentEntity>();
 
 
-    void Start()
-    {
-        Init();
-    }
-
-    void Init()
+    public EnvironmentRoulette()
     {
         CreateEnvironmentEntities();
         AssignRandomModifiers();
 
         PrintEnvironmentEntities();
-
-        ApplyPropertiesOnGameobjects();
-    }
-
-    void ApplyPropertiesOnGameobjects() {
-        // TODO GOs input hardlinked
     }
 
     void CreateEnvironmentEntities()

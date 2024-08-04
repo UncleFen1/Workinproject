@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using EnvironmentUtils;
+using Zenject;
 
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     public MovePlayer movePlayerComponent;
     public PlayerHealth healthPlayerComponent;
 
-    public EnvironmentRoulette environmentRoulette;
+    private EnvironmentRoulette environmentRoulette;
 
     private Dictionary<EnvironmentKind, bool> isOnEnvironmentMap = new Dictionary<EnvironmentKind, bool>
     {
@@ -26,6 +27,11 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     public float eventInterval = 1f;
     private float lastEventTime = float.MinValue;
+
+    [Inject]
+    private void InitBindings(EnvironmentRoulette er) {
+        environmentRoulette = er;
+    }
 
     void Start()
     {
@@ -40,8 +46,6 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
-
-        if (!environmentRoulette) Debug.LogError("No environmentRoulette given");
     }
 
     EnvironmentKind SharedTriggerRoutine(Collider2D colider)
