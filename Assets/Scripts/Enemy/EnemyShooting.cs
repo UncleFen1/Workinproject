@@ -52,17 +52,16 @@ public class EnemyShooting : MonoBehaviour
                 break;
         }
 
-        // TODO _j Andrey setup angles and accuracy
         mod = enemyRoulette.enemyKindsMap[EnemyKind.AttackAccuracy].modifier;
         switch (mod)
         {
             case EnemyModifier.Unchanged:
                 break;
             case EnemyModifier.Increased:
-                Debug.LogWarning("Andrey setup accuracy modifier");
+                scatterAngle /= 2;
                 break;
             case EnemyModifier.Decreased:
-                Debug.LogWarning("Andrey setup accuracy modifier");
+                scatterAngle *= 2;
                 break;
             default:
                 Debug.LogWarning("_j unknown modifier");
