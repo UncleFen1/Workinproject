@@ -1,28 +1,27 @@
-using EnemiesUtils;
+using PlayerUtils;
 using UnityEngine;
 
-// TODO _j Andrey, see TODO in EnemyBullet.cs
-public class Bullet : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
     public int damage = 20;
 
-    private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er)
+    private PlayerRoulette playerRoulette;
+    public void LinkPlayerRoulette(PlayerRoulette er)
     {
-        enemyRoulette = er;
+        playerRoulette = er;
         ApplyRouletteModifiers();
     }
     void ApplyRouletteModifiers()
     {
-        var mod = enemyRoulette.enemyKindsMap[EnemyKind.RangeDamage].modifier;
+        var mod = playerRoulette.playerKindsMap[PlayerKind.RangeDamage].modifier;
         switch (mod)
         {
-            case EnemyModifier.Unchanged:
+            case PlayerModifier.Unchanged:
                 break;
-            case EnemyModifier.Increased:
+            case PlayerModifier.Increased:
                 damage *= 2;
                 break;
-            case EnemyModifier.Decreased:
+            case PlayerModifier.Decreased:
                 damage /= 2;
                 break;
             default:

@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using PlayerUtils;
 using UnityEngine;
+using Zenject;
 
 public class Shooting : MonoBehaviour
 {
@@ -9,35 +9,98 @@ public class Shooting : MonoBehaviour
     public float minLaunchSpeed = 5f;
     public float maxFlightTime = 3;
 
-    public float scatterAngle = 5f; // Угол разброса в градусах
+    public float scatterAngle = 5f;
 
-    public float fireRate = 1f; // Частота стрельбы в выстрелах в секунду
-    public float nextFireTime = 0f; // Время до следующего выстрела
+    public float fireRate = 1f;
+    public float nextFireTime = 0f;
+
+    private PlayerRoulette playerRoulette;
+    [Inject]
+    private void InitBindings(PlayerRoulette pr)
+    {
+        playerRoulette = pr;
+        ApplyRouletteModifiers();
+    }
+    void ApplyRouletteModifiers()
+    {
+        var mod = playerRoulette.playerKindsMap[PlayerKind.AttackRange].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                maxFlightTime *= 2;
+                break;
+            case PlayerModifier.Decreased:
+                maxFlightTime /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+
+        mod = playerRoulette.playerKindsMap[PlayerKind.AttackAccuracy].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                scatterAngle /= 2;
+                break;
+            case PlayerModifier.Decreased:
+                scatterAngle *= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+
+        mod = playerRoulette.playerKindsMap[PlayerKind.AttackRate].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                fireRate *= 2;
+                break;
+            case PlayerModifier.Decreased:
+                fireRate /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
 
     void Update()
     {
-        // Проверяем, можно ли стрелять в зависимости от времени
         if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            mousePosition.z = 0; // Обеспечиваем, что Z-координата равна 0 для 2D
+            mousePosition.z = 0;
 
-            GameObject Bullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            GameObject bulletGO = Instantiate(bullet, transform.position, Quaternion.identity);
+            var bulletInstance = bulletGO.GetComponent<PlayerBullet>();
+            if (bulletInstance && bulletInstance.isActiveAndEnabled)
+            {
+                bulletInstance.LinkPlayerRoulette(playerRoulette);
+            }
+            else
+            {
+                Debug.LogWarning("can't find PlayerBullet component");
+            }
 
             Vector2 direction = (mousePosition - transform.position).normalized;
 
-            // Генерируем случайный угол разброса
             float randomAngle = Random.Range(-scatterAngle, scatterAngle);
-            // Преобразуем угол в радианы
             float angleInRadians = randomAngle * Mathf.Deg2Rad;
-            // Рассчитываем новое направление с учетом разброса
             Vector2 scatterDirection = new Vector2(
                 direction.x * Mathf.Cos(angleInRadians) - direction.y * Mathf.Sin(angleInRadians),
                 direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
             );
 
-            Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = bulletGO.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 float speed = launchSpeed;
@@ -47,10 +110,9 @@ public class Shooting : MonoBehaviour
                 }
                 rb.velocity = scatterDirection * speed;
             }
-            Destroy(Bullet, maxFlightTime);
+            Destroy(bulletGO, maxFlightTime);
 
-            // Обновляем время следующего выстрела
-            nextFireTime = Time.time + 1f / fireRate; // Задержка между выстрелами
+            nextFireTime = Time.time + 1f / fireRate;
         }
     }
 }
