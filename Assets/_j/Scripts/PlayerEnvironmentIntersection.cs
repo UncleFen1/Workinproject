@@ -6,11 +6,13 @@ using Roulettes;
 using GameGrid;
 using GamePlayer;
 
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
-    private Collider2D floorTileMapColider;
-    private Collider2D pathTileMapColider;
-    private Collider2D wallTileMapColider;
+    private Collider2D floorTileMapCollider;
+    private Collider2D pathTileMapCollider;
+    private Collider2D wallTileMapCollider;
 
     private MovePlayer movePlayerComponent;
     private PlayerHealth healthPlayerComponent;
@@ -32,13 +34,15 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
         environmentRoulette = er;
 
-        floorTileMapColider = gc.floor;
-        pathTileMapColider = gc.path;
-        wallTileMapColider = gc.wall;
+        floorTileMapCollider = gc.floor;
+        pathTileMapCollider = gc.path;
+        wallTileMapCollider = gc.wall;
 
         // player dependencies could be taken from this.gameObject.GetComponent since it's important to be on Player GO and to have OnTrigger events
-        movePlayerComponent = pc.movePlayer;
-        healthPlayerComponent = pc.playerHealth;
+        // movePlayerComponent = pc.movePlayer;
+        // healthPlayerComponent = pc.playerHealth;
+        movePlayerComponent = this.gameObject.GetComponent<MovePlayer>();
+        healthPlayerComponent = this.gameObject.GetComponent<PlayerHealth>();
     }
 
     void Start()
@@ -48,64 +52,63 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        /*var grid = GameObject.FindObjectOfType<Grid>();
-        var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
-        
-        // TODO _j Andrey (inform) link by names so far... floor path walls... or have to add some scripts there
-        for (int i = 0; i < colliders.Length; i++) {
-            var collider = colliders[i];
-            var colliderNameInvariant = collider.name.ToLowerInvariant();
-            if (colliderNameInvariant.Contains("floor")) {
-                floorTileMapColider = collider;
-            } else if (colliderNameInvariant.Contains("path")) {
-                pathTileMapColider = collider;
-            } else if (colliderNameInvariant.Contains("wall")) {
-                wallTileMapColider = collider;
-            } else {
-                Debug.LogWarning("unassigned collider: " + collider.name);
-            }
-        }*/
+        // Alternative linking
+        // var grid = GameObject.FindObjectOfType<Grid>();
+        // var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
+        // for (int i = 0; i < colliders.Length; i++) {
+        //     var collider = colliders[i];
+        //     var colliderNameInvariant = collider.name.ToLowerInvariant();
+        //     if (colliderNameInvariant.Contains("floor")) {
+        //         floorTileMapCollider = collider;
+        //     } else if (colliderNameInvariant.Contains("path")) {
+        //         pathTileMapCollider = collider;
+        //     } else if (colliderNameInvariant.Contains("wall")) {
+        //         wallTileMapCollider = collider;
+        //     } else {
+        //         Debug.LogWarning("unassigned collider: " + collider.name);
+        //     }
+        // }
 
-        if (!floorTileMapColider) Debug.LogError("No floorTileMapColider given");
-        if (!pathTileMapColider) Debug.LogError("No pathTileMapColider given");
-        if (!wallTileMapColider) Debug.LogError("No wallTileMapColider given");
+        if (!floorTileMapCollider) Debug.LogError("No floorTileMapCollider given");
+        if (!pathTileMapCollider) Debug.LogError("No pathTileMapCollider given");
+        if (!wallTileMapCollider) Debug.LogError("No wallTileMapCollider given");
 
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
     }
 
-    EnvironmentKind SharedTriggerRoutine(Collider2D colider)
+    EnvironmentKind SharedTriggerRoutine(Collider2D collider)
     {
-        if (colider.GetInstanceID() == floorTileMapColider.GetInstanceID())
+        if (collider.GetInstanceID() == floorTileMapCollider.GetInstanceID())
         {
             return EnvironmentKind.Floor;
         }
-        if (colider.GetInstanceID() == pathTileMapColider.GetInstanceID())
+        if (collider.GetInstanceID() == pathTileMapCollider.GetInstanceID())
         {
             return EnvironmentKind.Path;
         }
-        if (colider.GetInstanceID() == wallTileMapColider.GetInstanceID())
+        if (collider.GetInstanceID() == wallTileMapCollider.GetInstanceID())
         {
             return EnvironmentKind.Wall;
         }
         return EnvironmentKind.Unknown;
     }
 
-    void OnTriggerEnter2D(Collider2D colider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Floor)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor");
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 1.5f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Path)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path");
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 2f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Wall)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall");
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
@@ -113,23 +116,23 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D colider) {
+    void OnTriggerStay2D(Collider2D collider) {
         // for some reason Stay event stopped propogate if doesn't move
     }
 
-    void OnTriggerExit2D(Collider2D colider)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Floor)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 1.5f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Path)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 2f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Wall)
+        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
@@ -151,7 +154,6 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
                     if (envKind.modifier == EnvironmentModifier.Damage)
                     {
                         healthPlayerComponent.TakePlayerDamage(10);
-                        // TODO _j make public UnityAction to assign with Editor?
                     }
                     if (envKind.modifier == EnvironmentModifier.Heal)
                     {
