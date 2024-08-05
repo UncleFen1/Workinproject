@@ -28,16 +28,26 @@ namespace Roulettes
             foreach (EnvironmentKind kind in EnvironmentKind.GetValues(typeof(EnvironmentKind)))
             {
                 if (kind == EnvironmentKind.Unknown) continue;
-                
+
                 environmentKindsMap.Add(kind, new EnvironmentEntity { type = "environment", kind = kind, modifier = EnvironmentModifier.Unchanged });
             }
         }
 
         void AssignRandomModifiers()
         {
-            foreach(var environmentEntity in environmentKindsMap)
+            bool useRandom = true;
+            if (useRandom)
             {
-                environmentEntity.Value.modifier = (EnvironmentModifier) Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                foreach (var environmentEntity in environmentKindsMap)
+                {
+                    environmentEntity.Value.modifier = (EnvironmentModifier)Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("ENVIRONMENT ROULETTE IS USING PRESET VALUES");
+                // environmentPreset1
+                environmentKindsMap[EnvironmentKind.Path].modifier = EnvironmentModifier.Damage;
             }
         }
 
