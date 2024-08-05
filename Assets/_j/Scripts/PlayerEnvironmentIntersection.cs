@@ -3,18 +3,17 @@ using Player;
 using UnityEngine;
 using Zenject;
 using Roulettes;
-using UnityEngine.Tilemaps;
+using GameGrid;
+using GamePlayer;
 
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
-    // TODO _j optimize, collect colliders check OnTrigger only for them
-    // TODO _j link with DI
     private Collider2D floorTileMapColider;
     private Collider2D pathTileMapColider;
     private Collider2D wallTileMapColider;
 
-    public MovePlayer movePlayerComponent;
-    public PlayerHealth healthPlayerComponent;
+    private MovePlayer movePlayerComponent;
+    private PlayerHealth healthPlayerComponent;
 
     private EnvironmentRoulette environmentRoulette;
 
@@ -30,8 +29,16 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     private float lastEventTime = float.MinValue;
 
     [Inject]
-    private void InitBindings(EnvironmentRoulette er) {
+    private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
         environmentRoulette = er;
+
+        floorTileMapColider = gc.floor;
+        pathTileMapColider = gc.path;
+        wallTileMapColider = gc.wall;
+
+        // player dependencies could be taken from this.gameObject.GetComponent since it's important to be on Player GO and to have OnTrigger events
+        movePlayerComponent = pc.movePlayer;
+        healthPlayerComponent = pc.playerHealth;
     }
 
     void Start()
@@ -41,7 +48,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        var grid = GameObject.FindObjectOfType<Grid>();
+        /*var grid = GameObject.FindObjectOfType<Grid>();
         var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
         
         // TODO _j Andrey (inform) link by names so far... floor path walls... or have to add some scripts there
@@ -57,7 +64,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             } else {
                 Debug.LogWarning("unassigned collider: " + collider.name);
             }
-        }
+        }*/
 
         if (!floorTileMapColider) Debug.LogError("No floorTileMapColider given");
         if (!pathTileMapColider) Debug.LogError("No pathTileMapColider given");
@@ -108,7 +115,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D colider) {
         // for some reason Stay event stopped propogate if doesn't move
-     }
+    }
 
     void OnTriggerExit2D(Collider2D colider)
     {
