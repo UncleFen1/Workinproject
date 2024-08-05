@@ -1,4 +1,5 @@
 using Inputs;
+using Roulettes;
 using Scene;
 using UnityEngine;
 using Zenject;
@@ -26,6 +27,32 @@ namespace Player
             scenes = _scenes;
             inputs = _inputs;
         }
+
+        private PlayerRoulette playerRoulette;
+        [Inject]
+        private void InitBindings(PlayerRoulette pr) {
+            playerRoulette = pr;
+            ApplyRouletteModifiers();
+        }
+        void ApplyRouletteModifiers()
+        {
+            var mod = playerRoulette.playerKindsMap[PlayerKind.MovementSpeed].modifier;
+            switch (mod)
+            {
+                case PlayerModifier.Unchanged:
+                    break;
+                case PlayerModifier.Increased:
+                    moveSpeed *= 2;
+                    break;
+                case PlayerModifier.Decreased:
+                    moveSpeed /= 2;
+                    break;
+                default:
+                    Debug.LogWarning("_j unknown modifier");
+                    break;
+            }
+        }
+
         private void OnEnable()
         {
             scenes.OnPauseGame += PauseGame;

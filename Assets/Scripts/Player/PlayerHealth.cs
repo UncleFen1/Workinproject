@@ -1,25 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
+using Roulettes;
 using UnityEngine;
+using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxPlayerHealth = 100; // Максимальное здоровье
-    public int currentPlayerHealth;   // Текущие очки здоровья
+    public int maxPlayerHealth = 100;
+    public int currentPlayerHealth;
+
+    private PlayerRoulette playerRoulette;
+    [Inject]
+    private void InitBindings(PlayerRoulette pr)
+    {
+        playerRoulette = pr;
+        ApplyRouletteModifiers();
+    }
+    void ApplyRouletteModifiers()
+    {
+        var mod = playerRoulette.playerKindsMap[PlayerKind.Health].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                maxPlayerHealth *= 2;
+                break;
+            case PlayerModifier.Decreased:
+                maxPlayerHealth /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
 
     void Start()
     {
-        currentPlayerHealth = maxPlayerHealth; // Устанавливаем текущее здоровье на максимальное значение в начале
+        currentPlayerHealth = maxPlayerHealth;
     }
 
     public void TakePlayerDamage(int damage)
     {
-        currentPlayerHealth -= damage; // Уменьшаем текущее здоровье на величину урона
+        currentPlayerHealth -= damage;
         Debug.Log("Player took damage: " + damage + " Current health: " + currentPlayerHealth);
 
         if (currentPlayerHealth <= 0)
         {
-            PlayerDie(); // Если здоровье 0 или меньше, вызываем метод смерти
+            PlayerDie();
         }
     }
 
@@ -32,8 +58,7 @@ public class PlayerHealth : MonoBehaviour
 
     void PlayerDie()
     {
-        // Здесь можно добавить эффект смерти, анимацию или звук
         Debug.Log("Player died!");
-        Destroy(gameObject); // Уничтожаем объект врага
+        Destroy(gameObject);
     }
 }

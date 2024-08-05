@@ -1,4 +1,4 @@
-using EnemiesUtils;
+using Roulettes;
 using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
@@ -96,11 +96,15 @@ public class EnemyShooting : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bullet1, shootingPoint.position, shootingPoint.rotation);
-        var bulletInstance = bullet.GetComponent<Bullet>();
+        GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, shootingPoint.rotation);
+        var bulletInstance = bulletGO.GetComponent<EnemyBullet>();
         if (bulletInstance && bulletInstance.isActiveAndEnabled)
         {
             bulletInstance.LinkEnemyRoulette(enemyRoulette);
+        }
+        else
+        {
+            Debug.LogWarning("can't find EnemyBullet component");
         }
 
         Vector2 direction = (player.position - shootingPoint.position).normalized;
@@ -113,11 +117,11 @@ public class EnemyShooting : MonoBehaviour
             direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
         );
 
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = bulletGO.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.velocity = scatterDirection * 10f;
         }
-        Destroy(bullet, maxFlightTime1);
+        Destroy(bulletGO, maxFlightTime1);
     }
 }

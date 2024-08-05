@@ -1,5 +1,5 @@
+using Roulettes;
 using UnityEngine;
-using EnemiesUtils;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -44,10 +44,16 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void HealEnemy(int value)
+    {
+        currentHealth += value;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        Debug.Log("Enemy healed: " + value + " Current health: " + currentHealth);
+    }
+
     void Die()
     {
-        // ����� ����� �������� ������ ������, �������� ��� ����
         Debug.Log("Enemy died!");
-        Destroy(gameObject); // ���������� ������ �����
+        Destroy(gameObject);
     }
 }

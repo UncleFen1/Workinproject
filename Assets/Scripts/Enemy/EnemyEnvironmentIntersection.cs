@@ -1,21 +1,18 @@
 using System.Collections.Generic;
-using Player;
-using UnityEngine;
-using Zenject;
-using Roulettes;
 using GameGrid;
-using GamePlayer;
+using Roulettes;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerEnvironmentIntersection : MonoBehaviour
+public class EnemyEnvironmentIntersection : MonoBehaviour
 {
     private Collider2D floorTileMapCollider;
     private Collider2D pathTileMapCollider;
     private Collider2D wallTileMapCollider;
 
-    private MovePlayer movePlayerComponent;
-    private PlayerHealth healthPlayerComponent;
+    private EnemyMovement enemyMovement;
+    private EnemyHealth enemyHealth;
 
     private EnvironmentRoulette environmentRoulette;
 
@@ -30,8 +27,9 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     public float eventInterval = 1f;
     private float lastEventTime = float.MinValue;
 
-    [Inject]
-    private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
+    // [Inject]
+    public void LinkEnemyEnvironmentIntersection(EnvironmentRoulette er, GridController gc)
+    {
         environmentRoulette = er;
 
         floorTileMapCollider = gc.floor;
@@ -39,10 +37,8 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         wallTileMapCollider = gc.wall;
 
         // player dependencies could be taken from this.gameObject.GetComponent since it's important to be on Player GO and to have OnTrigger events
-        // movePlayerComponent = pc.movePlayer;
-        // healthPlayerComponent = pc.playerHealth;
-        movePlayerComponent = this.gameObject.GetComponent<MovePlayer>();
-        healthPlayerComponent = this.gameObject.GetComponent<PlayerHealth>();
+        enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
+        enemyHealth = this.gameObject.GetComponent<EnemyHealth>();
     }
 
     void Start()
@@ -52,33 +48,17 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        // Alternative linking
-        // var grid = GameObject.FindObjectOfType<Grid>();
-        // var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
-        // for (int i = 0; i < colliders.Length; i++) {
-        //     var collider = colliders[i];
-        //     var colliderNameInvariant = collider.name.ToLowerInvariant();
-        //     if (colliderNameInvariant.Contains("floor")) {
-        //         floorTileMapCollider = collider;
-        //     } else if (colliderNameInvariant.Contains("path")) {
-        //         pathTileMapCollider = collider;
-        //     } else if (colliderNameInvariant.Contains("wall")) {
-        //         wallTileMapCollider = collider;
-        //     } else {
-        //         Debug.LogWarning("unassigned collider: " + collider.name);
-        //     }
-        // }
-
         if (!floorTileMapCollider) Debug.LogError("No floorTileMapCollider given");
         if (!pathTileMapCollider) Debug.LogError("No pathTileMapCollider given");
         if (!wallTileMapCollider) Debug.LogError("No wallTileMapCollider given");
 
-        if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
-        if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
+        if (!enemyMovement) Debug.LogError("No movePlayerComponent given");
+        if (!enemyHealth) Debug.LogError("No healthPlayerComponent given");
     }
 
     EnvironmentKind SharedTriggerRoutine(Collider2D collider)
     {
+        // TODO _j could be a Dictionary to iterate on
         if (collider.GetInstanceID() == floorTileMapCollider.GetInstanceID())
         {
             return EnvironmentKind.Floor;
@@ -98,26 +78,19 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     {
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor");
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 1.5f);
+            enemyMovement.speed *= 1.5f;
         }
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path");
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 2f);
+            enemyMovement.speed *= 2f;
         }
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall");
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
+            enemyMovement.speed *= 0.1f;
         }
-    }
-
-    void OnTriggerStay2D(Collider2D collider) {
-        // for some reason Stay event stopped propogate if doesn't move
     }
 
     void OnTriggerExit2D(Collider2D collider)
@@ -125,17 +98,17 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 1.5f);
+            enemyMovement.speed /= 1.5f;
         }
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 2f);
+            enemyMovement.speed /= 2f;
         }
         if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
+            enemyMovement.speed /= 0.1f;
         }
     }
 
@@ -153,11 +126,11 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
                     var envKind = environmentRoulette.environmentKindsMap[environmentKind];
                     if (envKind.modifier == EnvironmentModifier.Damage)
                     {
-                        healthPlayerComponent.TakePlayerDamage(10);
+                        enemyHealth.TakeDamage(10);
                     }
                     if (envKind.modifier == EnvironmentModifier.Heal)
                     {
-                        healthPlayerComponent.HealPlayer(10);
+                        enemyHealth.HealEnemy(10);
                     }
                 }
             }
