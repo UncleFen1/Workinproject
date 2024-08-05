@@ -1,4 +1,4 @@
-namespace EnemiesUtils
+namespace Roulettes
 {
     public enum EnemyKind
     {

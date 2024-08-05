@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
-using EnvironmentUtils;
 using Zenject;
+using Roulettes;
 
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {

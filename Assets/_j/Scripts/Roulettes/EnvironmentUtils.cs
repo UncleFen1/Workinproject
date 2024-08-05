@@ -1,4 +1,4 @@
-namespace EnvironmentUtils
+namespace Roulettes
 {
     public enum EnvironmentKind
     {

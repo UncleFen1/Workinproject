@@ -1,5 +1,4 @@
-// TODO _j move to namespace Roulettes
-namespace PlayerUtils
+namespace Roulettes
 {
     // TODO _j Andrey not implemented MeleeDamage, ExperienceGain, CameraZoom
     public enum PlayerKind
