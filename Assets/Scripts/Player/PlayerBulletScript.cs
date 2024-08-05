@@ -1,6 +1,7 @@
 using EnemiesUtils;
 using UnityEngine;
 
+// TODO _j Andrey, see TODO in EnemyBullet.cs
 public class Bullet : MonoBehaviour
 {
     public int damage = 20;
