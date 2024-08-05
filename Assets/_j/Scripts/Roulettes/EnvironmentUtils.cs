@@ -4,7 +4,7 @@ namespace Roulettes
     {
         Unknown,
         Floor,
-        Road,
+        Path,
         Wall,
     }
 

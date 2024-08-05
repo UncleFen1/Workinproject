@@ -3,14 +3,15 @@ using Player;
 using UnityEngine;
 using Zenject;
 using Roulettes;
+using UnityEngine.Tilemaps;
 
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
     // TODO _j optimize, collect colliders check OnTrigger only for them
     // TODO _j link with DI
-    public Collider2D floorTileMapColider;
-    public Collider2D wallTileMapColider;
-    public Collider2D roadTileMapColider;
+    private Collider2D floorTileMapColider;
+    private Collider2D pathTileMapColider;
+    private Collider2D wallTileMapColider;
 
     public MovePlayer movePlayerComponent;
     public PlayerHealth healthPlayerComponent;
@@ -21,7 +22,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     {
         { EnvironmentKind.Unknown, false },
         { EnvironmentKind.Floor, false },
-        { EnvironmentKind.Road, false },
+        { EnvironmentKind.Path, false },
         { EnvironmentKind.Wall, false },
     };
 
@@ -40,9 +41,27 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
+        var grid = GameObject.FindObjectOfType<Grid>();
+        var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
+        
+        // TODO _j Andrey (inform) link by names so far... floor path walls... or have to add some scripts there
+        for (int i = 0; i < colliders.Length; i++) {
+            var collider = colliders[i];
+            var colliderNameInvariant = collider.name.ToLowerInvariant();
+            if (colliderNameInvariant.Contains("floor")) {
+                floorTileMapColider = collider;
+            } else if (colliderNameInvariant.Contains("path")) {
+                pathTileMapColider = collider;
+            } else if (colliderNameInvariant.Contains("wall")) {
+                wallTileMapColider = collider;
+            } else {
+                Debug.LogWarning("unassigned collider: " + collider.name);
+            }
+        }
+
         if (!floorTileMapColider) Debug.LogError("No floorTileMapColider given");
+        if (!pathTileMapColider) Debug.LogError("No pathTileMapColider given");
         if (!wallTileMapColider) Debug.LogError("No wallTileMapColider given");
-        if (!roadTileMapColider) Debug.LogError("No roadTileMapColider given");
 
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
@@ -54,9 +73,9 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         {
             return EnvironmentKind.Floor;
         }
-        if (colider.GetInstanceID() == roadTileMapColider.GetInstanceID())
+        if (colider.GetInstanceID() == pathTileMapColider.GetInstanceID())
         {
-            return EnvironmentKind.Road;
+            return EnvironmentKind.Path;
         }
         if (colider.GetInstanceID() == wallTileMapColider.GetInstanceID())
         {
@@ -73,10 +92,10 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 1.5f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Road)
+        if (SharedTriggerRoutine(colider) == EnvironmentKind.Path)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D road");
-            isOnEnvironmentMap[EnvironmentKind.Road] = true;
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path");
+            isOnEnvironmentMap[EnvironmentKind.Path] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 2f);
         }
         if (SharedTriggerRoutine(colider) == EnvironmentKind.Wall)
@@ -98,9 +117,9 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 1.5f);
         }
-        if (SharedTriggerRoutine(colider) == EnvironmentKind.Road)
+        if (SharedTriggerRoutine(colider) == EnvironmentKind.Path)
         {
-            isOnEnvironmentMap[EnvironmentKind.Road] = false;
+            isOnEnvironmentMap[EnvironmentKind.Path] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 2f);
         }
         if (SharedTriggerRoutine(colider) == EnvironmentKind.Wall)
