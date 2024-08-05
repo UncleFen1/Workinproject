@@ -4791,8 +4791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481b6d833ec00464f83c1ca8d2e74bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePlayerComponent: {fileID: 716050792}
-  healthPlayerComponent: {fileID: 716050797}
   eventInterval: 1
 --- !u!114 &716050799
 MonoBehaviour:

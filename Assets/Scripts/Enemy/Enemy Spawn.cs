@@ -1,3 +1,4 @@
+using GameGrid;
 using Roulettes;
 using UnityEngine;
 using Zenject;
@@ -9,9 +10,13 @@ public class EnemySpawner : MonoBehaviour
     public Vector2 spawnAreaSize = new Vector2(10, 10);
 
     private EnemyRoulette enemyRoulette;
+    private EnvironmentRoulette environmentRoulette;
+    private GridController gridController;
     [Inject]
-    private void InitBindings(EnemyRoulette er) {
+    private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, GridController gc) {
         enemyRoulette = er;
+        environmentRoulette = envR;
+        gridController = gc;
     }
 
     void Start()
@@ -33,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
             var go = Instantiate(randomEnemyPrefab, randomPosition, Quaternion.identity);
             
+            // TODO _j better to create EnemyController and add all fields there
             var enemyHealth = go.GetComponent<EnemyHealth>();
             if (enemyHealth && enemyHealth.isActiveAndEnabled) {
                 enemyHealth.LinkEnemyRoulette(enemyRoulette);
@@ -49,13 +55,10 @@ public class EnemySpawner : MonoBehaviour
             if (movementEnemy && movementEnemy.isActiveAndEnabled) {
                 movementEnemy.LinkEnemyRoulette(enemyRoulette);
             }
+            var enemyEnvironmentIntersection = go.GetComponent<EnemyEnvironmentIntersection>();
+            if (enemyEnvironmentIntersection && enemyEnvironmentIntersection.isActiveAndEnabled) {
+                enemyEnvironmentIntersection.LinkEnemyEnvironmentIntersection(environmentRoulette, gridController);
+            }
         }
     }
-
-    // private void LinkRouletteWithGOComponent<T>(GameObject go) where T : Behaviour {
-    //     var component = go.GetComponent<T>();
-    //     if (component && component.isActiveAndEnabled) {
-    //         component.LinkEnemyRoulette(enemyRoulette);
-    //     }
-    // }
 }
