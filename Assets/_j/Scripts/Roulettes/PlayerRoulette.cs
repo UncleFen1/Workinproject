@@ -5,14 +5,14 @@ namespace Roulettes
 {
     public class PlayerRoulette
     {
-        public class EnenyEntity
+        public class PlayerEntity
         {
             public string type;
             public PlayerKind kind;
             public PlayerModifier modifier;
         }
 
-        public Dictionary<PlayerKind, EnenyEntity> playerKindsMap = new Dictionary<PlayerKind, EnenyEntity>();
+        public Dictionary<PlayerKind, PlayerEntity> playerKindsMap = new Dictionary<PlayerKind, PlayerEntity>();
 
         public PlayerRoulette()
         {
@@ -29,7 +29,7 @@ namespace Roulettes
                 if (kind == PlayerKind.Unknown) continue;
 
                 playerKindsMap.Add(kind,
-                    new EnenyEntity
+                    new PlayerEntity
                     {
                         // TODO _j don't like "type" as parameter name
                         type = "player",
@@ -44,9 +44,9 @@ namespace Roulettes
             bool useRandom = true;
             if (useRandom)
             {
-                foreach (var EnenyEntity in playerKindsMap)
+                foreach (var playerEntity in playerKindsMap)
                 {
-                    EnenyEntity.Value.modifier = (PlayerModifier)Random.Range(0, PlayerModifier.GetNames(typeof(PlayerModifier)).Length);
+                    playerEntity.Value.modifier = (PlayerModifier)Random.Range(0, PlayerModifier.GetNames(typeof(PlayerModifier)).Length);
                 }
             }
             else

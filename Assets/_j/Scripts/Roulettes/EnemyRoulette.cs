@@ -3,16 +3,17 @@ using UnityEngine;
 
 namespace Roulettes
 {
+    // TODO _j create BaseRoulette abstract class
     public class EnemyRoulette
     {
-        public class EnenyEntity
+        public class EnemyEntity
         {
             public string type;
             public EnemyKind kind;
             public EnemyModifier modifier;
         }
 
-        public Dictionary<EnemyKind, EnenyEntity> enemyKindsMap = new Dictionary<EnemyKind, EnenyEntity>();
+        public Dictionary<EnemyKind, EnemyEntity> enemyKindsMap = new Dictionary<EnemyKind, EnemyEntity>();
 
         public EnemyRoulette()
         {
@@ -29,7 +30,7 @@ namespace Roulettes
                 if (kind == EnemyKind.Unknown) continue;
 
                 enemyKindsMap.Add(kind,
-                    new EnenyEntity
+                    new EnemyEntity
                     {
                         // TODO probably type could be used for switch Cultist, Monster, ...
                         type = "enemy",
@@ -39,14 +40,21 @@ namespace Roulettes
             }
         }
 
+        void ResetModifiers() {
+            foreach (var enemyEntity in enemyKindsMap)
+            {
+                enemyEntity.Value.modifier = EnemyModifier.Unchanged;
+            }
+        }
+
         void AssignRandomModifiers()
         {
             bool useRandom = true;
             if (useRandom)
             {
-                foreach (var EnenyEntity in enemyKindsMap)
+                foreach (var enemyEntity in enemyKindsMap)
                 {
-                    EnenyEntity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                    enemyEntity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
                 }
             }
             else
@@ -59,9 +67,12 @@ namespace Roulettes
 
         void PrintEnemyEntities()
         {
-            foreach (var enenyEntity in enemyKindsMap)
+            foreach (var enemyEntity in enemyKindsMap)
             {
-                Debug.Log($"enenyEntity.kind: {enenyEntity.Value.kind}, enenyEntity.modifier: {enenyEntity.Value.modifier}");
+                if (enemyEntity.Value.modifier != EnemyModifier.Unchanged)
+                {
+                    Debug.Log($"enemyEntity.kind: {enemyEntity.Value.kind}, enemyEntity.modifier: {enemyEntity.Value.modifier}");
+                }
             }
         }
     }
