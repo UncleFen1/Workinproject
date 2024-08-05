@@ -18,7 +18,8 @@ namespace Roulettes
         public EnemyRoulette()
         {
             CreateEnemyEntities();
-            AssignRandomModifiers();
+            // AssignFullRandomModifiers();
+            AssignRandomModifier();
 
             PrintEnemyEntities();
         }
@@ -41,20 +42,38 @@ namespace Roulettes
         }
 
         void ResetModifiers() {
-            foreach (var enemyEntity in enemyKindsMap)
+            foreach (var entity in enemyKindsMap)
             {
-                enemyEntity.Value.modifier = EnemyModifier.Unchanged;
+                entity.Value.modifier = EnemyModifier.Unchanged;
             }
         }
 
-        void AssignRandomModifiers()
+        void AssignRandomModifier()
         {
             bool useRandom = true;
             if (useRandom)
             {
-                foreach (var enemyEntity in enemyKindsMap)
+                // TODO _j Andrey, should we avoid Unchanged effect in case we only modify one kind
+                var randomModifier = (EnemyKind)Random.Range(1, EnemyKind.GetNames(typeof(EnemyKind)).Length);  // from 1, because of Unknown
+                var randomEffect = (EnemyModifier)Random.Range(1, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                enemyKindsMap[randomModifier].modifier = randomEffect;
+            }
+            else
+            {
+                Debug.LogWarning("ENEMY ROULETTE IS USING PRESET VALUES");
+                // enemyPreset1
+                enemyKindsMap[EnemyKind.MovementSpeed].modifier = EnemyModifier.Increased;
+            }
+        }
+
+        void AssignFullRandomModifiers()
+        {
+            bool useRandom = true;
+            if (useRandom)
+            {
+                foreach (var entity in enemyKindsMap)
                 {
-                    enemyEntity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                    entity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
                 }
             }
             else
@@ -67,11 +86,11 @@ namespace Roulettes
 
         void PrintEnemyEntities()
         {
-            foreach (var enemyEntity in enemyKindsMap)
+            foreach (var entity in enemyKindsMap)
             {
-                if (enemyEntity.Value.modifier != EnemyModifier.Unchanged)
+                if (entity.Value.modifier != EnemyModifier.Unchanged)
                 {
-                    Debug.Log($"enemyEntity.kind: {enemyEntity.Value.kind}, enemyEntity.modifier: {enemyEntity.Value.modifier}");
+                    Debug.Log($"enemyEntity.kind: {entity.Value.kind}, enemyEntity.modifier: {entity.Value.modifier}");
                 }
             }
         }

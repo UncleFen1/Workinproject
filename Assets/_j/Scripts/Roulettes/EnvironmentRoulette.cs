@@ -18,7 +18,8 @@ namespace Roulettes
         public EnvironmentRoulette()
         {
             CreateEnvironmentEntities();
-            AssignRandomModifiers();
+            // AssignFullRandomModifiers();
+            AssignRandomModifier();
 
             PrintEnvironmentEntities();
         }
@@ -33,14 +34,40 @@ namespace Roulettes
             }
         }
 
-        void AssignRandomModifiers()
+        void ResetModifiers()
+        {
+            foreach (var entity in environmentKindsMap)
+            {
+                entity.Value.modifier = EnvironmentModifier.Unchanged;
+            }
+        }
+
+        void AssignRandomModifier()
         {
             bool useRandom = true;
             if (useRandom)
             {
-                foreach (var environmentEntity in environmentKindsMap)
+                // TODO _j Andrey, should we avoid Unchanged effect in case we only modify one kind
+                var randomModifier = (EnvironmentKind)Random.Range(1, EnvironmentKind.GetNames(typeof(EnvironmentKind)).Length);  // from 1, because of Unknown
+                var randomEffect = (EnvironmentModifier)Random.Range(1, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                environmentKindsMap[randomModifier].modifier = randomEffect;
+            }
+            else
+            {
+                Debug.LogWarning("ENVIRONMENT ROULETTE IS USING PRESET VALUES");
+                // environmentPreset1
+                environmentKindsMap[EnvironmentKind.Path].modifier = EnvironmentModifier.Damage;
+            }
+        }
+
+        void AssignFullRandomModifiers()
+        {
+            bool useRandom = true;
+            if (useRandom)
+            {
+                foreach (var entity in environmentKindsMap)
                 {
-                    environmentEntity.Value.modifier = (EnvironmentModifier)Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                    entity.Value.modifier = (EnvironmentModifier)Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
                 }
             }
             else
@@ -53,9 +80,12 @@ namespace Roulettes
 
         void PrintEnvironmentEntities()
         {
-            foreach (var environmentEntity in environmentKindsMap)
+            foreach (var entity in environmentKindsMap)
             {
-                Debug.Log($"environmentEntity.kind: {environmentEntity.Value.kind}, environmentEntity.modifier: {environmentEntity.Value.modifier}");
+                if (entity.Value.modifier != EnvironmentModifier.Unchanged)
+                {
+                    Debug.Log($"environmentEntity.kind: {entity.Value.kind}, environmentEntity.modifier: {entity.Value.modifier}");
+                }
             }
         }
     }
