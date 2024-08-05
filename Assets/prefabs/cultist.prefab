@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 316288475860286733}
   - component: {fileID: 5654003193071382816}
   - component: {fileID: 3494393680361593950}
+  - component: {fileID: 4820379044169674580}
   - component: {fileID: 5656776018916209085}
   m_Layer: 0
   m_Name: cultist
@@ -184,6 +185,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3770432, y: 7.55}
   m_EdgeRadius: 0
+--- !u!114 &4820379044169674580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409256614996619722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881eb9744b02d4e72a132e7f95b8a0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventInterval: 1
 --- !u!50 &5656776018916209085
 Rigidbody2D:
   serializedVersion: 4
