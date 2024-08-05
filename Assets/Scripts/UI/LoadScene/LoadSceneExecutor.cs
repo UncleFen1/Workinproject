@@ -70,6 +70,7 @@ namespace UI
         {
             int t = 0;
             bool isRun = true;
+            // TODO _j why wait???
             yield return new WaitForSeconds(1);
             // asyncOperation=SceneManager.LoadSceneAsync(_idScene);
             // while(!asyncOperation.isDone)
