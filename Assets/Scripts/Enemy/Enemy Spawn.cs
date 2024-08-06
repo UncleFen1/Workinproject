@@ -39,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
             var go = Instantiate(randomEnemyPrefab, randomPosition, Quaternion.identity);
             
             // TODO _j better to create EnemyController and add all fields there
+            // TODO _j maybe ZenjectBinding MonoBehaviour object to add to prefab
             var enemyHealth = go.GetComponent<EnemyHealth>();
             if (enemyHealth && enemyHealth.isActiveAndEnabled) {
                 enemyHealth.LinkEnemyRoulette(enemyRoulette);

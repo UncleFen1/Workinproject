@@ -21,7 +21,15 @@ namespace Roulettes
             // AssignFullRandomModifiers();
             AssignRandomModifier();
 
-            PrintEnemyEntities();
+            PrintEntities();
+        }
+
+        public void NextRoll() {
+            ResetModifiers();
+
+            AssignRandomModifier();
+
+            PrintEntities();
         }
 
         void CreateEnemyEntities()
@@ -84,7 +92,7 @@ namespace Roulettes
             }
         }
 
-        void PrintEnemyEntities()
+        void PrintEntities()
         {
             foreach (var entity in enemyKindsMap)
             {

@@ -21,7 +21,16 @@ namespace Roulettes
             // AssignFullRandomModifiers();
             AssignRandomModifier();
 
-            PrintEnvironmentEntities();
+            PrintEntities();
+        }
+
+        public void NextRoll() {
+            // TODO _j add seed to every roulette, each roulette has their own seed
+            ResetModifiers();
+
+            AssignRandomModifier();
+
+            PrintEntities();
         }
 
         void CreateEnvironmentEntities()
@@ -78,7 +87,7 @@ namespace Roulettes
             }
         }
 
-        void PrintEnvironmentEntities()
+        void PrintEntities()
         {
             foreach (var entity in environmentKindsMap)
             {

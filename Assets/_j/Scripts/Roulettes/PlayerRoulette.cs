@@ -20,7 +20,15 @@ namespace Roulettes
             // AssignRandomModifiers();
             AssignRandomModifier();
 
-            PrintPlayerEntities();
+            PrintEntities();
+        }
+
+        public void NextRoll() {
+            ResetModifiers();
+
+            AssignRandomModifier();
+
+            PrintEntities();
         }
 
         void CreatePlayerEntities()
@@ -84,7 +92,7 @@ namespace Roulettes
             }
         }
 
-        void PrintPlayerEntities()
+        void PrintEntities()
         {
             foreach (var entity in playerKindsMap)
             {
