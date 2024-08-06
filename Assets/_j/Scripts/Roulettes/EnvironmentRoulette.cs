@@ -12,6 +12,9 @@ namespace Roulettes
             public EnvironmentModifier modifier;
         }
 
+        // if once you want a seed for randomization
+        // private readonly System.Random randomizer = new System.Random(42);
+
         public Dictionary<EnvironmentKind, EnvironmentEntity> environmentKindsMap = new Dictionary<EnvironmentKind, EnvironmentEntity>();
         public EnvironmentEntity currentEntity;
 
@@ -26,7 +29,6 @@ namespace Roulettes
 
         public void NextRoll()
         {
-            // TODO _j add seed to every roulette, each roulette has their own seed
             ResetModifiers();
 
             AssignRandomModifier();
@@ -59,6 +61,8 @@ namespace Roulettes
             {
                 var randomModifier = (EnvironmentKind)Random.Range(1, EnvironmentKind.GetNames(typeof(EnvironmentKind)).Length);  // from 1, because of Unknown
                 var randomEffect = (EnvironmentModifier)Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                // var randomModifier = (EnvironmentKind)randomizer.Next(1, EnvironmentKind.GetNames(typeof(EnvironmentKind)).Length);  // from 1, because of Unknown
+                // var randomEffect = (EnvironmentModifier)randomizer.Next(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
                 environmentKindsMap[randomModifier].modifier = randomEffect;
 
                 currentEntity = new EnvironmentEntity()
