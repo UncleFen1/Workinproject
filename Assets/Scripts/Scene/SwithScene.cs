@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Scene
+namespace OldSceneNamespace
 {
     public class SwithScene : MonoBehaviour
     {

@@ -1,5 +1,5 @@
 using System.Collections;
-using Scene;
+using OldSceneNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

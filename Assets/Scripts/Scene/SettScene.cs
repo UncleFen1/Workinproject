@@ -2,7 +2,7 @@ using UI;
 using UnityEngine;
 using Zenject;
 
-namespace Scene
+namespace OldSceneNamespace
 {
     public class SettScene : MonoBehaviour
     {

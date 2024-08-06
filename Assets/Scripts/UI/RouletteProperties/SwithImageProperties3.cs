@@ -1,6 +1,6 @@
 using System;
 using Inputs;
-using Scene;
+using OldSceneNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
