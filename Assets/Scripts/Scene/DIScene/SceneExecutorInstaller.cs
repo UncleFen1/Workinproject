@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Scene
+namespace OldSceneNamespace
 {
     public class SceneExecutorInstaller : MonoInstaller
     {

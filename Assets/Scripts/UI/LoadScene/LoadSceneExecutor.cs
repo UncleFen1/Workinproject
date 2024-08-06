@@ -1,5 +1,5 @@
 using System.Collections;
-using Scene;
+using OldSceneNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -70,7 +70,7 @@ namespace UI
         {
             int t = 0;
             bool isRun = true;
-            yield return new WaitForSeconds(1);
+            // yield return new WaitForSeconds(1);
             // asyncOperation=SceneManager.LoadSceneAsync(_idScene);
             // while(!asyncOperation.isDone)
             // {

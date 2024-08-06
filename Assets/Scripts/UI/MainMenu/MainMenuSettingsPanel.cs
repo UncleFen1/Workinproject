@@ -1,4 +1,4 @@
-using Scene;
+using OldSceneNamespace;
 using Texts;
 using UnityEngine;
 using UnityEngine.UI;

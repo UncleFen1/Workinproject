@@ -1,6 +1,6 @@
 namespace Roulettes
 {
-    // TODO _j Andrey not implemented MeleeDamage, ExperienceGain, CameraZoom
+    // TODO _j Andrey not implemented ExperienceGain, CameraZoom
     public enum PlayerKind
     {
         Unknown,
@@ -9,10 +9,10 @@ namespace Roulettes
         AttackRange,
         AttackAccuracy,
         AttackRate,
-        ExperienceGain,
+        // ExperienceGain,
         Health,
         MovementSpeed,
-        CameraZoom,
+        // CameraZoom,
     }
 
     public enum PlayerModifier

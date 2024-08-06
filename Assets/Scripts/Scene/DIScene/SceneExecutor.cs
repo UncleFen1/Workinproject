@@ -4,7 +4,7 @@ using System.Linq;
 using Texts;
 using UnityEngine;
 
-namespace Scene
+namespace OldSceneNamespace
 {
     public struct SettingsScene
     {

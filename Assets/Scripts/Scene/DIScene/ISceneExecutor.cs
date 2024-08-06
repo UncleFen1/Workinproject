@@ -1,7 +1,7 @@
 ﻿using System;
 using Texts;
 
-namespace Scene
+namespace OldSceneNamespace
 {
     public interface ISceneExecutor
     {

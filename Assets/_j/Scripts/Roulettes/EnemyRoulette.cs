@@ -3,23 +3,34 @@ using UnityEngine;
 
 namespace Roulettes
 {
+    // TODO _j create BaseRoulette abstract class
     public class EnemyRoulette
     {
-        public class EnenyEntity
+        public class EnemyEntity
         {
             public string type;
             public EnemyKind kind;
             public EnemyModifier modifier;
         }
 
-        public Dictionary<EnemyKind, EnenyEntity> enemyKindsMap = new Dictionary<EnemyKind, EnenyEntity>();
+        public Dictionary<EnemyKind, EnemyEntity> enemyKindsMap = new Dictionary<EnemyKind, EnemyEntity>();
+        public EnemyEntity currentEntity;
 
         public EnemyRoulette()
         {
             CreateEnemyEntities();
-            AssignRandomModifiers();
+            // AssignFullRandomModifiers();
+            // AssignRandomModifier();
 
-            PrintEnemyEntities();
+            // PrintCurrentEntity();
+        }
+
+        public void NextRoll() {
+            ResetModifiers();
+
+            AssignRandomModifier();
+
+            PrintCurrentEntity();
         }
 
         void CreateEnemyEntities()
@@ -29,7 +40,7 @@ namespace Roulettes
                 if (kind == EnemyKind.Unknown) continue;
 
                 enemyKindsMap.Add(kind,
-                    new EnenyEntity
+                    new EnemyEntity
                     {
                         // TODO probably type could be used for switch Cultist, Monster, ...
                         type = "enemy",
@@ -39,14 +50,46 @@ namespace Roulettes
             }
         }
 
-        void AssignRandomModifiers()
+        void ResetModifiers() {
+            foreach (var entity in enemyKindsMap)
+            {
+                entity.Value.modifier = EnemyModifier.Unchanged;
+            }
+        }
+
+        void AssignRandomModifier()
         {
             bool useRandom = true;
             if (useRandom)
             {
-                foreach (var EnenyEntity in enemyKindsMap)
+                var randomModifier = (EnemyKind)Random.Range(1, EnemyKind.GetNames(typeof(EnemyKind)).Length);  // from 1, because of Unknown
+                var randomEffect = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                enemyKindsMap[randomModifier].modifier = randomEffect;
+
+                currentEntity = new EnemyEntity()
+                    {
+                        // TODO probably type could be used for switch Cultist, Monster, ...
+                        type = "enemy",
+                        kind = randomModifier,
+                        modifier = randomEffect,
+                    };
+            }
+            else
+            {
+                Debug.LogWarning("ENEMY ROULETTE IS USING PRESET VALUES");
+                // enemyPreset1
+                enemyKindsMap[EnemyKind.MovementSpeed].modifier = EnemyModifier.Increased;
+            }
+        }
+
+        void AssignFullRandomModifiers()
+        {
+            bool useRandom = true;
+            if (useRandom)
+            {
+                foreach (var entity in enemyKindsMap)
                 {
-                    EnenyEntity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                    entity.Value.modifier = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
                 }
             }
             else
@@ -57,11 +100,19 @@ namespace Roulettes
             }
         }
 
-        void PrintEnemyEntities()
+        void PrintCurrentEntity()
         {
-            foreach (var enenyEntity in enemyKindsMap)
+            Debug.Log($"enemyEntity.kind: {currentEntity.kind}, enemyEntity.modifier: {currentEntity.modifier}");
+        }
+
+        void PrintAllEntities()
+        {
+            foreach (var entity in enemyKindsMap)
             {
-                Debug.Log($"enenyEntity.kind: {enenyEntity.Value.kind}, enenyEntity.modifier: {enenyEntity.Value.modifier}");
+                if (entity.Value.modifier != EnemyModifier.Unchanged)
+                {
+                    Debug.Log($"enemyEntity.kind: {entity.Value.kind}, enemyEntity.modifier: {entity.Value.modifier}");
+                }
             }
         }
     }
