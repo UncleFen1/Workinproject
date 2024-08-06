@@ -43,7 +43,6 @@ namespace GameSceneManagement
                 Debug.Log($"Scene is changed from: {previousSceneIndex} '{prevSceneName}', next scene name: {nextScene.buildIndex} '{nextScene.name}'");
 
                 string sceneNameInvariant = nextScene.name.ToLowerInvariant();
-                // TODO _j Andrey so far, roulette generation is bind to name of a scene contains "roulette"
                 if (sceneNameInvariant.Contains("roulette"))
                 {
                     environmentRoulette.NextRoll();

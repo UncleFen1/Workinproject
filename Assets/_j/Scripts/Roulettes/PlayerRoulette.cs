@@ -18,7 +18,7 @@ namespace Roulettes
         public PlayerRoulette()
         {
             CreatePlayerEntities();
-            // AssignRandomModifiers();
+            // AssignFullRandomModifiers();
             // AssignRandomModifier();
 
             // PrintCurrentEntity();

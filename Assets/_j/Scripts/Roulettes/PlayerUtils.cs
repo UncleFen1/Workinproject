@@ -1,6 +1,5 @@
 namespace Roulettes
 {
-    // TODO _j MeleeDamage add switcher and MeleeDamage components
     // TODO _j Andrey not implemented ExperienceGain, CameraZoom
     public enum PlayerKind
     {
