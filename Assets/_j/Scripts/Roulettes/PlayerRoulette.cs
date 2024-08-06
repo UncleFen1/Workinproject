@@ -13,14 +13,15 @@ namespace Roulettes
         }
 
         public Dictionary<PlayerKind, PlayerEntity> playerKindsMap = new Dictionary<PlayerKind, PlayerEntity>();
+        public PlayerEntity currentEntity;
 
         public PlayerRoulette()
         {
             CreatePlayerEntities();
             // AssignRandomModifiers();
-            AssignRandomModifier();
+            // AssignRandomModifier();
 
-            PrintEntities();
+            // PrintCurrentEntity();
         }
 
         public void NextRoll() {
@@ -28,7 +29,7 @@ namespace Roulettes
 
             AssignRandomModifier();
 
-            PrintEntities();
+            PrintCurrentEntity();
         }
 
         void CreatePlayerEntities()
@@ -61,10 +62,16 @@ namespace Roulettes
             bool useRandom = true;
             if (useRandom)
             {
-                // TODO _j Andrey, should we avoid Unchanged effect in case we only modify one kind
                 var randomModifier = (PlayerKind)Random.Range(1, PlayerKind.GetNames(typeof(PlayerKind)).Length);  // from 1, because of Unknown
-                var randomEffect = (PlayerModifier)Random.Range(1, PlayerModifier.GetNames(typeof(PlayerModifier)).Length);
+                var randomEffect = (PlayerModifier)Random.Range(0, PlayerModifier.GetNames(typeof(PlayerModifier)).Length);
                 playerKindsMap[randomModifier].modifier = randomEffect;
+
+                currentEntity = new PlayerEntity() 
+                {
+                    type = "player",
+                    kind = randomModifier,
+                    modifier = randomEffect,
+                };
             }
             else
             {
@@ -92,14 +99,16 @@ namespace Roulettes
             }
         }
 
-        void PrintEntities()
+        void PrintCurrentEntity()
+        {
+            Debug.Log($"playerEntity.kind: {currentEntity.kind}, playerEntity.modifier: {currentEntity.modifier}");
+        }
+
+        void PrintAllEntities()
         {
             foreach (var entity in playerKindsMap)
             {
-                if (entity.Value.modifier != PlayerModifier.Unchanged)
-                {
-                    Debug.Log($"playerEntity.kind: {entity.Value.kind}, playerEntity.modifier: {entity.Value.modifier}");
-                }
+                Debug.Log($"playerEntity.kind: {entity.Value.kind}, playerEntity.modifier: {entity.Value.modifier}");
             }
         }
     }

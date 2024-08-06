@@ -14,14 +14,15 @@ namespace Roulettes
         }
 
         public Dictionary<EnemyKind, EnemyEntity> enemyKindsMap = new Dictionary<EnemyKind, EnemyEntity>();
+        public EnemyEntity currentEntity;
 
         public EnemyRoulette()
         {
             CreateEnemyEntities();
             // AssignFullRandomModifiers();
-            AssignRandomModifier();
+            // AssignRandomModifier();
 
-            PrintEntities();
+            // PrintCurrentEntity();
         }
 
         public void NextRoll() {
@@ -29,7 +30,7 @@ namespace Roulettes
 
             AssignRandomModifier();
 
-            PrintEntities();
+            PrintCurrentEntity();
         }
 
         void CreateEnemyEntities()
@@ -61,10 +62,17 @@ namespace Roulettes
             bool useRandom = true;
             if (useRandom)
             {
-                // TODO _j Andrey, should we avoid Unchanged effect in case we only modify one kind
                 var randomModifier = (EnemyKind)Random.Range(1, EnemyKind.GetNames(typeof(EnemyKind)).Length);  // from 1, because of Unknown
-                var randomEffect = (EnemyModifier)Random.Range(1, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
+                var randomEffect = (EnemyModifier)Random.Range(0, EnemyModifier.GetNames(typeof(EnemyModifier)).Length);
                 enemyKindsMap[randomModifier].modifier = randomEffect;
+
+                currentEntity = new EnemyEntity()
+                    {
+                        // TODO probably type could be used for switch Cultist, Monster, ...
+                        type = "enemy",
+                        kind = randomModifier,
+                        modifier = randomEffect,
+                    };
             }
             else
             {
@@ -92,7 +100,12 @@ namespace Roulettes
             }
         }
 
-        void PrintEntities()
+        void PrintCurrentEntity()
+        {
+            Debug.Log($"enemyEntity.kind: {currentEntity.kind}, enemyEntity.modifier: {currentEntity.modifier}");
+        }
+
+        void PrintAllEntities()
         {
             foreach (var entity in enemyKindsMap)
             {

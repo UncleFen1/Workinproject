@@ -13,24 +13,25 @@ namespace Roulettes
         }
 
         public Dictionary<EnvironmentKind, EnvironmentEntity> environmentKindsMap = new Dictionary<EnvironmentKind, EnvironmentEntity>();
-
+        public EnvironmentEntity currentEntity;
 
         public EnvironmentRoulette()
         {
             CreateEnvironmentEntities();
             // AssignFullRandomModifiers();
-            AssignRandomModifier();
+            // AssignRandomModifier();
 
-            PrintEntities();
+            // PrintCurrentEntity();
         }
 
-        public void NextRoll() {
+        public void NextRoll()
+        {
             // TODO _j add seed to every roulette, each roulette has their own seed
             ResetModifiers();
 
             AssignRandomModifier();
 
-            PrintEntities();
+            PrintCurrentEntity();
         }
 
         void CreateEnvironmentEntities()
@@ -56,10 +57,16 @@ namespace Roulettes
             bool useRandom = true;
             if (useRandom)
             {
-                // TODO _j Andrey, should we avoid Unchanged effect in case we only modify one kind
                 var randomModifier = (EnvironmentKind)Random.Range(1, EnvironmentKind.GetNames(typeof(EnvironmentKind)).Length);  // from 1, because of Unknown
-                var randomEffect = (EnvironmentModifier)Random.Range(1, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
+                var randomEffect = (EnvironmentModifier)Random.Range(0, EnvironmentModifier.GetNames(typeof(EnvironmentModifier)).Length);
                 environmentKindsMap[randomModifier].modifier = randomEffect;
+
+                currentEntity = new EnvironmentEntity()
+                {
+                    type = "environment",
+                    kind = randomModifier,
+                    modifier = randomEffect,
+                };
             }
             else
             {
@@ -87,14 +94,16 @@ namespace Roulettes
             }
         }
 
-        void PrintEntities()
+        void PrintCurrentEntity()
+        {
+            Debug.Log($"environmentEntity.kind: {currentEntity.kind}, environmentEntity.modifier: {currentEntity.modifier}");
+        }
+
+        void PrintAllEntities()
         {
             foreach (var entity in environmentKindsMap)
             {
-                if (entity.Value.modifier != EnvironmentModifier.Unchanged)
-                {
-                    Debug.Log($"environmentEntity.kind: {entity.Value.kind}, environmentEntity.modifier: {entity.Value.modifier}");
-                }
+                Debug.Log($"environmentEntity.kind: {entity.Value.kind}, environmentEntity.modifier: {entity.Value.modifier}");
             }
         }
     }
