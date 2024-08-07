@@ -6,15 +6,19 @@ public class WeaponSwitcher : MonoBehaviour
 {
     public MeleeAttack meleeWeapon; // Ссылка на скрипт ближнего боя
     public Shooting rangedWeapon; // Ссылка на скрипт дальнего боя
+
     public Transform attackPoint; // Точка, откуда происходит атака
 
     private bool isMeleeActive = true; // Текущее состояние оружия
 
+   
     private void Start()
     {
+        
         // Начнем с активированного ближнего боя
         meleeWeapon.gameObject.SetActive(true);
         rangedWeapon.gameObject.SetActive(false);
+                               
     }
 
     private void Update()
@@ -36,5 +40,8 @@ public class WeaponSwitcher : MonoBehaviour
         // Активируем/деактивируем оружие в зависимости от состояния
         meleeWeapon.gameObject.SetActive(isMeleeActive);
         rangedWeapon.gameObject.SetActive(!isMeleeActive);
+
+
     }
+    
 }
