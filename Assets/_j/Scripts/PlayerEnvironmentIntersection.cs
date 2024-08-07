@@ -31,7 +31,8 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     private float lastEventTime = float.MinValue;
 
     [Inject]
-    private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
+    // private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
+    private void InitBindings(EnvironmentRoulette er, GridController gc) {
         environmentRoulette = er;
 
         floorTileMapCollider = gc.floor;
