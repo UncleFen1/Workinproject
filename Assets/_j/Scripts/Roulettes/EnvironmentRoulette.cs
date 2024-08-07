@@ -22,7 +22,7 @@ namespace Roulettes
         {
             CreateEnvironmentEntities();
             // AssignFullRandomModifiers();
-            AssignRandomModifier();
+            // AssignRandomModifier();
 
             // PrintCurrentEntity();
         }
@@ -56,7 +56,7 @@ namespace Roulettes
 
         void AssignRandomModifier()
         {
-            bool useRandom = false;
+            bool useRandom = true;
             if (useRandom)
             {
                 var randomModifier = (EnvironmentKind)Random.Range(1, EnvironmentKind.GetNames(typeof(EnvironmentKind)).Length);  // from 1, because of Unknown
@@ -76,7 +76,7 @@ namespace Roulettes
             {
                 Debug.LogWarning("ENVIRONMENT ROULETTE IS USING PRESET VALUES");
                 // environmentPreset1
-                environmentKindsMap[EnvironmentKind.Floor].modifier = EnvironmentModifier.Damage;
+                environmentKindsMap[EnvironmentKind.Path].modifier = EnvironmentModifier.Damage;
             }
         }
 
