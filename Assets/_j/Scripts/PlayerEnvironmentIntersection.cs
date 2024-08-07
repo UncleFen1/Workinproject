@@ -70,9 +70,9 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         //     }
         // }
 
-        if (!floorTileMapCollider) Debug.LogError("No floorTileMapCollider given");
-        if (!pathTileMapCollider) Debug.LogError("No pathTileMapCollider given");
-        if (!wallTileMapCollider) Debug.LogError("No wallTileMapCollider given");
+        if (!floorTileMapCollider) Debug.LogWarning("No floorTileMapCollider given");
+        if (!pathTileMapCollider) Debug.LogWarning("No pathTileMapCollider given");
+        if (!wallTileMapCollider) Debug.LogWarning("No wallTileMapCollider given");
 
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");

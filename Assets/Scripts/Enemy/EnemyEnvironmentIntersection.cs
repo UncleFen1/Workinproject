@@ -48,9 +48,9 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        if (!floorTileMapCollider) Debug.LogError("No floorTileMapCollider given");
-        if (!pathTileMapCollider) Debug.LogError("No pathTileMapCollider given");
-        if (!wallTileMapCollider) Debug.LogError("No wallTileMapCollider given");
+        if (!floorTileMapCollider) Debug.LogWarning("No floorTileMapCollider given");
+        if (!pathTileMapCollider) Debug.LogWarning("No pathTileMapCollider given");
+        if (!wallTileMapCollider) Debug.LogWarning("No wallTileMapCollider given");
 
         if (!enemyMovement) Debug.LogError("No movePlayerComponent given");
         if (!enemyHealth) Debug.LogError("No healthPlayerComponent given");
