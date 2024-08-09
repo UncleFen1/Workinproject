@@ -7,6 +7,12 @@ using System.IO;
 
 public class BuildScript : MonoBehaviour
 {
+    [MenuItem("Build/Save all assets")]
+    public static void SaveAssets()
+    {
+        PreBuild();
+    }
+
     [MenuItem("Build/BuildForWeb")]
     public static void BuildForWeb()
     {
