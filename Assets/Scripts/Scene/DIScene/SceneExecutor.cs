@@ -126,8 +126,10 @@ namespace OldSceneNamespace
                 SetLangScene(settingsScene.ModeText);
 
             }
-            Debug.Log($"{settingsScene.Width}x{settingsScene.Height}");
-            Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
+            
+            Debug.Log("_j InitScene, there was setting resolution, but I see no reason for that");
+            // Debug.Log($"{settingsScene.Width}x{settingsScene.Height}");
+            // Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
         }
         private void NewSettings()
         {
@@ -168,8 +170,11 @@ namespace OldSceneNamespace
                         settingsScene.Width = resolutions[i].width;
                         settingsScene.Height = resolutions[i].height;
                         settingsScene.IdCurrentScreen = i;
-                        SetResolution(settingsScene);
-                        Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
+                        
+                        Debug.Log("_j NewResolution, there was setting resolution, but I see no reason for that");
+                        // SetResolution(settingsScene);
+                        // Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
+                        
                         //GetSettingsScreenScene();
                     }
                 }
@@ -179,7 +184,10 @@ namespace OldSceneNamespace
         {
             settingsScene.IdCurrentModeScreen = _fullScreenMode;
             SetResolution(settingsScene);
-            Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
+            
+            Debug.Log("_j NewModeScreen, there was setting resolution, but I see no reason for that");
+            // Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
+            
             //GetSettingsScreenScene();
         }
         public void ListDropdownScreen()
