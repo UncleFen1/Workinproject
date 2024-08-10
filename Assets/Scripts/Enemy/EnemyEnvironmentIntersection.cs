@@ -36,7 +36,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         pathTileMapCollider = gc.path;
         wallTileMapCollider = gc.wall;
 
-        // player dependencies could be taken from this.gameObject.GetComponent since it's important to be on Player GO and to have OnTrigger events
+        // enemy dependencies could be taken from this.gameObject.GetComponent since it's important to be on Enemy GO and to have OnTrigger events
         enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
         enemyHealth = this.gameObject.GetComponent<EnemyHealth>();
     }
@@ -52,8 +52,8 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (!pathTileMapCollider) Debug.LogWarning("No pathTileMapCollider given");
         if (!wallTileMapCollider) Debug.LogWarning("No wallTileMapCollider given");
 
-        if (!enemyMovement) Debug.LogError("No movePlayerComponent given");
-        if (!enemyHealth) Debug.LogError("No healthPlayerComponent given");
+        if (!enemyMovement) Debug.LogError("No moveEnemyComponent given");
+        if (!enemyHealth) Debug.LogError("No healthEnemyComponent given");
     }
 
     EnvironmentKind SharedTriggerRoutine(Collider2D collider)
