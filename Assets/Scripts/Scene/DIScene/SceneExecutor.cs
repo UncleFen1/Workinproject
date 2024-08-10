@@ -117,7 +117,9 @@ namespace OldSceneNamespace
                 settingsScene.Height = currentResolution.height;
                 settingsScene.Width = currentResolution.width;
                 settingsScene.IdCurrentModeScreen = 1;
-                SetResolution(settingsScene);
+                
+                Debug.Log("_j InitScene, there was setting resolution, but I see no reason for that");
+                // SetResolution(settingsScene);
 
                 settingsScene.isLoad = 1;
                 SetIsLoad(settingsScene);
@@ -183,9 +185,9 @@ namespace OldSceneNamespace
         public void NewModeScreen(int _fullScreenMode)
         {
             settingsScene.IdCurrentModeScreen = _fullScreenMode;
-            SetResolution(settingsScene);
-            
+
             Debug.Log("_j NewModeScreen, there was setting resolution, but I see no reason for that");
+            // SetResolution(settingsScene);
             // Screen.SetResolution(settingsScene.Width, settingsScene.Height, (FullScreenMode)settingsScene.IdCurrentModeScreen);
             
             //GetSettingsScreenScene();
