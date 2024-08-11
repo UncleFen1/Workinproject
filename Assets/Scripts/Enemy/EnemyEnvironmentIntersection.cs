@@ -10,6 +10,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     private List<Collider2D> floorColliders = new List<Collider2D>();
     private List<Collider2D> pathColliders = new List<Collider2D>();
     private List<Collider2D> wallColliders = new List<Collider2D>();
+    private List<Collider2D> pillarColliders = new List<Collider2D>();
 
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
@@ -22,6 +23,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         { EnvironmentKind.Floor, false },
         { EnvironmentKind.Path, false },
         { EnvironmentKind.Wall, false },
+        { EnvironmentKind.Pillar, false },
     };
 
     public float eventInterval = 1f;
@@ -35,6 +37,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         floorColliders = gc.floorColliders;
         pathColliders = gc.pathColliders;
         wallColliders = gc.wallColliders;
+        pillarColliders = gc.pillarColliders;
 
         // enemy dependencies could be taken from this.gameObject.GetComponent since it's important to be on Enemy GO and to have OnTrigger events
         enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
@@ -51,12 +54,13 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (floorColliders.Count == 0) Debug.LogWarning("No floorTileMapCollider given");
         if (pathColliders.Count == 0) Debug.LogWarning("No pathTileMapCollider given");
         if (wallColliders.Count == 0) Debug.LogWarning("No wallTileMapCollider given");
+        if (pillarColliders.Count == 0) Debug.LogWarning("No pillarColliders given");
 
         if (!enemyMovement) Debug.LogError("No moveEnemyComponent given");
         if (!enemyHealth) Debug.LogError("No healthEnemyComponent given");
     }
 
-    EnvironmentKind SharedTriggerRoutine(Collider2D collider)
+    EnvironmentKind DefineEnvironmentKind(Collider2D collider)
     {
         var instanceId = collider.GetInstanceID();
         foreach (var col in floorColliders) {
@@ -74,44 +78,59 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
                 return EnvironmentKind.Wall;
             }
         }
+        foreach (var col in pillarColliders) {
+            if (instanceId == col.GetInstanceID()) {
+                return EnvironmentKind.Pillar;
+            }
+        }
         return EnvironmentKind.Unknown;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
+        var environmentKind = DefineEnvironmentKind(collider);
+        if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
             enemyMovement.speed *= 1.5f;
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
+        if (environmentKind == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
             enemyMovement.speed *= 2f;
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
+        if (environmentKind == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
             enemyMovement.speed *= 0.1f;
+        }
+        if (environmentKind == EnvironmentKind.Pillar)
+        {
+            // Debug.Log($"_j EnemyEnvironmentIntersection OnTriggerEnter2D pillar");
         }
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
+        var environmentKind = DefineEnvironmentKind(collider);
+        if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
             enemyMovement.speed /= 1.5f;
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
+        if (environmentKind == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
             enemyMovement.speed /= 2f;
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
+        if (environmentKind == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
             enemyMovement.speed /= 0.1f;
+        }
+        if (environmentKind == EnvironmentKind.Pillar)
+        {
+            // Debug.Log($"_j EnemyEnvironmentIntersection OnTriggerEnter2D pillar left");
         }
     }
 
