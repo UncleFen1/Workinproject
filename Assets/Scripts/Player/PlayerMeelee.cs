@@ -61,8 +61,21 @@ public class MeleeAttack : MonoBehaviour
                 break;
         }
 
-        // TODO _j Andrey attackRange [PlayerKind.AttackRange] should work on melee attacks?
-        // mod = playerRoulette.playerKindsMap[PlayerKind.AttackRange].modifier;
+        mod = playerRoulette.playerKindsMap[PlayerKind.AttackRange].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                attackRange *= 2;
+                break;
+            case PlayerModifier.Decreased:
+                attackRange /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
     }
 
     void Update()
