@@ -7,9 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyEnvironmentIntersection : MonoBehaviour
 {
-    private Collider2D floorTileMapCollider;
-    private Collider2D pathTileMapCollider;
-    private Collider2D wallTileMapCollider;
+    private List<Collider2D> floorColliders = new List<Collider2D>();
+    private List<Collider2D> pathColliders = new List<Collider2D>();
+    private List<Collider2D> wallColliders = new List<Collider2D>();
 
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
@@ -32,9 +32,9 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     {
         environmentRoulette = er;
 
-        floorTileMapCollider = gc.floor;
-        pathTileMapCollider = gc.path;
-        wallTileMapCollider = gc.wall;
+        floorColliders = gc.floorColliders;
+        pathColliders = gc.pathColliders;
+        wallColliders = gc.wallColliders;
 
         // enemy dependencies could be taken from this.gameObject.GetComponent since it's important to be on Enemy GO and to have OnTrigger events
         enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
@@ -48,9 +48,9 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        if (!floorTileMapCollider) Debug.LogWarning("No floorTileMapCollider given");
-        if (!pathTileMapCollider) Debug.LogWarning("No pathTileMapCollider given");
-        if (!wallTileMapCollider) Debug.LogWarning("No wallTileMapCollider given");
+        if (floorColliders.Count == 0) Debug.LogWarning("No floorTileMapCollider given");
+        if (pathColliders.Count == 0) Debug.LogWarning("No pathTileMapCollider given");
+        if (wallColliders.Count == 0) Debug.LogWarning("No wallTileMapCollider given");
 
         if (!enemyMovement) Debug.LogError("No moveEnemyComponent given");
         if (!enemyHealth) Debug.LogError("No healthEnemyComponent given");
@@ -58,18 +58,21 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     EnvironmentKind SharedTriggerRoutine(Collider2D collider)
     {
-        // TODO _j could be a Dictionary to iterate on
-        if (collider.GetInstanceID() == floorTileMapCollider.GetInstanceID())
-        {
-            return EnvironmentKind.Floor;
+        var instanceId = collider.GetInstanceID();
+        foreach (var col in floorColliders) {
+            if (instanceId == col.GetInstanceID()) {
+                return EnvironmentKind.Floor;
+            }
         }
-        if (collider.GetInstanceID() == pathTileMapCollider.GetInstanceID())
-        {
-            return EnvironmentKind.Path;
+        foreach (var col in pathColliders) {
+            if (instanceId == col.GetInstanceID()) {
+                return EnvironmentKind.Path;
+            }
         }
-        if (collider.GetInstanceID() == wallTileMapCollider.GetInstanceID())
-        {
-            return EnvironmentKind.Wall;
+        foreach (var col in wallColliders) {
+            if (instanceId == col.GetInstanceID()) {
+                return EnvironmentKind.Wall;
+            }
         }
         return EnvironmentKind.Unknown;
     }
