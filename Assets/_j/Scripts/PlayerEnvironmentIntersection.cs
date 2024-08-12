@@ -126,7 +126,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall");
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
+            // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
@@ -154,7 +154,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         if (environmentKind == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
+            // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
