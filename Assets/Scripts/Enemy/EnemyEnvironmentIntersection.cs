@@ -102,7 +102,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (environmentKind == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
-            enemyMovement.speed *= 0.1f;
+            // enemyMovement.speed *= 0.1f;
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
@@ -126,7 +126,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (environmentKind == EnvironmentKind.Wall)
         {
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
-            enemyMovement.speed /= 0.1f;
+            // enemyMovement.speed /= 0.1f;
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
