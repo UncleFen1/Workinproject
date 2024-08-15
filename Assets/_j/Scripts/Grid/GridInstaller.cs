@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Zenject;
 
 namespace GameGrid
@@ -6,7 +7,9 @@ namespace GameGrid
     {
         public override void InstallBindings()
         {
-            Container.Bind<GridController>().FromComponentInHierarchy().AsSingle().NonLazy();
+            // Component vs ComponentS
+            // Container.Bind<GridController>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<GridController>().FromComponentsInHierarchy().AsSingle().NonLazy();
         }
     }
 }

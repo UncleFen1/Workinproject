@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameGrid;
 using Roulettes;
 using UnityEngine;
@@ -11,12 +12,13 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyRoulette enemyRoulette;
     private EnvironmentRoulette environmentRoulette;
-    private GridController gridController;
+    private List<GridController> gridControllerList;
     [Inject]
-    private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, GridController gc) {
+    private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, List<GridController> gcs)
+    {
         enemyRoulette = er;
         environmentRoulette = envR;
-        gridController = gc;
+        gridControllerList = gcs;
     }
 
     void Start()
@@ -37,28 +39,33 @@ public class EnemySpawner : MonoBehaviour
             GameObject randomEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
 
             var go = Instantiate(randomEnemyPrefab, randomPosition, Quaternion.identity);
-            
+
             // TODO _j better to create EnemyController and add all fields there
             // TODO _j maybe ZenjectBinding MonoBehaviour object to add to prefab
             var enemyHealth = go.GetComponent<EnemyHealth>();
-            if (enemyHealth && enemyHealth.isActiveAndEnabled) {
+            if (enemyHealth && enemyHealth.isActiveAndEnabled)
+            {
                 enemyHealth.LinkEnemyRoulette(enemyRoulette);
             }
             var meleeEnemy = go.GetComponent<EnemyMeleeAttack>();
-            if (meleeEnemy && meleeEnemy.isActiveAndEnabled) {
+            if (meleeEnemy && meleeEnemy.isActiveAndEnabled)
+            {
                 meleeEnemy.LinkEnemyRoulette(enemyRoulette);
             }
             var rangeEnemy = go.GetComponent<EnemyShooting>();
-            if (rangeEnemy && rangeEnemy.isActiveAndEnabled) {
+            if (rangeEnemy && rangeEnemy.isActiveAndEnabled)
+            {
                 rangeEnemy.LinkEnemyRoulette(enemyRoulette);
             }
             var movementEnemy = go.GetComponent<EnemyMovement>();
-            if (movementEnemy && movementEnemy.isActiveAndEnabled) {
+            if (movementEnemy && movementEnemy.isActiveAndEnabled)
+            {
                 movementEnemy.LinkEnemyRoulette(enemyRoulette);
             }
             var enemyEnvironmentIntersection = go.GetComponent<EnemyEnvironmentIntersection>();
-            if (enemyEnvironmentIntersection && enemyEnvironmentIntersection.isActiveAndEnabled) {
-                enemyEnvironmentIntersection.LinkEnemyEnvironmentIntersection(environmentRoulette, gridController);
+            if (enemyEnvironmentIntersection && enemyEnvironmentIntersection.isActiveAndEnabled)
+            {
+                enemyEnvironmentIntersection.LinkEnemyEnvironmentIntersection(environmentRoulette, gridControllerList);
             }
         }
     }

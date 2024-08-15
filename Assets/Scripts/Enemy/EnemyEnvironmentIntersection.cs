@@ -7,10 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyEnvironmentIntersection : MonoBehaviour
 {
-    private List<Collider2D> floorColliders = new List<Collider2D>();
-    private List<Collider2D> pathColliders = new List<Collider2D>();
-    private List<Collider2D> wallColliders = new List<Collider2D>();
-    private List<Collider2D> pillarColliders = new List<Collider2D>();
+    private List<GridController> gridControllerList;
 
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
@@ -30,14 +27,10 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     private float lastEventTime = float.MinValue;
 
     // [Inject]
-    public void LinkEnemyEnvironmentIntersection(EnvironmentRoulette er, GridController gc)
+    public void LinkEnemyEnvironmentIntersection(EnvironmentRoulette er, List<GridController> gcs)
     {
         environmentRoulette = er;
-
-        floorColliders = gc.floorColliders;
-        pathColliders = gc.pathColliders;
-        wallColliders = gc.wallColliders;
-        pillarColliders = gc.pillarColliders;
+        gridControllerList = gcs;
 
         // enemy dependencies could be taken from this.gameObject.GetComponent since it's important to be on Enemy GO and to have OnTrigger events
         enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
@@ -51,11 +44,6 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        if (floorColliders.Count == 0) Debug.LogWarning("No floorTileMapCollider given");
-        if (pathColliders.Count == 0) Debug.LogWarning("No pathTileMapCollider given");
-        if (wallColliders.Count == 0) Debug.LogWarning("No wallTileMapCollider given");
-        if (pillarColliders.Count == 0) Debug.LogWarning("No pillarColliders given");
-
         if (!enemyMovement) Debug.LogError("No moveEnemyComponent given");
         if (!enemyHealth) Debug.LogError("No healthEnemyComponent given");
     }
@@ -63,24 +51,39 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     EnvironmentKind DefineEnvironmentKind(Collider2D collider)
     {
         var instanceId = collider.GetInstanceID();
-        foreach (var col in floorColliders) {
-            if (instanceId == col.GetInstanceID()) {
-                return EnvironmentKind.Floor;
+        foreach (var gridController in gridControllerList)
+        {
+            var floorColliders = gridController.floorColliders;
+            var pathColliders = gridController.pathColliders;
+            var wallColliders = gridController.wallColliders;
+            var pillarColliders = gridController.pillarColliders;
+            foreach (var col in floorColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    return EnvironmentKind.Floor;
+                }
             }
-        }
-        foreach (var col in pathColliders) {
-            if (instanceId == col.GetInstanceID()) {
-                return EnvironmentKind.Path;
+            foreach (var col in pathColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    return EnvironmentKind.Path;
+                }
             }
-        }
-        foreach (var col in wallColliders) {
-            if (instanceId == col.GetInstanceID()) {
-                return EnvironmentKind.Wall;
+            foreach (var col in wallColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    return EnvironmentKind.Wall;
+                }
             }
-        }
-        foreach (var col in pillarColliders) {
-            if (instanceId == col.GetInstanceID()) {
-                return EnvironmentKind.Pillar;
+            foreach (var col in pillarColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    return EnvironmentKind.Pillar;
+                }
             }
         }
         return EnvironmentKind.Unknown;
