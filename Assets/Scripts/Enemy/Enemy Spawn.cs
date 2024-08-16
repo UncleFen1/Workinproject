@@ -39,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject randomEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
 
             var go = Instantiate(randomEnemyPrefab, randomPosition, Quaternion.identity);
+            go.name += i.ToString();
 
             // TODO _j better to create EnemyController and add all fields there
             // TODO _j maybe ZenjectBinding MonoBehaviour object to add to prefab
