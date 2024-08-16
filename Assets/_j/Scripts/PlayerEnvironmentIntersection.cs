@@ -4,11 +4,15 @@ using UnityEngine;
 using Zenject;
 using Roulettes;
 using GameGrid;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
+    private Color DEFAULT_WALL_COLOR = Color.white;
+    private Color TRANSPARENT_WALL_COLOR = new Color(1f, 1f, 1f, 0.35f);
+
     private List<GridController> gridControllerList;
 
     private MovePlayer movePlayerComponent;
@@ -74,12 +78,35 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         }
 
         spriteRendererComponent.sortingOrder = currentGrid.sortingOrder;
+
+        ChangeGridWallsColor(currentGrid, TRANSPARENT_WALL_COLOR);
+        ChangeGridWallsColor(previousGrid, DEFAULT_WALL_COLOR);
     }
 
     private void EnvironmentColliderDataChanged(EnvironmentColliderData currentData, EnvironmentColliderData previousData)
     {
         // happens quite often: Floor->Path->Wall->Path->...
         // Debug.Log($"_j environmentColliderDataChanged: {curData.collider.name}, prev: {oldData.collider.name}");
+    }
+
+    private void ChangeGridWallsColor(GridController gridController, Color color)
+    {
+        if (gridController == null)
+        {
+            Debug.LogWarning("grid is null, can't change color");
+            return;
+        }
+        var wallColliders = gridController.wallColliders;
+        if (wallColliders == null)
+        {
+            Debug.LogWarning("grid has no wall colliders, can't change color");
+            return;
+        }
+        foreach (var col in wallColliders)
+        {
+            // may be it's better to store an array of Tilemap components for this colliders
+            col.GetComponent<Tilemap>().color = color;
+        }
     }
 
     EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
