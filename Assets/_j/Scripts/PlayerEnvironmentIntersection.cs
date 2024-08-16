@@ -105,7 +105,11 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         foreach (var col in wallColliders)
         {
             // may be it's better to store an array of Tilemap components for this colliders
-            col.GetComponent<Tilemap>().color = color;
+            var tilemapRenderer = col.GetComponent<TilemapRenderer>();
+            if (spriteRendererComponent.sortingOrder < tilemapRenderer.sortingOrder)
+            {
+                col.GetComponent<Tilemap>().color = color;
+            }
         }
     }
 
