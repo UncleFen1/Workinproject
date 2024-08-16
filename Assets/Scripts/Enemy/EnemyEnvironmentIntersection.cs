@@ -11,6 +11,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     private EnemyMovement enemyMovement;
     private EnemyHealth enemyHealth;
+    private SpriteRenderer spriteRendererComponent;
 
     private EnvironmentRoulette environmentRoulette;
 
@@ -26,6 +27,12 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     public float eventInterval = 1f;
     private float lastEventTime = float.MinValue;
 
+    private EnvironmentColliderData currentEnvironmentColliderData;
+    private EnvironmentColliderData previousEnvironmentColliderData;
+
+    private GridController currentGridController;
+    private GridController previousGridController;
+
     // [Inject]
     public void LinkEnemyEnvironmentIntersection(EnvironmentRoulette er, List<GridController> gcs)
     {
@@ -35,6 +42,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         // enemy dependencies could be taken from this.gameObject.GetComponent since it's important to be on Enemy GO and to have OnTrigger events
         enemyMovement = this.gameObject.GetComponent<EnemyMovement>();
         enemyHealth = this.gameObject.GetComponent<EnemyHealth>();
+        spriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -46,10 +54,36 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
     {
         if (!enemyMovement) Debug.LogError("No moveEnemyComponent given");
         if (!enemyHealth) Debug.LogError("No healthEnemyComponent given");
+        if (!spriteRendererComponent) Debug.LogError("No spriteRendererComponent given");
     }
 
-    EnvironmentKind DefineEnvironmentKind(Collider2D collider)
+    private void GridChanged(GridController currentGrid, GridController previousGrid)
     {
+        // if (previousGrid != null)
+        // {
+        //     Debug.Log($"_j enemyGridChanged: {currentGrid.name}, prev: {previousGrid.name}");
+        // }
+        // else
+        // {
+        //     Debug.Log($"_j enemyGridChanged: {currentGrid.name}, prev: {null}");
+        // }
+
+        spriteRendererComponent.sortingOrder = currentGrid.sortingOrder;
+    }
+
+    private void EnvironmentColliderDataChanged(EnvironmentColliderData currentData, EnvironmentColliderData previousData)
+    {
+        // happens quite often: Floor->Path->Wall->Path->...
+        // Debug.Log($"_j environmentColliderDataChanged: {curData.collider.name}, prev: {oldData.collider.name}");
+    }
+
+    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
+    {
+        var environmentColliderData = new EnvironmentColliderData
+        {
+            collider = collider
+        };
+
         var instanceId = collider.GetInstanceID();
         foreach (var gridController in gridControllerList)
         {
@@ -57,41 +91,85 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
             var pathColliders = gridController.pathColliders;
             var wallColliders = gridController.wallColliders;
             var pillarColliders = gridController.pillarColliders;
+
+            EnvironmentKind foundEnvironmentKind = EnvironmentKind.Unknown;
             foreach (var col in floorColliders)
             {
                 if (instanceId == col.GetInstanceID())
                 {
-                    return EnvironmentKind.Floor;
+                    foundEnvironmentKind = EnvironmentKind.Floor;
+                    break;
                 }
             }
             foreach (var col in pathColliders)
             {
                 if (instanceId == col.GetInstanceID())
                 {
-                    return EnvironmentKind.Path;
+                    foundEnvironmentKind = EnvironmentKind.Path;
+                    break;
                 }
             }
             foreach (var col in wallColliders)
             {
                 if (instanceId == col.GetInstanceID())
                 {
-                    return EnvironmentKind.Wall;
+                    foundEnvironmentKind = EnvironmentKind.Wall;
+                    break;
                 }
             }
             foreach (var col in pillarColliders)
             {
                 if (instanceId == col.GetInstanceID())
                 {
-                    return EnvironmentKind.Pillar;
+                    foundEnvironmentKind = EnvironmentKind.Pillar;
+                    break;
                 }
             }
+
+            if (foundEnvironmentKind != EnvironmentKind.Unknown)
+            {
+                environmentColliderData.environmentKind = foundEnvironmentKind;
+                environmentColliderData.gridController = gridController;
+
+                if (currentEnvironmentColliderData == null)
+                {
+                    currentEnvironmentColliderData = environmentColliderData;
+                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                }
+                else if (previousEnvironmentColliderData != currentEnvironmentColliderData)
+                {
+                    previousEnvironmentColliderData = currentEnvironmentColliderData;
+                    currentEnvironmentColliderData = environmentColliderData;
+                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                }
+
+                if (currentGridController == null)
+                {
+                    currentGridController = environmentColliderData.gridController;
+                    GridChanged(currentGridController, previousGridController);
+                }
+                else
+                {
+                    // if (currentGridController.GetInstanceID() != environmentColliderData.gridController.GetInstanceID())
+                    if (currentGridController != environmentColliderData.gridController)
+                    {
+                        previousGridController = currentGridController;
+                        currentGridController = environmentColliderData.gridController;
+                        GridChanged(currentGridController, previousGridController);
+                    }
+                }
+
+                return environmentColliderData;
+            }
         }
-        return EnvironmentKind.Unknown;
+
+        return environmentColliderData;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        var environmentKind = DefineEnvironmentKind(collider);
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
@@ -115,7 +193,8 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        var environmentKind = DefineEnvironmentKind(collider);
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
