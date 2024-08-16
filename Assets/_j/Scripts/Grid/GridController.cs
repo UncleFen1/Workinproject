@@ -6,6 +6,8 @@ namespace GameGrid
 {
     public class GridController : MonoBehaviour
     {
+        public int sortingOrder = 0;
+
         public List<Collider2D> floorColliders = new List<Collider2D>();
         public List<Collider2D> pathColliders = new List<Collider2D>();
         public List<Collider2D> wallColliders = new List<Collider2D>();

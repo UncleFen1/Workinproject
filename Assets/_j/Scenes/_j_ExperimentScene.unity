@@ -5804,7 +5804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &927072184
 Transform:
   m_ObjectHideFlags: 0
@@ -10942,6 +10942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e73dab6ed29641b285c3d37362c6d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sortingOrder: 0
   floorColliders:
   - {fileID: 347658848}
   pathColliders:
@@ -11764,10 +11765,6 @@ PrefabInstance:
     - target: {fileID: 5674686868962132765, guid: dd4b5f7d2bdff4828baeed9c5ce89fcb, type: 3}
       propertyPath: m_Name
       value: Grid 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5674686868962132765, guid: dd4b5f7d2bdff4828baeed9c5ce89fcb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5764825310739483701, guid: dd4b5f7d2bdff4828baeed9c5ce89fcb, type: 3}
       propertyPath: m_LocalPosition.x
