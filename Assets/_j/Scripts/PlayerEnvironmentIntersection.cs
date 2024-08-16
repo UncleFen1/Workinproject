@@ -49,6 +49,18 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         spriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
+    void Start()
+    {
+        Init();
+    }
+
+    void Init()
+    {
+        if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
+        if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
+        if (!spriteRendererComponent) Debug.LogError("No spriteRendererComponent given");
+    }
+
     private void GridChanged(GridController currentGrid, GridController previousGrid)
     {
         // TODO _j can send event onGridChange by EventBus, if needed
@@ -64,22 +76,10 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         spriteRendererComponent.sortingOrder = currentGrid.sortingOrder;
     }
 
-    private void EnvironmentColliderDataChanged(EnvironmentColliderData curData, EnvironmentColliderData prevData)
+    private void EnvironmentColliderDataChanged(EnvironmentColliderData currentData, EnvironmentColliderData previousData)
     {
         // happens quite often: Floor->Path->Wall->Path->...
         // Debug.Log($"_j environmentColliderDataChanged: {curData.collider.name}, prev: {oldData.collider.name}");
-    }
-
-    void Start()
-    {
-        Init();
-    }
-
-    void Init()
-    {
-        if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
-        if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
-        if (!spriteRendererComponent) Debug.LogError("No spriteRendererComponent given");
     }
 
     EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
