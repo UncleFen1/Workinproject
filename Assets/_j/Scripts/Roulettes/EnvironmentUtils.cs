@@ -6,6 +6,7 @@ namespace Roulettes
         Floor,
         Path,
         Wall,
+        Pillar,
     }
 
     public enum EnvironmentModifier

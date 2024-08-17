@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using Roulettes;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -61,71 +59,125 @@ public class MeleeAttack : MonoBehaviour
                 break;
         }
 
-        // TODO _j Andrey attackRange [PlayerKind.AttackRange] should work on melee attacks?
-        // mod = playerRoulette.playerKindsMap[PlayerKind.AttackRange].modifier;
+        mod = playerRoulette.playerKindsMap[PlayerKind.AttackRange].modifier;
+        switch (mod)
+        {
+            case PlayerModifier.Unchanged:
+                break;
+            case PlayerModifier.Increased:
+                attackRange *= 2;
+                break;
+            case PlayerModifier.Decreased:
+                attackRange /= 2;
+                break;
+            default:
+                Debug.LogWarning("_j unknown modifier");
+                break;
+        }
+    }
+
+    void Start()
+    {
+        if (attackSector == null)
+        {
+            Debug.LogError("Attack sector is not assigned");
+        }
+        if (attackPoint == null)
+        {
+            Debug.LogError("Attack point is not assigned");
+        }
     }
 
     void Update()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)attackPoint.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        attackSector.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
         if (Input.GetMouseButtonDown(0) && Time.time >= nextAttackTime)
         {
-            Attack();
+            var (directionToMouse, angle) = CalculateDirectionToMouseAndAngle();
+
+            Attack(directionToMouse, angle);
             nextAttackTime = Time.time + 1f / attackRate;
         }
     }
 
-    void Attack()
+    void Attack(Vector2 directionToMouse, float angle)
     {
-        Vector2 direction = attackSector.up;
-        float angleToMouse = Vector2.Angle(attackSector.up, direction);
-
-        if (angleToMouse <= attackAngle / 2)
+        var foundColliders = FindCollidersInSector(directionToMouse);
+        if (foundColliders.Count > 0)
         {
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-            foreach (Collider2D enemy in hitEnemies)
+            foreach (var collider in foundColliders)
             {
-                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                EnemyHealth enemyHealth = collider.Value.GetComponent<EnemyHealth>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(meleDamage);
                 }
             }
-
-            SpawnAttackEffect();
         }
+        SpawnAttackEffect(directionToMouse, angle);
     }
 
-    private void SpawnAttackEffect()
+    Dictionary<int, Collider2D> FindCollidersInSector(Vector2 directionToMouse)
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)attackPoint.position).normalized;
+        Dictionary<int, Collider2D> foundColliders = new();
+        
+        // calculate start and end angles of the sector
+        float startAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg - attackAngle / 2;
+        float endAngle = startAngle + attackAngle;
 
-        Vector2 spawnPosition = (Vector2)attackPoint.position + direction * attackRange;
+        // find all colliders within the circle
+        // TODO _j specify layers or detect in different way, this one is expensive
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        // filter out colliders not within the sector's angle range
+        foreach (Collider2D collider in colliders)
+        {
+            var goInstanceId = collider.gameObject.GetInstanceID();
+            Vector2 colliderDirection = (collider.transform.position - attackPoint.position).normalized;
+            float colliderAngle = Mathf.Atan2(colliderDirection.y, colliderDirection.x) * Mathf.Rad2Deg;
+
+            if (!foundColliders.ContainsKey(goInstanceId) && colliderAngle >= startAngle && colliderAngle <= endAngle)
+            {
+                // collider is within the sector's angle range
+                // Debug.Log($"_j pm, hitEnemies: {collider.name}");
+                foundColliders.Add(goInstanceId, collider);
+            }
+        }
+
+        return foundColliders;
+    }
+
+    private void SpawnAttackEffect(Vector2 directionToMouse, float angle)
+    {
+        Vector2 spawnPosition = (Vector2)attackPoint.position + directionToMouse * attackRange;
 
         if (attackEffectPrefab != null)
         {
-            float effectAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            GameObject effect = Instantiate(attackEffectPrefab, spawnPosition, Quaternion.Euler(0, 0, effectAngle));
+            GameObject effect = Instantiate(attackEffectPrefab, spawnPosition, Quaternion.Euler(0, 0, angle));
             Destroy(effect, effectDuration);
         }
+    }
+
+    (Vector2 directionToMouse, float angle) CalculateDirectionToMouseAndAngle()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 directionToMouse = (mousePosition - (Vector2)attackPoint.position).normalized;
+        float angle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+
+        return (directionToMouse, angle);
     }
 
     void OnDrawGizmosSelected()
     {
         if (attackPoint != null)
         {
+            var (directionToMouse, angle) = CalculateDirectionToMouseAndAngle();
+            attackSector.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
 
-            Vector3 leftBoundary = Quaternion.Euler(0, 0, -attackAngle / 2) * attackSector.up * attackRange + attackPoint.position;
-            Vector3 rightBoundary = Quaternion.Euler(0, 0, attackAngle / 2) * attackSector.up * attackRange + attackPoint.position;
+            Vector3 leftBoundary = Quaternion.Euler(0, 0, -attackAngle / 2) * attackSector.right * attackRange + attackPoint.position;
+            Vector3 rightBoundary = Quaternion.Euler(0, 0, attackAngle / 2) * attackSector.right * attackRange + attackPoint.position;
 
             Gizmos.DrawLine(attackPoint.position, leftBoundary);
             Gizmos.DrawLine(attackPoint.position, rightBoundary);

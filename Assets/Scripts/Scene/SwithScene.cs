@@ -6,6 +6,9 @@ namespace OldSceneNamespace
 {
     public class SwithScene : MonoBehaviour
     {
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        private static extern void quitUnityApp();
+
         [Header("Указать IdScen")]
         [SerializeField] private int idLoadScen = 1;//
         [SerializeField] private int idVictoryScen = 4;
@@ -58,7 +61,19 @@ namespace OldSceneNamespace
         }
         private void ExitGame()
         {
-            if (isRun) { Application.Quit(); }
+            // if (isRun) { Application.Quit(); }
+            Debug.Log("_j going to quit the application");
+#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
+            Debug.Log(this.name + " : " + this.GetType() + " : " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+#endif
+#if (UNITY_EDITOR)
+            UnityEditor.EditorApplication.isPlaying = false;
+#elif (UNITY_STANDALONE) 
+            Application.Quit();
+#elif (UNITY_WEBGL)
+            // Application.OpenURL("about:blank");
+            quitUnityApp();
+#endif
         }
         private int OpenVictoryScen()
         {

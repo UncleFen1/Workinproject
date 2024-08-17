@@ -68,7 +68,7 @@ namespace UI
         }
         IEnumerator LoadSceneID(int _idScene)
         {
-            int t = 0;
+            int loadingPercent = 0;
             bool isRun = true;
             // yield return new WaitForSeconds(1);
             // asyncOperation=SceneManager.LoadSceneAsync(_idScene);
@@ -82,11 +82,11 @@ namespace UI
 
             while (isRun)
             {
-                t++;
-                if (t >= 101)
+                loadingPercent++;
+                if (loadingPercent >= 101)
                 {
                     isRun = false;
-                    t = 100;
+                    loadingPercent = 100;
 
                     asyncOperation = SceneManager.LoadSceneAsync(_idScene);
                     if (!asyncOperation.isDone)
@@ -94,8 +94,8 @@ namespace UI
                         isRun = true;
                     }
                 }
-                loadImg.fillAmount = t * 0.01f;
-                loadTxt.text = $"{tempTxt} {string.Format("{0:0}%", t)}";// {string.Format("{0:0}%", t)}
+                loadImg.fillAmount = loadingPercent * 0.01f;
+                loadTxt.text = $"{string.Format("{0:0}%", loadingPercent)}";// {string.Format("{0:0}%", t)}
                 yield return 0;
             }
         }

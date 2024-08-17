@@ -12,6 +12,8 @@ public class EnemyShooting : MonoBehaviour
     public float scatterAngle = 5f;
     private float nextFireTime = 1f;
 
+    public Animator animator;
+    
     private EnemyRoulette enemyRoulette;
     public void LinkEnemyRoulette(EnemyRoulette er)
     {
@@ -89,8 +91,17 @@ public class EnemyShooting : MonoBehaviour
             if (Time.time >= nextFireTime)
             {
                 Shoot();
+                
                 nextFireTime = Time.time + 1f / fireRate;
             }
+
+            animator.SetBool("EnemyShoot", true);
+
+        }
+
+        else
+        {
+            animator.SetBool("EnemyShoot", false);
         }
     }
 

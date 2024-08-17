@@ -4,20 +4,28 @@ using UnityEngine;
 using Zenject;
 using Roulettes;
 using GameGrid;
-using GamePlayer;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
-    private Collider2D floorTileMapCollider;
-    private Collider2D pathTileMapCollider;
-    private Collider2D wallTileMapCollider;
+    private Color DEFAULT_WALL_COLOR = Color.white;
+    private Color TRANSPARENT_WALL_COLOR = new Color(1f, 1f, 1f, 0.35f);
+
+    private List<GridController> gridControllerList;
 
     private MovePlayer movePlayerComponent;
     private PlayerHealth healthPlayerComponent;
+    private SpriteRenderer spriteRendererComponent;
 
     private EnvironmentRoulette environmentRoulette;
+
+    private EnvironmentColliderData currentEnvironmentColliderData;
+    private EnvironmentColliderData previousEnvironmentColliderData;
+
+    private GridController currentGridController;
+    private GridController previousGridController;
 
     private Dictionary<EnvironmentKind, bool> isOnEnvironmentMap = new Dictionary<EnvironmentKind, bool>
     {
@@ -25,24 +33,24 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         { EnvironmentKind.Floor, false },
         { EnvironmentKind.Path, false },
         { EnvironmentKind.Wall, false },
+        { EnvironmentKind.Pillar, false },
     };
 
     public float eventInterval = 1f;
     private float lastEventTime = float.MinValue;
 
     [Inject]
-    private void InitBindings(EnvironmentRoulette er, GridController gc, PlayerController pc) {
+    private void InitBindings(EnvironmentRoulette er, List<GridController> gcs)
+    {
         environmentRoulette = er;
-
-        floorTileMapCollider = gc.floor;
-        pathTileMapCollider = gc.path;
-        wallTileMapCollider = gc.wall;
+        gridControllerList = gcs;
 
         // player dependencies could be taken from this.gameObject.GetComponent since it's important to be on Player GO and to have OnTrigger events
         // movePlayerComponent = pc.movePlayer;
         // healthPlayerComponent = pc.playerHealth;
         movePlayerComponent = this.gameObject.GetComponent<MovePlayer>();
         healthPlayerComponent = this.gameObject.GetComponent<PlayerHealth>();
+        spriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -52,90 +60,206 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void Init()
     {
-        // Alternative linking
-        // var grid = GameObject.FindObjectOfType<Grid>();
-        // var colliders = grid.GetComponentsInChildren<TilemapCollider2D>();
-        // for (int i = 0; i < colliders.Length; i++) {
-        //     var collider = colliders[i];
-        //     var colliderNameInvariant = collider.name.ToLowerInvariant();
-        //     if (colliderNameInvariant.Contains("floor")) {
-        //         floorTileMapCollider = collider;
-        //     } else if (colliderNameInvariant.Contains("path")) {
-        //         pathTileMapCollider = collider;
-        //     } else if (colliderNameInvariant.Contains("wall")) {
-        //         wallTileMapCollider = collider;
-        //     } else {
-        //         Debug.LogWarning("unassigned collider: " + collider.name);
-        //     }
-        // }
-
-        if (!floorTileMapCollider) Debug.LogError("No floorTileMapCollider given");
-        if (!pathTileMapCollider) Debug.LogError("No pathTileMapCollider given");
-        if (!wallTileMapCollider) Debug.LogError("No wallTileMapCollider given");
-
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
+        if (!spriteRendererComponent) Debug.LogError("No spriteRendererComponent given");
     }
 
-    EnvironmentKind SharedTriggerRoutine(Collider2D collider)
+    private void GridChanged(GridController currentGrid, GridController previousGrid)
     {
-        if (collider.GetInstanceID() == floorTileMapCollider.GetInstanceID())
+        // TODO _j can send event onGridChange by EventBus, if needed
+        if (previousGrid != null)
         {
-            return EnvironmentKind.Floor;
+            Debug.Log($"_j gridChanged: {currentGrid.name}, prev: {previousGrid.name}");
         }
-        if (collider.GetInstanceID() == pathTileMapCollider.GetInstanceID())
+        else
         {
-            return EnvironmentKind.Path;
+            Debug.Log($"_j gridChanged: {currentGrid.name}, prev: {null}");
         }
-        if (collider.GetInstanceID() == wallTileMapCollider.GetInstanceID())
+
+        spriteRendererComponent.sortingOrder = currentGrid.sortingOrder;
+
+        ChangeGridWallsColor(currentGrid, TRANSPARENT_WALL_COLOR);
+        ChangeGridWallsColor(previousGrid, DEFAULT_WALL_COLOR);
+    }
+
+    private void EnvironmentColliderDataChanged(EnvironmentColliderData currentData, EnvironmentColliderData previousData)
+    {
+        // happens quite often: Floor->Path->Wall->Path->...
+        // Debug.Log($"_j environmentColliderDataChanged: {curData.collider.name}, prev: {oldData.collider.name}");
+    }
+
+    private void ChangeGridWallsColor(GridController gridController, Color color)
+    {
+        if (gridController == null)
         {
-            return EnvironmentKind.Wall;
+            Debug.LogWarning("grid is null, can't change color");
+            return;
         }
-        return EnvironmentKind.Unknown;
+        var wallColliders = gridController.wallColliders;
+        if (wallColliders == null)
+        {
+            Debug.LogWarning("grid has no wall colliders, can't change color");
+            return;
+        }
+        foreach (var col in wallColliders)
+        {
+            // may be it's better to store an array of Tilemap components for this colliders
+            var tilemapRenderer = col.GetComponent<TilemapRenderer>();
+            if (spriteRendererComponent.sortingOrder < tilemapRenderer.sortingOrder)
+            {
+                col.GetComponent<Tilemap>().color = color;
+            }
+        }
+    }
+
+    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
+    {
+        var environmentColliderData = new EnvironmentColliderData
+        {
+            collider = collider
+        };
+
+        var instanceId = collider.GetInstanceID();
+        foreach (var gridController in gridControllerList)
+        {
+            var floorColliders = gridController.floorColliders;
+            var pathColliders = gridController.pathColliders;
+            var wallColliders = gridController.wallColliders;
+            var pillarColliders = gridController.pillarColliders;
+            
+            EnvironmentKind foundEnvironmentKind = EnvironmentKind.Unknown;
+            foreach (var col in floorColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    foundEnvironmentKind = EnvironmentKind.Floor;
+                    break;
+                }
+            }
+            foreach (var col in pathColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    foundEnvironmentKind = EnvironmentKind.Path;
+                    break;
+                }
+            }
+            foreach (var col in wallColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    foundEnvironmentKind = EnvironmentKind.Wall;
+                    break;
+                }
+            }
+            foreach (var col in pillarColliders)
+            {
+                if (instanceId == col.GetInstanceID())
+                {
+                    foundEnvironmentKind = EnvironmentKind.Pillar;
+                    break;
+                }
+            }
+
+            if (foundEnvironmentKind != EnvironmentKind.Unknown)
+            {
+                environmentColliderData.environmentKind = foundEnvironmentKind;
+                environmentColliderData.gridController = gridController;
+
+                if (currentEnvironmentColliderData == null)
+                {
+                    currentEnvironmentColliderData = environmentColliderData;
+                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                }
+                else if (previousEnvironmentColliderData != currentEnvironmentColliderData)
+                {
+                    previousEnvironmentColliderData = currentEnvironmentColliderData;
+                    currentEnvironmentColliderData = environmentColliderData;
+                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                }
+
+                if (currentGridController == null)
+                {
+                    currentGridController = environmentColliderData.gridController;
+                    GridChanged(currentGridController, previousGridController);
+                }
+                else
+                {
+                    // if (currentGridController.GetInstanceID() != environmentColliderData.gridController.GetInstanceID())
+                    if (currentGridController != environmentColliderData.gridController)
+                    {
+                        previousGridController = currentGridController;
+                        currentGridController = environmentColliderData.gridController;
+                        GridChanged(currentGridController, previousGridController);
+                    }
+                }
+
+                return environmentColliderData;
+            }
+        }
+        
+        return environmentColliderData;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentKind = environmentColliderData.environmentKind;
+        if (environmentKind == EnvironmentKind.Floor)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor");
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 1.5f);
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
+        if (environmentKind == EnvironmentKind.Path)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path");
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 2f);
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
+        if (environmentKind == EnvironmentKind.Wall)
         {
             Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall");
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
+            // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
+        }
+        if (environmentKind == EnvironmentKind.Pillar)
+        {
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D pillar");
         }
     }
 
-    void OnTriggerStay2D(Collider2D collider) {
+    void OnTriggerStay2D(Collider2D collider)
+    {
         // for some reason Stay event stopped propogate if doesn't move
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Floor)
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentKind = environmentColliderData.environmentKind;
+        if (environmentKind == EnvironmentKind.Floor)
         {
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor left");
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 1.5f);
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Path)
+        if (environmentKind == EnvironmentKind.Path)
         {
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path left");
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 2f);
         }
-        if (SharedTriggerRoutine(collider) == EnvironmentKind.Wall)
+        if (environmentKind == EnvironmentKind.Wall)
         {
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall left");
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
-            movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
+            // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
+        }
+        if (environmentKind == EnvironmentKind.Pillar)
+        {
+            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D pillar left");
         }
     }
 

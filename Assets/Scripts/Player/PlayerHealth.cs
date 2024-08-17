@@ -1,4 +1,4 @@
-using Roulettes;
+﻿using Roulettes;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxPlayerHealth = 100;
     public int currentPlayerHealth;
+    public GameObject deathPrefab;
 
     private PlayerRoulette playerRoulette;
     [Inject]
@@ -59,6 +60,13 @@ public class PlayerHealth : MonoBehaviour
     void PlayerDie()
     {
         Debug.Log("Player died!");
+
+        if (deathPrefab != null)
+        {
+            Instantiate(deathPrefab, transform.position, transform.rotation);
+        }        
+        
         Destroy(gameObject);
+        
     }
 }
