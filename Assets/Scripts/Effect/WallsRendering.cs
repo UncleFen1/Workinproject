@@ -8,7 +8,7 @@ public class WallsRendering : MonoBehaviour
     public TilemapRenderer[] enableTilemaps; // Массив тайлмап рендереров для включения
     public TilemapRenderer[] disableTilemaps; // Массив тайлмап рендердеров для отключения
 
-    void OnTriggerEnter2D(EdgeCollider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         // Проверяем, что объект, с которым мы сталкиваемся, является нужным объектом
         if (other.CompareTag("Player")) // Измените "Player" на нужный вам тег
