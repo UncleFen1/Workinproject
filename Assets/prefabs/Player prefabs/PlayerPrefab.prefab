@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 1758535116218399193}
   - component: {fileID: 8658072841772819912}
   - component: {fileID: 7344195691102506948}
+  - component: {fileID: 3951921206036676071}
   - component: {fileID: 5565661572861553815}
   - component: {fileID: 7330821240515042511}
   - component: {fileID: 6074689469420699433}
@@ -811,6 +812,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisHash: 0
   tempChildrenHash: 0
+--- !u!114 &3951921206036676071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035803492739541913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef56fbb389b4484982edd71c9d42709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movePlayer: {fileID: 5565661572861553815}
+  shooting: {fileID: 8804997927899083609}
+  playerMelee: {fileID: 8858978660397393225}
+  playerHealth: {fileID: 7330821240515042511}
+  cinemachineVirtualCamera: {fileID: 0}
 --- !u!114 &5565661572861553815
 MonoBehaviour:
   m_ObjectHideFlags: 0
