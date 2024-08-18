@@ -4,14 +4,19 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform player;
-    public float speed = 2f;
+    public float moveSpeed = 2f;
+    public float turnSpeed = 10f;
     public float detectionRange = 5f;
     public float randomMovementTime = 2f;
     public float changeDirectionSpeed = 1f;
 
-    private Vector2 movementDirection;
-    private float nextChangeTime;
+    private Vector2 randomMovementDirection = Vector2.zero;
+    private float nextChangeTimeForRandomMovement;
 
+    private Rigidbody2D _rigidbody;
+    private Vector3 moveDirection;
+    private Quaternion deltaRotation, directionRotation;
+        
     private EnemyRoulette enemyRoulette;
     public void LinkEnemyRoulette(EnemyRoulette er)
     {
@@ -26,10 +31,10 @@ public class EnemyMovement : MonoBehaviour
             case EnemyModifier.Unchanged:
                 break;
             case EnemyModifier.Increased:
-                speed *= 2;
+                moveSpeed *= 2;
                 break;
             case EnemyModifier.Decreased:
-                speed /= 2;
+                moveSpeed /= 2;
                 break;
             default:
                 Debug.LogWarning("_j unknown modifier");
@@ -48,6 +53,9 @@ public class EnemyMovement : MonoBehaviour
         {
             Debug.LogWarning("Can't find GO with Tag Player");
         }
+
+        _rigidbody = this.GetComponent<Rigidbody2D>();
+        if (_rigidbody == null) Debug.LogWarning("Can't find Rigidbody component");
     }
     void Update()
     {
@@ -69,18 +77,27 @@ public class EnemyMovement : MonoBehaviour
     void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
-
-        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction, speed * Time.deltaTime);
+        MoveExecutor(direction);
     }
 
     void RandomMovement()
     {
-        if (Time.time >= nextChangeTime)
+        if (Time.time >= nextChangeTimeForRandomMovement)
         {
-            movementDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            nextChangeTime = Time.time + randomMovementTime;
+            randomMovementDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+            nextChangeTimeForRandomMovement = Time.time + randomMovementTime;
         }
+        MoveExecutor(randomMovementDirection);
+    }
 
-        transform.position += (Vector3)movementDirection * speed * Time.deltaTime;
+    private void MoveExecutor(Vector2 _direction)
+    {
+        _rigidbody.velocity = _direction * moveSpeed;
+        moveDirection = _rigidbody.velocity;
+        if (moveDirection.sqrMagnitude > 0) { 
+            deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+        }
+        directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, turnSpeed);
+        _rigidbody.MoveRotation(directionRotation);
     }
 }

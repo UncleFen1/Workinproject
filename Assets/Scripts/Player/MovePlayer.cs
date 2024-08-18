@@ -14,7 +14,7 @@ namespace Player
         private Rigidbody2D rbThisObject;
         private Vector3 moveDirection;
         private Quaternion deltaRotation, directionRotation;
-        private Vector2 inputDirection, residualDirection, tempInputDirection;
+        private Vector2 inputDirection, tempInputDirection;
         //
         private bool isStopClass = false, isRun = false;
         //
@@ -141,9 +141,6 @@ namespace Player
         private void MoveExecutor(Vector2 _direction)
         {
             rbThisObject.velocity = _direction * moveSpeed;
-            residualDirection = _direction;
-            //baseSpeed = moveSpeed;
-            //
             moveDirection = rbThisObject.velocity;
             if (moveDirection.sqrMagnitude > 0) { 
                 deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);

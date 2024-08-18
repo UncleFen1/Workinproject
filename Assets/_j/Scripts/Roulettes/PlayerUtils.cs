@@ -1,6 +1,6 @@
 namespace Roulettes
 {
-    // TODO _j Andrey not implemented ExperienceGain, CameraZoom
+    // TODO _j Andrey not implemented ExperienceGain
     public enum PlayerKind
     {
         Unknown,

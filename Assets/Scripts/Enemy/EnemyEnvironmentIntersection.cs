@@ -173,12 +173,12 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
-            enemyMovement.speed *= 1.5f;
+            enemyMovement.moveSpeed *= 1.5f;
         }
         if (environmentKind == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
-            enemyMovement.speed *= 2f;
+            enemyMovement.moveSpeed *= 2f;
         }
         if (environmentKind == EnvironmentKind.Wall)
         {
@@ -198,12 +198,12 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         if (environmentKind == EnvironmentKind.Floor)
         {
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
-            enemyMovement.speed /= 1.5f;
+            enemyMovement.moveSpeed /= 1.5f;
         }
         if (environmentKind == EnvironmentKind.Path)
         {
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
-            enemyMovement.speed /= 2f;
+            enemyMovement.moveSpeed /= 2f;
         }
         if (environmentKind == EnvironmentKind.Wall)
         {
