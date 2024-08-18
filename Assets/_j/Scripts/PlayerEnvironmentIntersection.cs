@@ -5,6 +5,7 @@ using Zenject;
 using Roulettes;
 using GameGrid;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -17,7 +18,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     private MovePlayer movePlayerComponent;
     private PlayerHealth healthPlayerComponent;
-    private SpriteRenderer spriteRendererComponent;
+    private SortingGroup sortingGroupComponent;
 
     private EnvironmentRoulette environmentRoulette;
 
@@ -50,7 +51,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         // healthPlayerComponent = pc.playerHealth;
         movePlayerComponent = this.gameObject.GetComponent<MovePlayer>();
         healthPlayerComponent = this.gameObject.GetComponent<PlayerHealth>();
-        spriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
+        sortingGroupComponent = this.gameObject.GetComponent<SortingGroup>();
     }
 
     void Start()
@@ -62,7 +63,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
     {
         if (!movePlayerComponent) Debug.LogError("No movePlayerComponent given");
         if (!healthPlayerComponent) Debug.LogError("No healthPlayerComponent given");
-        if (!spriteRendererComponent) Debug.LogError("No spriteRendererComponent given");
+        if (!sortingGroupComponent) Debug.LogError("No sortingGroupComponent given");
     }
 
     private void GridChanged(GridController currentGrid, GridController previousGrid)
@@ -77,7 +78,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             Debug.Log($"_j gridChanged: {currentGrid.name}, prev: {null}");
         }
 
-        spriteRendererComponent.sortingOrder = currentGrid.sortingOrder;
+        sortingGroupComponent.sortingOrder = currentGrid.sortingOrder;
 
         ChangeGridWallsColor(currentGrid, TRANSPARENT_WALL_COLOR);
         ChangeGridWallsColor(previousGrid, DEFAULT_WALL_COLOR);
@@ -106,7 +107,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         {
             // may be it's better to store an array of Tilemap components for this colliders
             var tilemapRenderer = col.GetComponent<TilemapRenderer>();
-            if (spriteRendererComponent.sortingOrder < tilemapRenderer.sortingOrder)
+            if (sortingGroupComponent.sortingOrder < tilemapRenderer.sortingOrder)
             {
                 col.GetComponent<Tilemap>().color = color;
             }
