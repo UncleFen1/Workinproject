@@ -4995,6 +4995,7 @@ MonoBehaviour:
   shooting: {fileID: 1589695391}
   playerMelee: {fileID: 48802490}
   playerHealth: {fileID: 716050797}
+  cinemachineVirtualCamera: {fileID: 0}
 --- !u!114 &716050800
 MonoBehaviour:
   m_ObjectHideFlags: 0

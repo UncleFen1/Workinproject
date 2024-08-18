@@ -12,7 +12,7 @@ namespace Roulettes
         // ExperienceGain,
         Health,
         MovementSpeed,
-        // CameraZoom,
+        CameraZoom,
     }
 
     public enum PlayerModifier
