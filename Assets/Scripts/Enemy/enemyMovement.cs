@@ -1,4 +1,4 @@
-using Roulettes;
+﻿using Roulettes;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -70,6 +70,15 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector2 direction = (player.position - transform.position).normalized;
 
+        if (direction.x <0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (direction.x >0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction, speed * Time.deltaTime);
     }
 
@@ -79,6 +88,15 @@ public class EnemyMovement : MonoBehaviour
         {
             movementDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
             nextChangeTime = Time.time + randomMovementTime;
+        }
+
+        if (movementDirection.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (movementDirection.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
         }
 
         transform.position += (Vector3)movementDirection * speed * Time.deltaTime;
