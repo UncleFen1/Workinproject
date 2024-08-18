@@ -78,10 +78,9 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             Debug.Log($"_j gridChanged: {currentGrid.name}, prev: {null}");
         }
 
-        sortingGroupComponent.sortingOrder = currentGrid.sortingOrder;
-
-        ChangeGridWallsColor(currentGrid, TRANSPARENT_WALL_COLOR);
         ChangeGridWallsColor(previousGrid, DEFAULT_WALL_COLOR);
+        sortingGroupComponent.sortingOrder = currentGrid.sortingOrder;
+        ChangeGridWallsColor(currentGrid, TRANSPARENT_WALL_COLOR);
     }
 
     private void EnvironmentColliderDataChanged(EnvironmentColliderData currentData, EnvironmentColliderData previousData)
@@ -107,7 +106,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         {
             // may be it's better to store an array of Tilemap components for this colliders
             var tilemapRenderer = col.GetComponent<TilemapRenderer>();
-            if (sortingGroupComponent.sortingOrder < tilemapRenderer.sortingOrder)
+            if (tilemapRenderer.sortingOrder >= sortingGroupComponent.sortingOrder)
             {
                 col.GetComponent<Tilemap>().color = color;
             }
@@ -130,6 +129,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
             var pillarColliders = gridController.pillarColliders;
             
             EnvironmentKind foundEnvironmentKind = EnvironmentKind.Unknown;
+            // TODO _j could use a Dictionary instead of the List
             foreach (var col in floorColliders)
             {
                 if (instanceId == col.GetInstanceID())
