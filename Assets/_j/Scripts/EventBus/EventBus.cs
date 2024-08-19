@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EventBus {
+namespace GameEventBus {
     public class EventBus
     {
         #region fields

@@ -1,4 +1,4 @@
-﻿namespace EventBus {
+﻿namespace GameEventBus {
     public interface IEvent{}
 
     public interface IBaseEventReceiver

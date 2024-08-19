@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EventBus {
+namespace GameEventBus {
     public record UniqueId
     {
         public string Id => _id ??= Guid.NewGuid().ToString();

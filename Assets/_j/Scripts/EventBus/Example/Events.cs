@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace EventBus {
+namespace GameEventBus
+{
     // TODO _j don't like struct
     public readonly struct RedEvent : IEvent
     {

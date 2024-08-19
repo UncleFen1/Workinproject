@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace EventBus {
+namespace GameEventBus {
     public class EventSender : MonoBehaviour
     {
         public enum TypeOfEvent
