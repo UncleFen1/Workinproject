@@ -24,7 +24,7 @@ namespace GameEventBus {
 
         #region public methods
 
-        public void Register<T>(IEventReceiver<T> receiver) where T : struct, IEvent
+        public void Register<T>(IEventReceiver<T> receiver) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType))
@@ -39,7 +39,7 @@ namespace GameEventBus {
             _receivers[eventType].Add(reference);
         }
 
-        public void Unregister<T>(IEventReceiver<T> receiver) where T : struct, IEvent
+        public void Unregister<T>(IEventReceiver<T> receiver) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType) || !_receiverHashToReference.ContainsKey(receiver.Id))
@@ -54,7 +54,7 @@ namespace GameEventBus {
                 _receiverHashToReference.Remove(receiver.Id);
         }
 
-        public void Raise<T>(T @event) where T : struct, IEvent
+        public void Raise<T>(T @event) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType))

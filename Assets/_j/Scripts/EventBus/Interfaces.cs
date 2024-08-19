@@ -6,7 +6,7 @@
         public UniqueId Id { get; }
     }
 
-    public interface IEventReceiver<T> : IBaseEventReceiver where T : struct, IEvent
+    public interface IEventReceiver<T> : IBaseEventReceiver where T : IEvent
     {
         void OnEvent(T @event);
     }
