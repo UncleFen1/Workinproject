@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameEventBus;
 using GameGrid;
 using Roulettes;
 using UnityEngine;
@@ -13,13 +14,17 @@ public class EnemySpawner : MonoBehaviour
     private EnemyRoulette enemyRoulette;
     private EnvironmentRoulette environmentRoulette;
     private List<GridController> gridControllerList;
+    private EventBus eventBus;
     [Inject]
-    private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, List<GridController> gcs)
+    private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, List<GridController> gcs, EventBus eb)
     {
+        // even if disabled it is initialized
+        Debug.LogWarning("_j init spawner");
         enemyRoulette = er;
         environmentRoulette = envR;
         gridControllerList = gcs;
-    }
+        eventBus = eb;
+    }   
 
     void Start()
     {
@@ -46,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
             var enemyHealth = go.GetComponent<EnemyHealth>();
             if (enemyHealth && enemyHealth.isActiveAndEnabled)
             {
-                enemyHealth.LinkEnemyRoulette(enemyRoulette);
+                enemyHealth.LinkEnemyRoulette(enemyRoulette, eventBus);
             }
             var meleeEnemy = go.GetComponent<EnemyMeleeAttack>();
             if (meleeEnemy && meleeEnemy.isActiveAndEnabled)

@@ -10,7 +10,8 @@ namespace GameEventBus {
         {
             Red,
             Green,
-            Blue
+            Blue,
+            EnemyDieEvent,
         }
 
         private EventBus eventBus;
@@ -41,6 +42,9 @@ namespace GameEventBus {
 
                 case TypeOfEvent.Blue:
                     eventBus.Raise(new BlueEvent(Color.cyan * Random.Range(0f, 1f)));
+                    break;
+                case TypeOfEvent.EnemyDieEvent:
+                    eventBus.Raise(new EnemyDieEvent());
                     break;
 
                 default:

@@ -32,4 +32,9 @@ namespace GameEventBus
             Color = color;
         }
     }
+
+    public class EnemyDieEvent : IEvent
+    {
+        public int anyVariableToAdd;
+    }
 }
