@@ -77,8 +77,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "PanelGndTitle",
-            "EngText": "PanelGndTitle"
+            "RusText": "БОГИ КИДАЮТ КУБЫ",
+            "EngText": "GODS THROW DICES"
         },
         {
             "NameObject": "InfoButtonText",
@@ -447,8 +447,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "FollowLvl3Text",
-            "EngText": "FollowLvl3Text"
+            "RusText": "ДАЛЕЕ",
+            "EngText": "NEXT"
         },
         {
             "NameObject": "FollowLvl4Text",

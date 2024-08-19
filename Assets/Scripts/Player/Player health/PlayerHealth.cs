@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentPlayerHealth = maxPlayerHealth;
+        Time.timeScale = 1;
     }
 
     public void TakePlayerDamage(int damage)
@@ -67,6 +68,6 @@ public class PlayerHealth : MonoBehaviour
         }        
         
         Destroy(gameObject);
-        
+
     }
 }

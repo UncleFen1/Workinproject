@@ -31,9 +31,10 @@ public class DeathComics : MonoBehaviour
             yield return new WaitForSeconds(switchInterval); 
         }
                 
-        spriteRenderer.sprite = null;
+        spriteRenderer.sprite = sprites[sprites.Length - 1];
 
         // spriteRenderer.sprite = sprites[sprites.Length - 1]; - to stay on last sprite
 
+        Time.timeScale = 0;
     }
 }
