@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using GameEventBus;
+using OldSceneNamespace;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -7,18 +9,24 @@ namespace GameEnemy
 {
     public class EnemiesController : IEventReceiver<EnemyDieEvent>
     {
+        private int monstersToKill = 0;
+
         private EventBus eventBus;
+        private ISceneExecutor scenes;
         [Inject]
-        public EnemiesController(List<EnemySpawner> ess, EventBus eb)
+        public EnemiesController(List<EnemySpawner> ess, EventBus eb, ISceneExecutor _scenes)
         {
-            Debug.LogWarning("_j EnemiesController CONSTRUCTOR");
-
             eventBus = eb;
-
-            Debug.LogWarning($"_j ess.count: {ess.Count}");
+            scenes = _scenes;
             foreach (var enemySpawner in ess)
             {
-                Debug.LogWarning($"_j ess {enemySpawner.gameObject.GetInstanceID()} expect: {enemySpawner.enemyCount}");
+                // TODO _j it's highly likely that is should be adjusted
+                // seems like isActiveAndEnabled isn't active on Zenject
+                //if (enemySpawner.isActiveAndEnabled)
+                if (enemySpawner.enabled)
+                {
+                    monstersToKill += enemySpawner.enemyCount;
+                }
             }
 
             RegisterEvents();
@@ -42,12 +50,28 @@ namespace GameEnemy
             eventBus.Unregister(this as IEventReceiver<EnemyDieEvent>);
         }
 
+        private void OpenLvl()
+        {
+            // add check for _j_ExperimentScene
+
+            scenes.SetCurrentFlagRoulette(true);
+            scenes.OpenScenID(scenes.GetOpenScenID());
+            // TODO _j check this https://stackoverflow.com/a/25765030
+            //this.Dispose();
+        }
+
         #region IEventReceiver
         public UniqueId Id { get; } = new UniqueId();
 
         public void OnEvent(EnemyDieEvent @event)
         {
-            Debug.LogWarning("_j EnemyDieEvent not implemented");
+            monstersToKill--;
+            Debug.Log($"_j EnemiesController OnEvent monstersToKill: {monstersToKill}");
+
+            if (monstersToKill == 0)
+            {
+                OpenLvl();
+            }
         }
         #endregion
     }
