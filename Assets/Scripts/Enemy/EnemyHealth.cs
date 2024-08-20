@@ -53,8 +53,9 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy took damage: " + damage + " Current health: " + currentHealth);
         isTakingDamage = true;
 
-        if (currentHealth <= 0)
+        if (!isDead && currentHealth <= 0)
         {
+            isDead = true;
             Die();
         }
     }
