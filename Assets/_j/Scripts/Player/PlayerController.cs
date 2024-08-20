@@ -19,7 +19,7 @@ namespace GamePlayer
         private void InitBindings(PlayerRoulette pr)
         {
             playerRoulette = pr;
-            ApplyRouletteModifiers();
+            // ApplyRouletteModifiers();    // can't apply here because CinemachineVirtualCamera isn't ready
         }
 
         void Start()
@@ -46,7 +46,9 @@ namespace GamePlayer
         {
             if (cinemachineVirtualCamera)
             {
-                // TODO _j for some reason it's launched twice, one is before FindObjectOfType()...
+                // SOLVED _j for some reason it's launched twice, one is before FindObjectOfType()...
+                // it was lauched from InitBindings() and from Start(), the first couldn't get FindObjectOfType.
+                // may be it's needed to have several Apply methods
                 var mod = playerRoulette.playerKindsMap[PlayerKind.CameraZoom].modifier;
                 switch (mod)
                 {

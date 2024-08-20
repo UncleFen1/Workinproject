@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace EventBus
+namespace GameEventBus
 {
     public class RegistratorInstaller: MonoInstaller
     {

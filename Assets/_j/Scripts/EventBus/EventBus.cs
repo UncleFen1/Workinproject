@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EventBus {
+namespace GameEventBus {
     public class EventBus
     {
         #region fields
@@ -24,7 +24,7 @@ namespace EventBus {
 
         #region public methods
 
-        public void Register<T>(IEventReceiver<T> receiver) where T : struct, IEvent
+        public void Register<T>(IEventReceiver<T> receiver) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType))
@@ -39,7 +39,7 @@ namespace EventBus {
             _receivers[eventType].Add(reference);
         }
 
-        public void Unregister<T>(IEventReceiver<T> receiver) where T : struct, IEvent
+        public void Unregister<T>(IEventReceiver<T> receiver) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType) || !_receiverHashToReference.ContainsKey(receiver.Id))
@@ -54,7 +54,7 @@ namespace EventBus {
                 _receiverHashToReference.Remove(receiver.Id);
         }
 
-        public void Raise<T>(T @event) where T : struct, IEvent
+        public void Raise<T>(T @event) where T : IEvent
         {
             Type eventType = typeof(T);
             if (!_receivers.ContainsKey(eventType))

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace EventBus {
+namespace GameEventBus
+{
     // TODO _j don't like struct
     public readonly struct RedEvent : IEvent
     {
@@ -30,5 +31,10 @@ namespace EventBus {
         {
             Color = color;
         }
+    }
+
+    public class EnemyDieEvent : IEvent
+    {
+        public int anyVariableToAdd;
     }
 }

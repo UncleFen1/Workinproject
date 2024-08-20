@@ -1,3 +1,4 @@
+using GameEventBus;
 using Roulettes;
 using UnityEngine;
 
@@ -7,8 +8,10 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
 
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er) {
+    private EventBus eventBus;
+    public void LinkEnemyRoulette(EnemyRoulette er, EventBus eb) {
         enemyRoulette = er;
+        eventBus = eb;
         ApplyRouletteModifiers();
     }
     void ApplyRouletteModifiers() {
@@ -54,6 +57,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Enemy died!");
+        eventBus.Raise(new EnemyDieEvent());
         Destroy(gameObject);
     }
 }
