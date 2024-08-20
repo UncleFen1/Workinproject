@@ -8,6 +8,9 @@ namespace GameEnemy
 {
     public class EnemiesController : IEventReceiver<EnemyDieEvent>
     {
+        // TODO _j rework all levels switch logic
+        const int HARDCODED_ROULETTE_SCENE_ID = 9;
+
         private int monstersToKill = 0;
 
         private EventBus eventBus;
@@ -58,8 +61,9 @@ namespace GameEnemy
             // some strange behaviour, load scene 11, but the loaded scene is 9
             OnDestroy();
 
-            scenes.SetCurrentFlagRoulette(true);
-            scenes.OpenScenID(scenes.GetOpenScenID());
+            // scenes.SetCurrentFlagRoulette(false);
+            // this will always return you to lvl2, but first to roulette, logic is here LoadSceneExecutor.cs in SetClass()
+            scenes.OpenScenID(HARDCODED_ROULETTE_SCENE_ID);
             
             // var scene = SceneManager.GetActiveScene();
             // int currentSceneIndex = scenes.GetOpenScenID(); // better to use scene.buildIndex
