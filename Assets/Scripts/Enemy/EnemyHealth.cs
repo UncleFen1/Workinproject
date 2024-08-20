@@ -1,5 +1,6 @@
 using GameEventBus;
 using Roulettes;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -7,16 +8,26 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public Animator animator;
+    private bool isTakingDamage = false;
+    private bool isDead = false;
+
+    public SpriteRenderer spriteRenderer;
+    public Sprite deathSprite;
+
     private EnemyRoulette enemyRoulette;
     private EventBus eventBus;
-    public void LinkEnemyRoulette(EnemyRoulette er, EventBus eb) {
+    public void LinkEnemyRoulette(EnemyRoulette er, EventBus eb)
+    {
         enemyRoulette = er;
         eventBus = eb;
         ApplyRouletteModifiers();
     }
-    void ApplyRouletteModifiers() {
+    void ApplyRouletteModifiers()
+    {
         var mod = enemyRoulette.enemyKindsMap[EnemyKind.Health].modifier;
-        switch (mod) {
+        switch (mod)
+        {
             case EnemyModifier.Unchanged:
                 break;
             case EnemyModifier.Increased:
@@ -40,10 +51,25 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= damage;
         Debug.Log("Enemy took damage: " + damage + " Current health: " + currentHealth);
+        isTakingDamage = true;
 
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    public void Update()
+    {
+        if (isTakingDamage)
+        {
+            animator.SetBool("EnemyDamage", true);
+            isTakingDamage = false;
+        }
+
+        else
+        {
+            animator.SetBool("EnemyDamage", false);
         }
     }
 
@@ -54,10 +80,35 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy healed: " + value + " Current health: " + currentHealth);
     }
 
+    IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+
+        spriteRenderer.sprite = deathSprite;
+
+
+        if (TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+        }
+        this.enabled = false;
+        animator.enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<EdgeCollider2D>().enabled = false;
+        GetComponent<EnemyEnvironmentIntersection>().enabled = false;
+        GetComponent<EnemyMovement>().enabled = false;
+        GetComponent<EnemyShooting>().enabled = false;
+        GetComponent<EnemyMeleeAttack>().enabled = false;
+        
+        Destroy(gameObject);
+    }
+
     void Die()
     {
+        animator.SetBool("EnemyDeath", true);
         Debug.Log("Enemy died!");
         eventBus.Raise(new EnemyDieEvent());
-        Destroy(gameObject);
+        StartCoroutine(DeathCoroutine());
     }
 }

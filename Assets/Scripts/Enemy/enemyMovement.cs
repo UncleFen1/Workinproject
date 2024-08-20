@@ -1,4 +1,4 @@
-using Roulettes;
+﻿using Roulettes;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -101,3 +101,4 @@ public class EnemyMovement : MonoBehaviour
         _rigidbody.MoveRotation(directionRotation);
     }
 }
+
