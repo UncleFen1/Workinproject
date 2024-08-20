@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using GameEventBus;
 using OldSceneNamespace;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -16,13 +15,14 @@ namespace GameEnemy
         [Inject]
         public EnemiesController(List<EnemySpawner> ess, EventBus eb, ISceneExecutor _scenes)
         {
+            Debug.Log("_j EnemiesController CONSTRUCTOR");
+           
             eventBus = eb;
             scenes = _scenes;
             foreach (var enemySpawner in ess)
             {
                 // TODO _j it's highly likely that is should be adjusted
-                // seems like isActiveAndEnabled isn't active on Zenject
-                //if (enemySpawner.isActiveAndEnabled)
+                // seems like .isActiveAndEnabled isn't active on Zenject routines stage, so just .enabled
                 if (enemySpawner.enabled)
                 {
                     monstersToKill += enemySpawner.enemyCount;
@@ -36,28 +36,46 @@ namespace GameEnemy
         {
             // TODO _j have to be sure that it runs and check switch between levels
             // may be make it MonoBehaviour to automatically Destroy on SceneChange
-            Debug.LogWarning("_j EnemyDieEvent onDestroy");
+            Debug.Log("_j EnemiesController onDestroy");
             UnregisterEvents();
         }
 
         void RegisterEvents()
         {
+            Debug.Log("_j EnemiesController RegisterEvents");
             eventBus.Register(this as IEventReceiver<EnemyDieEvent>);
         }
 
         void UnregisterEvents()
         {
+            Debug.Log("_j EnemiesController UnregisterEvents");
             eventBus.Unregister(this as IEventReceiver<EnemyDieEvent>);
         }
 
-        private void OpenLvl()
+        private void OldyOpenLvl()
         {
-            // add check for _j_ExperimentScene
+            // add check for _j_ExperimentScene, just to reload it
+            // some strange behaviour, load scene 11, but the loaded scene is 9
+            OnDestroy();
 
             scenes.SetCurrentFlagRoulette(true);
             scenes.OpenScenID(scenes.GetOpenScenID());
-            // TODO _j check this https://stackoverflow.com/a/25765030
-            //this.Dispose();
+            
+            // var scene = SceneManager.GetActiveScene();
+            // int currentSceneIndex = scenes.GetOpenScenID(); // better to use scene.buildIndex
+            // Debug.LogWarning($"_j EnemiesController OldyOpenLvl, currentSceneIndex: {scene.buildIndex}, name: {scene.name}");
+            // if (scene.name.ToLowerInvariant() == "_j_ExperimentScene".ToLowerInvariant())
+            // {
+            //     Debug.LogWarning($"_j EnemiesController OldyOpenLvl, special experiment");
+            //     // scenes.OpenScenID(currentSceneIndex);
+            //     SceneManager.LoadScene(currentSceneIndex);
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"_j EnemiesController OldyOpenLvl, ordinary");
+            //     scenes.SetCurrentFlagRoulette(true);
+            //     scenes.OpenScenID(currentSceneIndex);    
+            // }
         }
 
         #region IEventReceiver
@@ -66,11 +84,11 @@ namespace GameEnemy
         public void OnEvent(EnemyDieEvent @event)
         {
             monstersToKill--;
-            Debug.Log($"_j EnemiesController OnEvent monstersToKill: {monstersToKill}");
+            Debug.Log($"_j EnemiesController OnEvent EnemyDieEvent monstersToKill: {monstersToKill}");
 
             if (monstersToKill == 0)
             {
-                OpenLvl();
+                OldyOpenLvl();
             }
         }
         #endregion
