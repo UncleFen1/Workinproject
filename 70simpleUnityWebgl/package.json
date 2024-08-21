@@ -1,0 +1,13 @@
+{
+  "name": "70simpleUnityWebgl",
+  "version": "0.1.0",
+  "author": "cdog@ya.ru",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "compression": "1.7.4",
+    "express": "4.19.2"
+  }
+}
