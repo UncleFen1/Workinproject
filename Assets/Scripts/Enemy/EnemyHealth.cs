@@ -87,22 +87,29 @@ public class EnemyHealth : MonoBehaviour
 
         spriteRenderer.sprite = deathSprite;
 
-
-        if (TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.isKinematic = true;
-        }
-        this.enabled = false;
-        animator.enabled = false;
-        GetComponent<CapsuleCollider2D>().enabled = false;
-        GetComponent<CapsuleCollider2D>().enabled = false;
-        GetComponent<EdgeCollider2D>().enabled = false;
-        GetComponent<EnemyEnvironmentIntersection>().enabled = false;
-        GetComponent<EnemyMovement>().enabled = false;
-        GetComponent<EnemyShooting>().enabled = false;
-        GetComponent<EnemyMeleeAttack>().enabled = false;
+        if (TryGetComponent<EnemyMovement>(out EnemyMovement em)) Destroy(em);
+        else Debug.LogWarning("no EnemyMovement to Destroy");
+        if (TryGetComponent<EnemyEnvironmentIntersection>(out EnemyEnvironmentIntersection eei)) Destroy(eei);
+        else Debug.LogWarning("no EnemyEnvironmentIntersection to Destroy");
         
-        Destroy(gameObject);
+        foreach (CapsuleCollider2D collider in GetComponents<CapsuleCollider2D>())
+        {
+            Destroy(collider);
+        }
+        
+        if (TryGetComponent<EdgeCollider2D>(out EdgeCollider2D ec)) Destroy(ec);
+        else Debug.LogWarning("no EdgeCollider2D to Destroy");
+        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D rb)) Destroy(rb);
+        else Debug.LogWarning("no Rigidbody2D to Destroy");
+        if (TryGetComponent<EnemyShooting>(out EnemyShooting es)) Destroy(es);
+        else Debug.LogWarning("no EnemyShooting to Destroy");
+        if (TryGetComponent<EnemyMeleeAttack>(out EnemyMeleeAttack ema)) Destroy(ema);
+        else Debug.LogWarning("no EnemyMeleeAttack to Destroy");
+
+        if (animator != null) Destroy(animator);
+
+        Destroy(this);
+        // Destroy(gameObject);
     }
 
     void Die()
