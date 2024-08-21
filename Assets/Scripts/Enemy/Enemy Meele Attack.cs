@@ -11,6 +11,8 @@ public class EnemyMeleeAttack : MonoBehaviour
     public Transform player;
     public PlayerHealth playerHealth;
 
+    public Animator animator;
+
     // TODO _j since it's instantiated from Spawner, there should be some other way to bind dependencies (check similar LinkEnemyRoulette() in other classes)
     private EnemyRoulette enemyRoulette;
     public void LinkEnemyRoulette(EnemyRoulette er) {
@@ -63,17 +65,27 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
         if (player != null && playerHealth != null)
         {
-            if (Vector2.Distance(transform.position, player.position) <= attackRange && Time.time >= nextAttackTime)
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= attackRange && Time.time >= nextAttackTime)
             {
                 nextAttackTime = Time.time + 1f / attackRate;
                 Attack();
+                
             }
 
             if (playerHealth.currentPlayerHealth <= 0)
             {
                 player = null;
                 playerHealth = null;
+                StopAttackAnimation();
             }
+            
+            else if (distanceToPlayer > attackRange)
+            {
+                StopAttackAnimation();
+            }
+
         }
     }
 
@@ -81,8 +93,16 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
         if (player != null && Vector2.Distance(transform.position, player.position) <= attackRange)
         {
-            playerHealth.TakePlayerDamage(attackDamage); // ������������, ��� � ������ ���� ��������� PlayerHealth
+            playerHealth.TakePlayerDamage(attackDamage);
+
+            animator.SetBool("EnemyMelee", true);
         }
+        
+    }
+
+    void StopAttackAnimation()
+    {
+        animator.SetBool("EnemyMelee", false);
     }
 
     private void OnDrawGizmosSelected()

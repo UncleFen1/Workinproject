@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerIdle
+  m_Name: MutantWalkingAnimation
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 1b9215452eff19b4ebbfc9ffe0b3472b, type: 3}
+      value: {fileID: 21300000, guid: da0029f3c3bb09e4c9bcea0693012e98, type: 3}
+    - time: 0.13333334
+      value: {fileID: 21300000, guid: b36fd013ed38f644e9c49f90cd5dff2f, type: 3}
+    - time: 0.26666668
+      value: {fileID: 21300000, guid: 7278ca45e41a9e942be5bce0d9820d8e, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: b36fd013ed38f644e9c49f90cd5dff2f, type: 3}
+    - time: 0.53333336
+      value: {fileID: 21300000, guid: da0029f3c3bb09e4c9bcea0693012e98, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,13 +52,17 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 1b9215452eff19b4ebbfc9ffe0b3472b, type: 3}
+    - {fileID: 21300000, guid: da0029f3c3bb09e4c9bcea0693012e98, type: 3}
+    - {fileID: 21300000, guid: b36fd013ed38f644e9c49f90cd5dff2f, type: 3}
+    - {fileID: 21300000, guid: 7278ca45e41a9e942be5bce0d9820d8e, type: 3}
+    - {fileID: 21300000, guid: b36fd013ed38f644e9c49f90cd5dff2f, type: 3}
+    - {fileID: 21300000, guid: da0029f3c3bb09e4c9bcea0693012e98, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.016666668
+    m_StopTime: 0.55
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

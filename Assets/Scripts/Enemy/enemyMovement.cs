@@ -94,7 +94,18 @@ public class EnemyMovement : MonoBehaviour
     {
         _rigidbody.velocity = _direction * moveSpeed;
         moveDirection = _rigidbody.velocity;
-        if (moveDirection.sqrMagnitude > 0) { 
+
+        if (moveDirection.x < 0)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (moveDirection.x > 0)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);   
+        }
+                       
+        if (moveDirection.sqrMagnitude > 0)
+        { 
             deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         }
         directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, turnSpeed);
