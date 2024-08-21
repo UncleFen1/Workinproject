@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
     private void InitBindings(EnemyRoulette er, EnvironmentRoulette envR, List<GridController> gcs, EventBus eb)
     {
         // even if disabled it is initialized
-        Debug.LogWarning("_j init spawner");
         enemyRoulette = er;
         environmentRoulette = envR;
         gridControllerList = gcs;
