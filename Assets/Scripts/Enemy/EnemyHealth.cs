@@ -102,7 +102,6 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<EnemyShooting>().enabled = false;
         GetComponent<EnemyMeleeAttack>().enabled = false;
         
-        Destroy(gameObject);
     }
 
     void Die()
