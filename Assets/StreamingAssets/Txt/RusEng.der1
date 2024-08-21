@@ -7,8 +7,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "начать",
-            "EngText": "start"
+            "RusText": "ПРОПУСТИТЬ",
+            "EngText": "SKIP"
         },
         {
             "NameObject": "LoadPanelTitle",
