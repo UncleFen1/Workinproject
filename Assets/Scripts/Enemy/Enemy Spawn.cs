@@ -67,6 +67,7 @@ public class EnemySpawner : MonoBehaviour
             if (movementEnemy && movementEnemy.isActiveAndEnabled)
             {
                 movementEnemy.LinkEnemyRoulette(enemyRoulette);
+                movementEnemy.LinkEnemySpawner(this);
             }
             var enemyEnvironmentIntersection = go.GetComponent<EnemyEnvironmentIntersection>();
             if (enemyEnvironmentIntersection && enemyEnvironmentIntersection.isActiveAndEnabled)

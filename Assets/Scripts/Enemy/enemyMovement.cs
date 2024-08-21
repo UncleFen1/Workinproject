@@ -16,6 +16,8 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector3 moveDirection;
     private Quaternion deltaRotation, directionRotation;
+
+    EnemySpawner enemySpawner;
         
     private EnemyRoulette enemyRoulette;
     public void LinkEnemyRoulette(EnemyRoulette er)
@@ -40,6 +42,11 @@ public class EnemyMovement : MonoBehaviour
                 Debug.LogWarning("_j unknown modifier");
                 break;
         }
+    }
+
+    public void LinkEnemySpawner(EnemySpawner es)
+    {
+        enemySpawner = es;
     }
 
     void Start()
@@ -80,14 +87,38 @@ public class EnemyMovement : MonoBehaviour
         MoveExecutor(direction);
     }
 
+    void MoveTowardsEnemySpawner()
+    {
+        Vector2 direction = (enemySpawner.transform.position - transform.position).normalized;
+        MoveExecutor(direction);
+    }
+
     void RandomMovement()
     {
         if (Time.time >= nextChangeTimeForRandomMovement)
         {
-            randomMovementDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            nextChangeTimeForRandomMovement = Time.time + randomMovementTime;
+            if (enemySpawner != null && !IsWithinSpawnArea())
+            {
+                MoveTowardsEnemySpawner();
+                return;
+            }
+            else
+            {
+                randomMovementDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+                nextChangeTimeForRandomMovement = Time.time + randomMovementTime;
+                MoveExecutor(randomMovementDirection);
+            }
         }
-        MoveExecutor(randomMovementDirection);
+        // MoveExecutor(randomMovementDirection);
+    }
+
+    private bool IsWithinSpawnArea()
+    {
+        var spawnPosition = enemySpawner.transform.position;
+        var area = enemySpawner.spawnAreaSize;
+        bool isWithinXArea = spawnPosition.x - area.x <= transform.position.x && transform.position.x <= spawnPosition.x + area.x;
+        bool isWithinYArea = spawnPosition.y - area.y <= transform.position.y && transform.position.y <= spawnPosition.y + area.y;
+        return isWithinXArea && isWithinYArea;
     }
 
     private void MoveExecutor(Vector2 _direction)
