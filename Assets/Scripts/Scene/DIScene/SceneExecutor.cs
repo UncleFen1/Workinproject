@@ -111,7 +111,7 @@ namespace OldSceneNamespace
             if (settingsScene.isLoad == 0)
             {
                 settingsScene.EffectValum = 0.5f;
-                settingsScene.MuzValum = 0.5f;
+                settingsScene.MuzValum = 0.333f;
                 SetAudioParametr(settingsScene);
 
                 settingsScene.Height = currentResolution.height;
