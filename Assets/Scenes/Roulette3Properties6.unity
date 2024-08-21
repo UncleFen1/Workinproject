@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c91642812ee5474eb0b853d5e840dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzClip: {fileID: 8300000, guid: 902a8dc1272c9cf4b89fb79d8cb96b3b, type: 3}
+  muzClip: {fileID: 8300000, guid: c846cf59888ba4671a0827482e782add, type: 3}
   loopMuz: 1
   effectClip: {fileID: 8300000, guid: 531e25dfc388e964289dc5e53dc1eba2, type: 3}
   loopEffect: 0
