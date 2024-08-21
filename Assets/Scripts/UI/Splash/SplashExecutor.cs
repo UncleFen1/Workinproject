@@ -103,9 +103,9 @@ namespace UI
         {
             if (isSummCount)
             {
-                fillAmountTik += 0.1f;
+                fillAmountTik += 0.5f;
             }
-            else { fillAmountTik -= 0.1f; }
+            else { fillAmountTik -= 0.5f; }
 
             if (fillAmountTik >= 1)
             {
