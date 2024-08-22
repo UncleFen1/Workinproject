@@ -107,8 +107,9 @@ public class EnemyShooting : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, shootingPoint.rotation);
+        GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, Quaternion.identity);
         var bulletInstance = bulletGO.GetComponent<EnemyBullet>();
+
         if (bulletInstance && bulletInstance.isActiveAndEnabled)
         {
             bulletInstance.LinkEnemyRoulette(enemyRoulette);
@@ -127,6 +128,9 @@ public class EnemyShooting : MonoBehaviour
             direction.x * Mathf.Cos(angleInRadians) - direction.y * Mathf.Sin(angleInRadians),
             direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
         );
+
+        float angle = Mathf.Atan2(scatterDirection.y, scatterDirection.x) * Mathf.Rad2Deg;
+        bulletGO.transform.eulerAngles = new Vector3(0, 0, angle - 90f);
 
         Rigidbody2D rb = bulletGO.GetComponent<Rigidbody2D>();
         if (rb != null)

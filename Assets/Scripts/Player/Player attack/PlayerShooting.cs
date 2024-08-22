@@ -95,10 +95,14 @@ public class Shooting : MonoBehaviour
 
             float randomAngle = Random.Range(-scatterAngle, scatterAngle);
             float angleInRadians = randomAngle * Mathf.Deg2Rad;
+
             Vector2 scatterDirection = new Vector2(
                 direction.x * Mathf.Cos(angleInRadians) - direction.y * Mathf.Sin(angleInRadians),
                 direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
             );
+
+            float angle = Mathf.Atan2(scatterDirection.y, scatterDirection.x) * Mathf.Rad2Deg;
+            bulletGO.transform.eulerAngles = new Vector3(0, 0, angle - 90f);
 
             Rigidbody2D rb = bulletGO.GetComponent<Rigidbody2D>();
             if (rb != null)

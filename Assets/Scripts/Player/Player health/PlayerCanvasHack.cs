@@ -1,29 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCanvasHack : MonoBehaviour
 {
     public Canvas playerCanvas;
-    public GameObject triggerImage;
+    public Button hideButton;
+    public Button showButton;
 
     void Start()
     {
-        if (triggerImage != null && !triggerImage.activeSelf)
+        playerCanvas.gameObject.SetActive(true);
+
+        if (hideButton != null)
         {
-            playerCanvas.gameObject.SetActive(true);
+            hideButton.onClick.AddListener(HidePlayerCanvas);
+        }  
+        
+        if (showButton != null)
+        {
+            showButton.onClick.AddListener(ShowPlayerCanvas);
         }
     }
 
-    void Update()
+    void OnDestroy()
     {
-        if (triggerImage.activeSelf)
+        if (hideButton != null)
         {
-            playerCanvas.gameObject.SetActive(false);
+            hideButton.onClick.RemoveListener(HidePlayerCanvas);
         }
-        else
+
+        if (showButton != null)
         {
-            playerCanvas.gameObject.SetActive(true);
+            showButton.onClick.RemoveListener(ShowPlayerCanvas);
         }
+    }
+
+    private void HidePlayerCanvas()
+    {
+        playerCanvas.gameObject.SetActive(false);
+    }
+
+    private void ShowPlayerCanvas()
+    {
+        playerCanvas.gameObject.SetActive(true);
     }
 }
