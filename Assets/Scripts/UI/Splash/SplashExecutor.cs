@@ -23,6 +23,9 @@ namespace UI
         [Header("Время паузы удержания кнопки")]
         [SerializeField][Range(1, 50)] private int clockButton = 1;
 
+        [Header("Время паузы удержания кнопки")]
+        [SerializeField] private bool isBuildTimeVisible = true;
+
         private float countClockButton, countClockSec, timeSec;
         private float fillAmountTik = 0;
         private bool isPress;
@@ -44,9 +47,50 @@ namespace UI
             missButton.OnUp+=ButtonUpPress;
         }
 
+        private void CreateBuildTimeText()
+        {
+            TextAsset buildTime;
+            buildTime = Resources.Load<TextAsset>("app_build_time");    // without .txt
+            if (buildTime) 
+            {
+                Debug.Log($"buildTime: {buildTime.text}");
+                CreateText(buildTime.text);
+            }
+            else Debug.LogWarning("buildTime is null");
+        }
+        void CreateText(string buildTime)
+        {
+            if (!isBuildTimeVisible) return;
+
+            var go = new GameObject();
+            go.name = "buildTime";
+            go.layer = LayerMask.NameToLayer("UI");
+            go.transform.parent = FindObjectOfType<Canvas>().transform;
+            // go.transform.SetAsFirstSibling();
+            go.transform.SetAsLastSibling();
+            
+            var textAsset = go.AddComponent<Text>();
+            textAsset.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); // Default legacy font
+            textAsset.fontSize = 32;
+            textAsset.alignment = TextAnchor.LowerLeft;
+            textAsset.color = new Color(236f/256, 110f/256, 110f/256); // EC6E6E
+            textAsset.text = buildTime;
+
+            var rectTransform = go.transform as RectTransform;
+            rectTransform.pivot = Vector2.zero;
+            rectTransform.anchorMin = Vector2.zero; // Bottom left corner
+            rectTransform.anchorMax = Vector2.zero;
+            // rectTransform.localPosition = new Vector3(0, 0, 0);
+            rectTransform.anchoredPosition = Vector3.zero;
+            
+            rectTransform.localScale = Vector3.one;
+            rectTransform.sizeDelta = new Vector2(1000, 100);
+        }
 
         void Start()
         {
+            CreateBuildTimeText();
+
             SetClass();
         }
         private void SetClass()
