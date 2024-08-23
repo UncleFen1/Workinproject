@@ -1,6 +1,9 @@
+using System;
+using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class Shooting : MonoBehaviour
 {
@@ -14,12 +17,19 @@ public class Shooting : MonoBehaviour
     public float fireRate = 1f;
     public float nextFireTime = 0f;
 
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] shootEffectClips;
+    private AudioSource effectAudioSource;
+
+    private ISceneExecutor scenes;
     private PlayerRoulette playerRoulette;
     [Inject]
-    private void InitBindings(PlayerRoulette pr)
+    private void InitBindings(PlayerRoulette pr, ISceneExecutor sceneExecutor)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
+
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -72,10 +82,34 @@ public class Shooting : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = shootEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
         {
+            int randomValue = Random.Range(0, shootEffectClips.Length);
+            effectAudioSource.clip = shootEffectClips[randomValue];
+            effectAudioSource.Play();
+
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             mousePosition.z = 0;

@@ -179,6 +179,10 @@ MonoBehaviour:
   scatterAngle: 5
   fireRate: 5
   nextFireTime: 0
+  shootEffectClips:
+  - {fileID: 8300000, guid: ec2bae692bc694ea6ae238059c6b8eb6, type: 3}
+  - {fileID: 8300000, guid: eecc848fb0b2545378f0eb909cb4a32b, type: 3}
+  - {fileID: 8300000, guid: ea61f145ee7e94105a09c9d6ae5f91d8, type: 3}
 --- !u!1 &271875438093146415
 GameObject:
   m_ObjectHideFlags: 0
