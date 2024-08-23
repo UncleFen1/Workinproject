@@ -64,7 +64,7 @@ namespace GameEnemy
 
             // scenes.SetCurrentFlagRoulette(false);
             // this will always return you to lvl2, but first to roulette, logic is here LoadSceneExecutor.cs in SetClass()
-            OpenSceneWithDelay(2);
+            _ = OpenSceneWithDelay(2);
             
             // var scene = SceneManager.GetActiveScene();
             // int currentSceneIndex = scenes.GetOpenScenID(); // better to use scene.buildIndex
