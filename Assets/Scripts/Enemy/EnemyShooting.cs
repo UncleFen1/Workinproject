@@ -1,3 +1,4 @@
+using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 
@@ -13,12 +14,19 @@ public class EnemyShooting : MonoBehaviour
     private float nextFireTime = 1f;
 
     public Animator animator;
+
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] attackEffectClips;
+    private AudioSource effectAudioSource;
     
+    private ISceneExecutor scenes;
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er)
+    public void LinkEnemyRoulette(EnemyRoulette er, ISceneExecutor sceneExecutor)
     {
         enemyRoulette = er;
         ApplyRouletteModifiers();
+
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -82,6 +90,23 @@ public class EnemyShooting : MonoBehaviour
         {
             Debug.LogWarning("Can't find GO with Tag Player");
         }
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = attackEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     void Update()
@@ -107,6 +132,10 @@ public class EnemyShooting : MonoBehaviour
 
     void Shoot()
     {
+        int randomValue = Random.Range(0, attackEffectClips.Length);
+        effectAudioSource.clip = attackEffectClips[randomValue];
+        effectAudioSource.Play();
+
         GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, Quaternion.identity);
         var bulletInstance = bulletGO.GetComponent<EnemyBullet>();
 

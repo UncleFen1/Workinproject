@@ -63,12 +63,12 @@ public class EnemySpawner : MonoBehaviour
             var meleeEnemy = go.GetComponent<EnemyMeleeAttack>();
             if (meleeEnemy && meleeEnemy.isActiveAndEnabled)
             {
-                meleeEnemy.LinkEnemyRoulette(enemyRoulette);
+                meleeEnemy.LinkEnemyRoulette(enemyRoulette, scenes);
             }
             var rangeEnemy = go.GetComponent<EnemyShooting>();
             if (rangeEnemy && rangeEnemy.isActiveAndEnabled)
             {
-                rangeEnemy.LinkEnemyRoulette(enemyRoulette);
+                rangeEnemy.LinkEnemyRoulette(enemyRoulette, scenes);
             }
             var movementEnemy = go.GetComponent<EnemyMovement>();
             if (movementEnemy && movementEnemy.isActiveAndEnabled)

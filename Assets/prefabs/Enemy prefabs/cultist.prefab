@@ -132,6 +132,10 @@ MonoBehaviour:
   maxFlightTime1: 3
   scatterAngle: 10
   animator: {fileID: 771339733060149515}
+  attackEffectClips:
+  - {fileID: 8300000, guid: a8a9623330d544d06addd9d261904deb, type: 3}
+  - {fileID: 8300000, guid: 4cb0c80ac94624b1a817a2d1db95d874, type: 3}
+  - {fileID: 8300000, guid: 552e8eac760f9447980e1a446bf792fa, type: 3}
 --- !u!114 &5654003193071382816
 MonoBehaviour:
   m_ObjectHideFlags: 0

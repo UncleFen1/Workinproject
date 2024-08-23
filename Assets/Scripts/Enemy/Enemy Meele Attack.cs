@@ -1,3 +1,4 @@
+using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 
@@ -13,11 +14,18 @@ public class EnemyMeleeAttack : MonoBehaviour
 
     public Animator animator;
 
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] attackEffectClips;
+    private AudioSource effectAudioSource;
+    
+    private ISceneExecutor scenes;
     // TODO _j since it's instantiated from Spawner, there should be some other way to bind dependencies (check similar LinkEnemyRoulette() in other classes)
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er) {
+    public void LinkEnemyRoulette(EnemyRoulette er, ISceneExecutor sceneExecutor) {
         enemyRoulette = er;
         ApplyRouletteModifiers();
+
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers() {
         var mod = enemyRoulette.enemyKindsMap[EnemyKind.MeleeDamage].modifier;
@@ -59,6 +67,23 @@ public class EnemyMeleeAttack : MonoBehaviour
             player = playerObject.transform;
             playerHealth = playerObject.GetComponent<PlayerHealth>();
         }
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = attackEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     void Update()
@@ -93,6 +118,10 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
         if (player != null && Vector2.Distance(transform.position, player.position) <= attackRange)
         {
+            int randomValue = Random.Range(0, attackEffectClips.Length);
+            effectAudioSource.clip = attackEffectClips[randomValue];
+            effectAudioSource.Play();
+
             playerHealth.TakePlayerDamage(attackDamage);
 
             animator.SetBool("EnemyMelee", true);

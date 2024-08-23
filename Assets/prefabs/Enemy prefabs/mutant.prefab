@@ -151,6 +151,10 @@ MonoBehaviour:
   player: {fileID: 0}
   playerHealth: {fileID: 0}
   animator: {fileID: 3758678889745718076}
+  attackEffectClips:
+  - {fileID: 8300000, guid: a8a9623330d544d06addd9d261904deb, type: 3}
+  - {fileID: 8300000, guid: 4cb0c80ac94624b1a817a2d1db95d874, type: 3}
+  - {fileID: 8300000, guid: 552e8eac760f9447980e1a446bf792fa, type: 3}
 --- !u!114 &7792186321557902515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,3 +350,4 @@ MonoBehaviour:
   maxFlightTime1: 0
   scatterAngle: 5
   animator: {fileID: 0}
+  attackEffectClips: []
