@@ -319,8 +319,9 @@ MonoBehaviour:
   missButton: {fileID: 1495183568}
   indicatorImg: {fileID: 1381348025}
   idMainMenuScene: 2
-  clockScene: 15
+  clockScene: 25
   clockButton: 20
+  isBuildTimeVisible: 1
 --- !u!114 &172313329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +701,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  - 1
+  - 5
 --- !u!1 &413655830
 GameObject:
   m_ObjectHideFlags: 0

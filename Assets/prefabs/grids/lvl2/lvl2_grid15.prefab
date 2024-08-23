@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9181212784035202250
 Transform:
   m_ObjectHideFlags: 0
@@ -289,10 +289,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 57.995052, y: 23.547483}
-      - {x: 58.947296, y: 23.073647}
-      - {x: 44.96286, y: 16.038685}
-      - {x: 43.987156, y: 16.571728}
+    - - {x: 52.25205, y: 20.55734}
+      - {x: 52.912857, y: 20.17958}
+      - {x: 44.96286, y: 16.188911}
+      - {x: 44.197475, y: 16.561712}
   m_UseDelaunayMesh: 0
 --- !u!1 &2607093471528658965
 GameObject:
@@ -5190,7 +5190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2358623186035822424
 Transform:
   m_ObjectHideFlags: 0
@@ -5411,10 +5411,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 41.988518, y: 15.536239}
-      - {x: 39.006725, y: 14.058749}
-      - {x: 39.977444, y: 13.535166}
-      - {x: 42.965862, y: 15.079545}
+    - - {x: 41.988518, y: 15.422458}
+      - {x: 39.014854, y: 13.904331}
+      - {x: 39.709244, y: 13.559547}
+      - {x: 42.778934, y: 15.063291}
   m_UseDelaunayMesh: 0
 --- !u!1 &7060845434286772949
 GameObject:
@@ -5603,7 +5603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6408317222407095925
 Transform:
   m_ObjectHideFlags: 0
@@ -5814,10 +5814,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 37.97877, y: 13.563526}
-      - {x: 35.985348, y: 12.572423}
-      - {x: 36.970947, y: 12.037263}
-      - {x: 38.950626, y: 13.082823}
+    - - {x: 38.17386, y: 13.527399}
+      - {x: 35.985348, y: 12.442364}
+      - {x: 36.73973, y: 12.051714}
+      - {x: 38.95785, y: 13.18398}
   m_UseDelaunayMesh: 0
 --- !u!1 &8996899302754993812
 GameObject:
@@ -5837,7 +5837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4614940742028040089
 Transform:
   m_ObjectHideFlags: 0
@@ -6178,8 +6178,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 17.9825, y: 21.550037}
-      - {x: 17.037771, y: 21.06099}
-      - {x: 35.024666, y: 12.034976}
-      - {x: 36.001575, y: 12.5496}
+    - - {x: 20.704456, y: 20.027264}
+      - {x: 20.045248, y: 19.70953}
+      - {x: 35.31147, y: 12.079789}
+      - {x: 36.001575, y: 12.397235}
   m_UseDelaunayMesh: 0
