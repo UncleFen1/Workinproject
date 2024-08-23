@@ -1907,6 +1907,10 @@ MonoBehaviour:
   maxPlayerHealth: 100
   currentPlayerHealth: 0
   deathPrefab: {fileID: 1481253707274288852, guid: 7390d0f13598235408d5158b9346f5c3, type: 3}
+  damageEffectClips:
+  - {fileID: 8300000, guid: a29596bf200fc4d26bf8eca66c814b58, type: 3}
+  - {fileID: 8300000, guid: 2411552a156e54e62a4887533fd9b838, type: 3}
+  - {fileID: 8300000, guid: 71ba6e589a81d4e93bf2ebf556d3f966, type: 3}
 --- !u!114 &6074689469420699433
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using Roulettes;
+﻿using OldSceneNamespace;
+using Roulettes;
 using UnityEngine;
 using Zenject;
 
@@ -8,12 +9,19 @@ public class PlayerHealth : MonoBehaviour
     public int currentPlayerHealth;
     public GameObject deathPrefab;
 
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] damageEffectClips;
+    private AudioSource effectAudioSource;
+
+    private ISceneExecutor scenes;
     private PlayerRoulette playerRoulette;
     [Inject]
-    private void InitBindings(PlayerRoulette pr)
+    private void InitBindings(PlayerRoulette pr, ISceneExecutor sceneExecutor)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
+    
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -38,10 +46,31 @@ public class PlayerHealth : MonoBehaviour
     {
         currentPlayerHealth = maxPlayerHealth;
         Time.timeScale = 1;
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = damageEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     public void TakePlayerDamage(int damage)
     {
+        int randomValue = Random.Range(0, damageEffectClips.Length);
+        effectAudioSource.clip = damageEffectClips[randomValue];
+        effectAudioSource.Play();
+
         currentPlayerHealth -= damage;
         Debug.Log("Player took damage: " + damage + " Current health: " + currentPlayerHealth);
 
