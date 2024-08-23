@@ -1,4 +1,5 @@
 using GameEventBus;
+using OldSceneNamespace;
 using Roulettes;
 using System.Collections;
 using UnityEngine;
@@ -15,13 +16,20 @@ public class EnemyHealth : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
 
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] damageEffectClips;
+    private AudioSource effectAudioSource;
+
+    private ISceneExecutor scenes;
     private EnemyRoulette enemyRoulette;
     private EventBus eventBus;
-    public void LinkEnemyRoulette(EnemyRoulette er, EventBus eb)
+    public void LinkEnemyRoulette(EnemyRoulette er, EventBus eb, ISceneExecutor sceneExecutor)
     {
         enemyRoulette = er;
         eventBus = eb;
         ApplyRouletteModifiers();
+        
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -45,10 +53,31 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = damageEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     public void TakeDamage(int damage)
     {
+        int randomValue = Random.Range(0, damageEffectClips.Length);
+        effectAudioSource.clip = damageEffectClips[randomValue];
+        effectAudioSource.Play();
+        
         currentHealth -= damage;
         Debug.Log("Enemy took damage: " + damage + " Current health: " + currentHealth);
         isTakingDamage = true;
