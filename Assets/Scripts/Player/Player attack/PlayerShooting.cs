@@ -1,9 +1,7 @@
-using System;
 using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 public class Shooting : MonoBehaviour
 {
