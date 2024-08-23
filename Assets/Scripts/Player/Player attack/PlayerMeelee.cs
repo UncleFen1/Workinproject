@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 using Zenject;
@@ -18,12 +19,19 @@ public class MeleeAttack : MonoBehaviour
     public GameObject attackEffectPrefab;
     public float effectDuration = 2f;
 
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] meleeEffectClips;
+    private AudioSource effectAudioSource;
+
+    private ISceneExecutor scenes;
     private PlayerRoulette playerRoulette;
     [Inject]
-    private void InitBindings(PlayerRoulette pr)
+    private void InitBindings(PlayerRoulette pr, ISceneExecutor sceneExecutor)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
+
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -86,12 +94,33 @@ public class MeleeAttack : MonoBehaviour
         {
             Debug.LogError("Attack point is not assigned");
         }
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = meleeEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && Time.time >= nextAttackTime)
         {
+            int randomValue = Random.Range(0, meleeEffectClips.Length);
+            effectAudioSource.clip = meleeEffectClips[randomValue];
+            effectAudioSource.Play();
+
             var (directionToMouse, angle) = CalculateDirectionToMouseAndAngle();
 
             Attack(directionToMouse, angle);

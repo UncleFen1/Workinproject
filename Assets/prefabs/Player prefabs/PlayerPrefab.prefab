@@ -1405,6 +1405,10 @@ MonoBehaviour:
   attackSector: {fileID: 4622538964422545096}
   attackEffectPrefab: {fileID: 328441029068270238, guid: 20bfd0d3999e2e24dbaa011d25968942, type: 3}
   effectDuration: 0.3
+  meleeEffectClips:
+  - {fileID: 8300000, guid: 70d1ebcf3c7fd47ef9d4bc25de295baa, type: 3}
+  - {fileID: 8300000, guid: f5a5828e321d8414f8735e20bbd66e7a, type: 3}
+  - {fileID: 8300000, guid: c3edab5b3d8d749429b3810c25de0180, type: 3}
 --- !u!1 &6055257145466230529
 GameObject:
   m_ObjectHideFlags: 0
