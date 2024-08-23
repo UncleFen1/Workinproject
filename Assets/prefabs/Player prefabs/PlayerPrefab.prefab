@@ -1883,6 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   speedTurn: 0
+  footstepsEffectClip: {fileID: 8300000, guid: 1c37b3731be4a4917b03c67c8341810d, type: 3}
 --- !u!114 &7330821240515042511
 MonoBehaviour:
   m_ObjectHideFlags: 0

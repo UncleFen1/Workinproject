@@ -11,6 +11,13 @@ namespace Player
         [SerializeField][Range(0, 10)] private float moveSpeed = 5f;
         //[SerializeField][Range(0, 1f)] private float defaultSpeed = 0.5f;
         [SerializeField][Range(0, 100)] private float speedTurn = 10f;
+
+        [Header("Звуки эффектов")]
+        [SerializeField] private AudioClip footstepsEffectClip;
+        private AudioSource effectAudioSource;
+
+        bool isMovementStarted = false;
+
         private Rigidbody2D rbThisObject;
         private Vector3 moveDirection;
         private Quaternion deltaRotation, directionRotation;
@@ -69,6 +76,8 @@ namespace Player
         }
         void Start()
         {
+            SetupAudio();
+
             SetClass();
         }
         private void SetClass()
@@ -87,6 +96,22 @@ namespace Player
             Move();
             RunUpdate();
         }
+
+        void SetupAudio()
+        {
+            if (effectAudioSource == null)
+            {
+                effectAudioSource = gameObject.AddComponent<AudioSource>();
+            }
+
+            effectAudioSource.clip = footstepsEffectClip;
+            effectAudioSource.loop = true;
+
+            scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+                effectAudioSource.volume = settingsScene.EffectValum;   // VALUM!!!
+            };
+        }
+
         private void Move()
         {
             if (inputDirection.x == 0 && inputDirection.y == 0)
@@ -138,16 +163,43 @@ namespace Player
                 MoveExecutor(tempInputDirection);
             }
         }
+
         private void MoveExecutor(Vector2 _direction)
         {
             rbThisObject.velocity = _direction * moveSpeed;
             moveDirection = rbThisObject.velocity;
-            if (moveDirection.sqrMagnitude > 0) { 
+            if (moveDirection.sqrMagnitude > 0)
+            {
                 deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+                
+                if (!isMovementStarted)
+                {
+                    OnMovementStart();
+                }
+            }
+            else
+            {
+                if (isMovementStarted)
+                {
+                    OnMovementStop();
+                }
             }
             directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, speedTurn);
             rbThisObject.MoveRotation(directionRotation);
         }
+
+        void OnMovementStart()
+        {
+            isMovementStarted = true;
+            effectAudioSource.Play();
+        }
+
+        void OnMovementStop()
+        {
+            isMovementStarted = false;
+            effectAudioSource.Stop();
+        }
+
         void Update()
         {
 
