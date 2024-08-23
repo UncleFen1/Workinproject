@@ -8,9 +8,32 @@ public class PlayerHealthBar : MonoBehaviour
     public PlayerHealth playerHealth;
     public Image[] healthBarImage;
 
+    private Canvas parentCanvas;
+
+    // TODO _j should be done where the Health value is updated, or add events. This code stinks
     void Update()
     {
-        UpdateHealthBar();
+        if (parentCanvas == null)
+        {
+            parentCanvas = GetComponentInParent<Canvas>();
+        }
+
+        // paused
+        if (Time.timeScale == 0)
+        {
+            if (parentCanvas != null)
+            {
+                parentCanvas.enabled = false;
+            }
+        }
+        else
+        {
+            if (parentCanvas != null)
+            {
+                parentCanvas.enabled = true;
+            }
+            UpdateHealthBar();
+        }
     }
     void UpdateHealthBar()
     {
