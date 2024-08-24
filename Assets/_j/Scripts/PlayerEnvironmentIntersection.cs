@@ -212,26 +212,24 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor");
             isOnEnvironmentMap[EnvironmentKind.Floor] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 1.5f);
         }
         if (environmentKind == EnvironmentKind.Path)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path");
             isOnEnvironmentMap[EnvironmentKind.Path] = true;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 2f);
         }
         if (environmentKind == EnvironmentKind.Wall)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall");
             isOnEnvironmentMap[EnvironmentKind.Wall] = true;
             // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() * 0.1f);
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D pillar");
+            isOnEnvironmentMap[EnvironmentKind.Pillar] = true;
         }
+        // Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D {environmentKind}");
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -245,26 +243,24 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D floor left");
             isOnEnvironmentMap[EnvironmentKind.Floor] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 1.5f);
         }
         if (environmentKind == EnvironmentKind.Path)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D path left");
             isOnEnvironmentMap[EnvironmentKind.Path] = false;
             movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 2f);
         }
         if (environmentKind == EnvironmentKind.Wall)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D wall left");
             isOnEnvironmentMap[EnvironmentKind.Wall] = false;
             // movePlayerComponent.SetMovementSpeed(movePlayerComponent.GetMovementSpeed() / 0.1f);
         }
         if (environmentKind == EnvironmentKind.Pillar)
         {
-            Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerEnter2D pillar left");
+            isOnEnvironmentMap[EnvironmentKind.Pillar] = false;
         }
+        // Debug.Log($"_j PlayerEnvironmentIntersection OnTriggerExit2D {environmentKind}");
     }
 
     void FixedUpdate()
