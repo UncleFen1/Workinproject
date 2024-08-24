@@ -77,9 +77,9 @@ public class EnemyHealth : MonoBehaviour
         int randomValue = Random.Range(0, damageEffectClips.Length);
         effectAudioSource.clip = damageEffectClips[randomValue];
         effectAudioSource.Play();
-        
+
         currentHealth -= damage;
-        Debug.Log("Enemy took damage: " + damage + " Current health: " + currentHealth);
+        Debug.Log($"{name} Enemy took damage: " + damage + " Current health: " + currentHealth);
         isTakingDamage = true;
 
         if (!isDead && currentHealth <= 0)
