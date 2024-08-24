@@ -109,8 +109,8 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 2
   turnSpeed: 10
-  detectionRange: 7
-  randomMovementTime: 0
+  detectionRange: 5
+  randomMovementTime: 2
   changeDirectionSpeed: 1
 --- !u!114 &5185439962660631104
 MonoBehaviour:
