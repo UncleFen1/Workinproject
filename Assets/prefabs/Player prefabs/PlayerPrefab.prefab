@@ -1397,7 +1397,7 @@ MonoBehaviour:
   attackRate: 1
   nextAttackTime: 0
   meleDamage: 40
-  attackPoint: {fileID: 8510286353551404946}
+  attackPoint: {fileID: 2795722176666740262}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 4294967295
