@@ -2,6 +2,7 @@ using GameEventBus;
 using OldSceneNamespace;
 using Roulettes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -115,27 +116,25 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         spriteRenderer.sprite = deathSprite;
-
-        if (TryGetComponent<EnemyMovement>(out EnemyMovement em)) Destroy(em);
-        else Debug.LogWarning("no EnemyMovement to Destroy");
-        if (TryGetComponent<EnemyEnvironmentIntersection>(out EnemyEnvironmentIntersection eei)) Destroy(eei);
-        else Debug.LogWarning("no EnemyEnvironmentIntersection to Destroy");
         
-        foreach (CapsuleCollider2D collider in GetComponents<CapsuleCollider2D>())
+        // order matters
+        // DestroyComponents<CapsuleCollider2D>();
+        var componentsToDestroy = new List<System.Type>
         {
-            Destroy(collider);
+            typeof(EnemyMovement),
+            typeof(EnemyEnvironmentIntersection),
+            typeof(CapsuleCollider2D),
+            typeof(AudioSource),
+            typeof(EdgeCollider2D),
+            typeof(Rigidbody2D),
+            typeof(EnemyShooting),
+            typeof(EnemyMeleeAttack),
+            typeof(Animator)
+        };
+        foreach (var componentType in componentsToDestroy)
+        {
+            DestroyComponents(componentType);
         }
-        
-        if (TryGetComponent<EdgeCollider2D>(out EdgeCollider2D ec)) Destroy(ec);
-        else Debug.LogWarning("no EdgeCollider2D to Destroy");
-        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D rb)) Destroy(rb);
-        else Debug.LogWarning("no Rigidbody2D to Destroy");
-        if (TryGetComponent<EnemyShooting>(out EnemyShooting es)) Destroy(es);
-        else Debug.LogWarning("no EnemyShooting to Destroy");
-        if (TryGetComponent<EnemyMeleeAttack>(out EnemyMeleeAttack ema)) Destroy(ema);
-        else Debug.LogWarning("no EnemyMeleeAttack to Destroy");
-
-        if (animator != null) Destroy(animator);
 
         Destroy(this);
         // Destroy(gameObject);
@@ -147,5 +146,21 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy died!");
         eventBus.Raise(new EnemyDieEvent());
         StartCoroutine(DeathCoroutine());
+    }
+
+    void DestroyComponents<T>() where T : Component
+    {
+        foreach (var component in GetComponents<T>())
+        {
+            Destroy(component);
+        }
+    }
+
+    void DestroyComponents(System.Type componentType)
+    {
+        foreach (var component in GetComponents(componentType))
+        {
+            Destroy(component);
+        }
     }
 }
