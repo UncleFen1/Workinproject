@@ -147,31 +147,110 @@ public class MeleeAttack : MonoBehaviour
 
     Dictionary<int, Collider2D> FindCollidersInSector(Vector2 directionToMouse)
     {
+        var pointA = attackPoint;
+        float rangeS = attackRange;
+        float aAngle = attackAngle / 2;
+
+        // TODO _j it's an empiric increase of range, shouldn't be done this way
+        rangeS *= 2f;
+
+        Vector2 pointB = (Vector2)pointA.position + directionToMouse * rangeS;
+        
+        // Calculate point C (Counterclockwise by aAngle)
+        Vector2 directionAC = Quaternion.Euler(0, 0, aAngle) * directionToMouse;
+        Vector2 pointC = (Vector2)pointA.position + directionAC * rangeS;
+
+        // Calculate point E (Counterclockwise by aAngle/2)
+        Vector2 directionAE = Quaternion.Euler(0, 0, aAngle/2f) * directionToMouse;
+        Vector2 pointE = (Vector2)pointA.position + directionAE * rangeS;
+
+        // Calculate point D (Clockwise by aAngle)
+        Vector2 directionAD = Quaternion.Euler(0, 0, -aAngle) * directionToMouse;
+        Vector2 pointD = (Vector2)pointA.position + directionAD * rangeS;
+        
+        // Calculate point F (Clockwise by aAngle/2)
+        Vector2 directionAF = Quaternion.Euler(0, 0, -aAngle/2f) * directionToMouse;
+        Vector2 pointF = (Vector2)pointA.position + directionAF * rangeS;
+        
+        // Draw the lines for visualization in the scene view
+        Debug.DrawLine(pointA.position, pointB, Color.green, 2f);
+        Debug.DrawLine(pointA.position, pointC, Color.green, 2f);
+        Debug.DrawLine(pointA.position, pointD, Color.green, 2f);
+        Debug.DrawLine(pointA.position, pointE, Color.green, 2f);
+        Debug.DrawLine(pointA.position, pointF, Color.green, 2f);
+
+        // Perform raycasts along AB, AC, AD
+        var hitAB = Physics2D.RaycastAll(pointA.position, directionToMouse, rangeS, enemyLayers);
+        var hitAC = Physics2D.RaycastAll(pointA.position, directionAC, rangeS, enemyLayers);
+        var hitAD = Physics2D.RaycastAll(pointA.position, directionAD, rangeS, enemyLayers);
+        var hitAE = Physics2D.RaycastAll(pointA.position, directionAE, rangeS, enemyLayers);
+        var hitAF = Physics2D.RaycastAll(pointA.position, directionAF, rangeS, enemyLayers);
+
         Dictionary<int, Collider2D> foundColliders = new();
         
-        // calculate start and end angles of the sector
-        float startAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg - attackAngle / 2;
-        float endAngle = startAngle + attackAngle;
-
-        // find all colliders within the circle
-        // TODO _j specify layers or detect in different way, this one is expensive
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        // filter out colliders not within the sector's angle range
-        foreach (Collider2D collider in colliders)
+        for (int i = 0; i < hitAB.Length; i++)
         {
+            var collider = hitAB[i].collider;
             var goInstanceId = collider.gameObject.GetInstanceID();
-            Vector2 colliderDirection = (collider.transform.position - attackPoint.position).normalized;
-            float colliderAngle = Mathf.Atan2(colliderDirection.y, colliderDirection.x) * Mathf.Rad2Deg;
-
-            if (!foundColliders.ContainsKey(goInstanceId) && colliderAngle >= startAngle && colliderAngle <= endAngle)
+            if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth eh))
             {
-                // collider is within the sector's angle range
-                // Debug.Log($"_j pm, hitEnemies: {collider.name}");
-                foundColliders.Add(goInstanceId, collider);
+                if (!foundColliders.ContainsKey(goInstanceId))
+                {
+                    foundColliders.Add(goInstanceId, collider);
+                }
             }
         }
-
+        for (int i = 0; i < hitAC.Length; i++)
+        {
+            var collider = hitAC[i].collider;
+            var goInstanceId = collider.gameObject.GetInstanceID();
+            if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth eh))
+            {
+                if (!foundColliders.ContainsKey(goInstanceId))
+                {
+                    foundColliders.Add(goInstanceId, collider);
+                }
+            }
+        }
+        for (int i = 0; i < hitAD.Length; i++)
+        {
+            var collider = hitAD[i].collider;
+            var goInstanceId = collider.gameObject.GetInstanceID();
+            if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth eh))
+            {
+                if (!foundColliders.ContainsKey(goInstanceId))
+                {
+                    foundColliders.Add(goInstanceId, collider);
+                }
+            }
+        }
+        for (int i = 0; i < hitAE.Length; i++)
+        {
+            var collider = hitAE[i].collider;
+            var goInstanceId = collider.gameObject.GetInstanceID();
+            if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth eh))
+            {
+                if (!foundColliders.ContainsKey(goInstanceId))
+                {
+                    foundColliders.Add(goInstanceId, collider);
+                }
+            }
+        }
+        for (int i = 0; i < hitAF.Length; i++)
+        {
+            var collider = hitAF[i].collider;
+            var goInstanceId = collider.gameObject.GetInstanceID();
+            if (collider.TryGetComponent<EnemyHealth>(out EnemyHealth eh))
+            {
+                if (!foundColliders.ContainsKey(goInstanceId))
+                {
+                    foundColliders.Add(goInstanceId, collider);
+                }
+            }
+        }
+        // string foundColliderNames = "";
+        // foreach (var kv in foundColliders) foundColliderNames += $"{kv.Value.name}, ";
+        // Debug.Log($"_j pm, foundColliderNames: {foundColliderNames}");
         return foundColliders;
     }
 
