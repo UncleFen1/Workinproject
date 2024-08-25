@@ -54,6 +54,15 @@ namespace UI
         {
 
         }
+
+        public void PressPauseButton()
+        {
+            ButtonLvlPanel();
+        }
+        public bool IsButtonActiveAndEnabled()
+        {
+            return menuButton.isActiveAndEnabled;
+        }
     }
 }
 

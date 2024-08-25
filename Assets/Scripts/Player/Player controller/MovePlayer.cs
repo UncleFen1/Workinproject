@@ -67,6 +67,7 @@ namespace Player
             {
                 inputs.Enable();
                 inputs.OnMoveButton += MoveButton;
+                inputs.OnStartPressButton += StartPressButton;
             }
         }
         private void PauseGame(bool _isRun)
@@ -77,6 +78,27 @@ namespace Player
         {
             inputDirection = data.WASD;
         }
+        private void StartPressButton(InputButtonData data)
+        {
+            if ((data.Esc - 1f) < 1e-6)
+            {
+                var gameUIPanel = FindObjectOfType<UI.LvlGndPanel>();
+                var menuUIPanel = FindObjectOfType<UI.LvlButtonPanel>();
+
+                if (gameUIPanel.IsButtonActiveAndEnabled())
+                {
+                    gameUIPanel.PressPauseButton();
+                }
+                else
+                {
+                    if (menuUIPanel.IsContinueButtonActiveAndEnabled())
+                    {
+                        menuUIPanel.PressContinueLevelButton();
+                    }
+                }
+            }
+        }
+
         void Start()
         {
             SetupAudio();
@@ -244,4 +266,3 @@ namespace Player
         }
     }
 }
-

@@ -102,6 +102,15 @@ namespace UI
         {
 
         }
+
+        public void PressContinueLevelButton()
+        {
+            ContinueLevelButton();
+        }
+        public bool IsContinueButtonActiveAndEnabled()
+        {
+            return continueLevelButton.isActiveAndEnabled;
+        }
     }
 }
 
