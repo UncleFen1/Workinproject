@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e73dab6ed29641b285c3d37362c6d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingOrder: 16
+  sortingOrder: 22
   floorColliders:
   - {fileID: 6300200838601914652}
   pathColliders:
