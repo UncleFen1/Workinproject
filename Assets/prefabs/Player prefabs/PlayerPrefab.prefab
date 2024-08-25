@@ -1846,7 +1846,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 50
   m_SortAtRoot: 0
 --- !u!114 &7344195691102506948
 MonoBehaviour:
@@ -1928,6 +1928,7 @@ MonoBehaviour:
   meleeWeapon: {fileID: 8858978660397393225}
   rangedWeapon: {fileID: 8804997927899083609}
   attackPoint: {fileID: 1758535116218399193}
+  isMeleeActive: 1
 --- !u!114 &3342631731633104702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2249,3 +2250,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ab37a4d6ce34f7d9ea204a87520cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cinemachineVirtualCamera: {fileID: 0}
