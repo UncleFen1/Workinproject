@@ -1409,6 +1409,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 70d1ebcf3c7fd47ef9d4bc25de295baa, type: 3}
   - {fileID: 8300000, guid: f5a5828e321d8414f8735e20bbd66e7a, type: 3}
   - {fileID: 8300000, guid: c3edab5b3d8d749429b3810c25de0180, type: 3}
+  isDebugRaysShown: 0
 --- !u!1 &6055257145466230529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,6 +1808,7 @@ GameObject:
   - component: {fileID: 8423565717755479800}
   - component: {fileID: 1252574531739961269}
   - component: {fileID: 7052881027568968090}
+  - component: {fileID: -6501306108100226392}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -2235,3 +2237,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-6501306108100226392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035803492739541913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ab37a4d6ce34f7d9ea204a87520cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
