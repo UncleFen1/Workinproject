@@ -63,8 +63,11 @@ namespace Player
         private void OnEnable()
         {
             scenes.OnPauseGame += PauseGame;
-            inputs.Enable();
-            inputs.OnMoveButton += MoveButton;
+            if (!(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
+            {
+                inputs.Enable();
+                inputs.OnMoveButton += MoveButton;
+            }
         }
         private void PauseGame(bool _isRun)
         {
@@ -93,8 +96,21 @@ namespace Player
         {
             if (isStopClass) { return; }
             if (!isRun) { SetClass(); }
+            // TestyWASD();
             Move();
             RunUpdate();
+        }
+
+        void TestyWASD()
+        {
+            var h = Input.GetAxis("Horizontal");
+            var v = Input.GetAxis("Vertical");
+            if (Mathf.Abs(h) > 1e-6 || Mathf.Abs(v) > 1e-6)
+            {
+                var v2 = new Vector2(h, v);
+                // MoveExecutor(v2);
+                inputDirection = v2.normalized;
+            }
         }
 
         void SetupAudio()
@@ -213,13 +229,18 @@ namespace Player
 
         }
 
-        // TODO _j not sure if needed, but public methods added to demonstrate interaction with environment
         public float GetMovementSpeed() {
             return moveSpeed;
         }
 
         public void SetMovementSpeed(float speed) {
             moveSpeed = speed;
+        }
+
+        public void ProcessTouchCommands(Vector2 v2)
+        {
+            // MoveExecutor(v2);
+            inputDirection = v2;
         }
     }
 }

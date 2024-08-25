@@ -117,22 +117,26 @@ public class MeleeAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextAttackTime)
+        if (Input.GetMouseButtonDown(0))
         {
-            int randomValue = Random.Range(0, meleeEffectClips.Length);
-            effectAudioSource.clip = meleeEffectClips[randomValue];
-            effectAudioSource.Play();
+            var (directionToInput, angle) = CalculateDirectionToMouse();
 
-            var (directionToMouse, angle) = CalculateDirectionToMouseAndAngle();
-
-            Attack(directionToMouse, angle);
-            nextAttackTime = Time.time + 1f / attackRate;
+            Attack(directionToInput, angle);
         }
     }
 
-    void Attack(Vector2 directionToMouse, float angle)
+    void Attack(Vector2 directionToInput, float angle)
     {
-        var foundColliders = FindCollidersInSector(directionToMouse);
+        if (Time.time < nextAttackTime)
+        {
+            return;
+        }
+
+        int randomValue = Random.Range(0, meleeEffectClips.Length);
+        effectAudioSource.clip = meleeEffectClips[randomValue];
+        effectAudioSource.Play();
+
+        var foundColliders = FindCollidersInSector(directionToInput);
         if (foundColliders.Count > 0)
         {
             foreach (var collider in foundColliders)
@@ -144,10 +148,12 @@ public class MeleeAttack : MonoBehaviour
                 }
             }
         }
-        SpawnAttackEffect(directionToMouse, angle);
+        SpawnAttackEffect(directionToInput, angle);
+
+        nextAttackTime = Time.time + 1f / attackRate;
     }
 
-    Dictionary<int, Collider2D> FindCollidersInSector(Vector2 directionToMouse)
+    Dictionary<int, Collider2D> FindCollidersInSector(Vector2 directionToInput)
     {
         var pointA = attackPoint;
         float rangeS = attackRange;
@@ -159,11 +165,11 @@ public class MeleeAttack : MonoBehaviour
         // Calculate directions for lines within the sector
         Vector2[] directions = new Vector2[]
         {
-            directionToMouse,
-            Quaternion.Euler(0, 0, aAngle) * directionToMouse,
-            Quaternion.Euler(0, 0, aAngle / 2f) * directionToMouse,
-            Quaternion.Euler(0, 0, -aAngle / 2f) * directionToMouse,
-            Quaternion.Euler(0, 0, -aAngle) * directionToMouse
+            directionToInput,
+            Quaternion.Euler(0, 0, aAngle) * directionToInput,
+            Quaternion.Euler(0, 0, aAngle / 2f) * directionToInput,
+            Quaternion.Euler(0, 0, -aAngle / 2f) * directionToInput,
+            Quaternion.Euler(0, 0, -aAngle) * directionToInput
         };
 
         if (isDebugRaysShown)
@@ -200,9 +206,9 @@ public class MeleeAttack : MonoBehaviour
         }
     }
 
-    private void SpawnAttackEffect(Vector2 directionToMouse, float angle)
+    private void SpawnAttackEffect(Vector2 directionToInput, float angle)
     {
-        Vector2 spawnPosition = (Vector2)attackPoint.position + directionToMouse * attackRange;
+        Vector2 spawnPosition = (Vector2)attackPoint.position + directionToInput * attackRange;
 
         if (attackEffectPrefab != null)
         {
@@ -211,20 +217,30 @@ public class MeleeAttack : MonoBehaviour
         }
     }
 
-    (Vector2 directionToMouse, float angle) CalculateDirectionToMouseAndAngle()
+    (Vector2 directionToInput, float angle) CalculateDirectionToMouse()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 directionToMouse = (mousePosition - (Vector2)attackPoint.position).normalized;
-        float angle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+        return CalculateDirectionToInput(mousePosition);
+    }
 
-        return (directionToMouse, angle);
+    (Vector2 directionToInput, float angle) CalculateDirectionToTouch(Vector2 touchPosition)
+    {
+        return CalculateDirectionToInput(touchPosition);
+    }
+
+    (Vector2 directionToInput, float angle) CalculateDirectionToInput(Vector2 position)
+    {
+        Vector2 directionToInput = (position - (Vector2)attackPoint.position).normalized;
+        float angle = Mathf.Atan2(directionToInput.y, directionToInput.x) * Mathf.Rad2Deg;
+
+        return (directionToInput, angle);
     }
 
     void OnDrawGizmosSelected()
     {
         if (attackPoint != null)
         {
-            var (directionToMouse, angle) = CalculateDirectionToMouseAndAngle();
+            var (directionToInput, angle) = CalculateDirectionToMouse();
             attackSector.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             Gizmos.color = Color.red;
@@ -236,5 +252,11 @@ public class MeleeAttack : MonoBehaviour
             Gizmos.DrawLine(attackPoint.position, leftBoundary);
             Gizmos.DrawLine(attackPoint.position, rightBoundary);
         }
+    }
+
+    public void ProcessTouchCommands(Vector2 v2)
+    {
+        var (directionToInput, angle) = CalculateDirectionToTouch(v2);
+        Attack(directionToInput, angle);
     }
 }
