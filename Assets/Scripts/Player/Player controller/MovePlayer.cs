@@ -63,8 +63,11 @@ namespace Player
         private void OnEnable()
         {
             scenes.OnPauseGame += PauseGame;
-            inputs.Enable();
-            inputs.OnMoveButton += MoveButton;
+            if (!(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
+            {
+                inputs.Enable();
+                inputs.OnMoveButton += MoveButton;
+            }
         }
         private void PauseGame(bool _isRun)
         {
