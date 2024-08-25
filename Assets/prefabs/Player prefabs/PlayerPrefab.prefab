@@ -1393,10 +1393,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 1
-  attackDamage: 10
-  attackRate: 1
+  attackDamage: 1
+  attackRate: 2
   nextAttackTime: 0
-  meleDamage: 40
+  meleDamage: 5
   attackPoint: {fileID: 2795722176666740262}
   enemyLayers:
     serializedVersion: 2
@@ -1409,6 +1409,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 70d1ebcf3c7fd47ef9d4bc25de295baa, type: 3}
   - {fileID: 8300000, guid: f5a5828e321d8414f8735e20bbd66e7a, type: 3}
   - {fileID: 8300000, guid: c3edab5b3d8d749429b3810c25de0180, type: 3}
+  isDebugRaysShown: 0
 --- !u!1 &6055257145466230529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,7 +1905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3d38217b85bae4086f3f3a35f58d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayerHealth: 100
+  maxPlayerHealth: 10
   currentPlayerHealth: 0
   deathPrefab: {fileID: 1481253707274288852, guid: 7390d0f13598235408d5158b9346f5c3, type: 3}
   damageEffectClips:
