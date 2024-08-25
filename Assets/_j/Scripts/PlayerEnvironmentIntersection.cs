@@ -11,6 +11,9 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerEnvironmentIntersection : MonoBehaviour
 {
+    private const int ENVIRONMENT_PLAYER_DAMAGE = 1;
+    private const int ENVIRONMENT_PLAYER_HEAL = 1;
+    // private const Color can't be, but need for search
     private Color DEFAULT_WALL_COLOR = Color.white;
     private Color TRANSPARENT_WALL_COLOR = new Color(1f, 1f, 1f, 0.35f);
 
@@ -300,11 +303,11 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
                     var envKind = environmentRoulette.environmentKindsMap[environmentKind];
                     if (envKind.modifier == EnvironmentModifier.Damage)
                     {
-                        healthPlayerComponent.TakePlayerDamage(10);
+                        healthPlayerComponent.TakePlayerDamage(ENVIRONMENT_PLAYER_DAMAGE);
                     }
                     if (envKind.modifier == EnvironmentModifier.Heal)
                     {
-                        healthPlayerComponent.HealPlayer(10);
+                        healthPlayerComponent.HealPlayer(ENVIRONMENT_PLAYER_HEAL);
                     }
                 }
             }

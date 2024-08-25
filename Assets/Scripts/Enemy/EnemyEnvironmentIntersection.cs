@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyEnvironmentIntersection : MonoBehaviour
 {
+    private const int ENVIRONMENT_ENEMY_DAMAGE = 1;
+    private const int ENVIRONMENT_ENEMY_HEAL = 1;
+    
     private List<GridController> gridControllerList;
 
     private EnemyMovement enemyMovement;
@@ -233,11 +236,11 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
                     var envKind = environmentRoulette.environmentKindsMap[environmentKind];
                     if (envKind.modifier == EnvironmentModifier.Damage)
                     {
-                        enemyHealth.TakeDamage(10);
+                        enemyHealth.TakeDamage(ENVIRONMENT_ENEMY_DAMAGE);
                     }
                     if (envKind.modifier == EnvironmentModifier.Heal)
                     {
-                        enemyHealth.HealEnemy(10);
+                        enemyHealth.HealEnemy(ENVIRONMENT_ENEMY_HEAL);
                     }
                 }
             }
