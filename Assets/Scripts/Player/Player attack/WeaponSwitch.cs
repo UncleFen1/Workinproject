@@ -1,47 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    public MeleeAttack meleeWeapon; // Ссылка на скрипт ближнего боя
-    public Shooting rangedWeapon; // Ссылка на скрипт дальнего боя
+    public MeleeAttack meleeWeapon; // РЎСЃС‹Р»РєР° РЅР° СЃРєСЂРёРїС‚ Р±Р»РёР¶РЅРµРіРѕ Р±РѕСЏ
+    public Shooting rangedWeapon; // РЎСЃС‹Р»РєР° РЅР° СЃРєСЂРёРїС‚ РґР°Р»СЊРЅРµРіРѕ Р±РѕСЏ
 
-    public Transform attackPoint; // Точка, откуда происходит атака
+    public Transform attackPoint; // РўРѕС‡РєР°, РѕС‚РєСѓРґР° РїСЂРѕРёСЃС…РѕРґРёС‚ Р°С‚Р°РєР°
 
-    private bool isMeleeActive = true; // Текущее состояние оружия
+    public bool isMeleeActive = true; // РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РѕСЂСѓР¶РёСЏ
 
-   
+
     private void Start()
     {
-        
-        // Начнем с активированного ближнего боя
+        // РќР°С‡РЅРµРј СЃ Р°РєС‚РёРІРёСЂРѕРІР°РЅРЅРѕРіРѕ Р±Р»РёР¶РЅРµРіРѕ Р±РѕСЏ
         meleeWeapon.gameObject.SetActive(true);
         rangedWeapon.gameObject.SetActive(false);
-                               
     }
 
     private void Update()
     {
-        // Переключение между типами оружия по нажатию клавиши Q
+        // РџРµСЂРµРєР»СЋС‡РµРЅРёРµ РјРµР¶РґСѓ С‚РёРїР°РјРё РѕСЂСѓР¶РёСЏ РїРѕ РЅР°Р¶Р°С‚РёСЋ РєР»Р°РІРёС€Рё Q
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchWeapon();
         }
-
-      
     }
 
-    private void SwitchWeapon()
+    public void SwitchWeapon()
     {
-        // Меняем состояние на противоположное
+        // РњРµРЅСЏРµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РЅР° РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅРѕРµ
         isMeleeActive = !isMeleeActive;
 
-        // Активируем/деактивируем оружие в зависимости от состояния
+        // РђРєС‚РёРІРёСЂСѓРµРј/РґРµР°РєС‚РёРІРёСЂСѓРµРј РѕСЂСѓР¶РёРµ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЃРѕСЃС‚РѕСЏРЅРёСЏ
         meleeWeapon.gameObject.SetActive(isMeleeActive);
         rangedWeapon.gameObject.SetActive(!isMeleeActive);
-
-
     }
-    
 }
