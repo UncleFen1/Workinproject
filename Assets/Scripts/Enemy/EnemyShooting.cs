@@ -1,3 +1,4 @@
+using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 
@@ -13,12 +14,19 @@ public class EnemyShooting : MonoBehaviour
     private float nextFireTime = 1f;
 
     public Animator animator;
+
+    [Header("Звуки эффектов")]
+    [SerializeField] private AudioClip[] attackEffectClips;
+    private AudioSource effectAudioSource;
     
+    private ISceneExecutor scenes;
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er)
+    public void LinkEnemyRoulette(EnemyRoulette er, ISceneExecutor sceneExecutor)
     {
         enemyRoulette = er;
         ApplyRouletteModifiers();
+
+        scenes = sceneExecutor;
     }
     void ApplyRouletteModifiers()
     {
@@ -82,6 +90,23 @@ public class EnemyShooting : MonoBehaviour
         {
             Debug.LogWarning("Can't find GO with Tag Player");
         }
+
+        SetupAudio();
+    }
+
+    void SetupAudio()
+    {
+        if (effectAudioSource == null)
+        {
+            effectAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        effectAudioSource.clip = attackEffectClips[0];
+        effectAudioSource.loop = false;
+
+        scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            effectAudioSource.volume = settingsScene.EffectValum;
+        };
     }
 
     void Update()
@@ -107,8 +132,13 @@ public class EnemyShooting : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, shootingPoint.rotation);
+        int randomValue = Random.Range(0, attackEffectClips.Length);
+        effectAudioSource.clip = attackEffectClips[randomValue];
+        effectAudioSource.Play();
+
+        GameObject bulletGO = Instantiate(bullet1, shootingPoint.position, Quaternion.identity);
         var bulletInstance = bulletGO.GetComponent<EnemyBullet>();
+
         if (bulletInstance && bulletInstance.isActiveAndEnabled)
         {
             bulletInstance.LinkEnemyRoulette(enemyRoulette);
@@ -127,6 +157,9 @@ public class EnemyShooting : MonoBehaviour
             direction.x * Mathf.Cos(angleInRadians) - direction.y * Mathf.Sin(angleInRadians),
             direction.x * Mathf.Sin(angleInRadians) + direction.y * Mathf.Cos(angleInRadians)
         );
+
+        float angle = Mathf.Atan2(scatterDirection.y, scatterDirection.x) * Mathf.Rad2Deg;
+        bulletGO.transform.eulerAngles = new Vector3(0, 0, angle - 90f);
 
         Rigidbody2D rb = bulletGO.GetComponent<Rigidbody2D>();
         if (rb != null)

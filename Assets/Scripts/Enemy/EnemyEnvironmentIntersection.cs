@@ -77,7 +77,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
         // Debug.Log($"_j environmentColliderDataChanged: {curData.collider.name}, prev: {oldData.collider.name}");
     }
 
-    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
+    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider, bool isEnter)
     {
         var environmentColliderData = new EnvironmentColliderData
         {
@@ -131,31 +131,34 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
                 environmentColliderData.environmentKind = foundEnvironmentKind;
                 environmentColliderData.gridController = gridController;
 
-                if (currentEnvironmentColliderData == null)
+                if (isEnter)
                 {
-                    currentEnvironmentColliderData = environmentColliderData;
-                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
-                }
-                else if (previousEnvironmentColliderData != currentEnvironmentColliderData)
-                {
-                    previousEnvironmentColliderData = currentEnvironmentColliderData;
-                    currentEnvironmentColliderData = environmentColliderData;
-                    EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
-                }
-
-                if (currentGridController == null)
-                {
-                    currentGridController = environmentColliderData.gridController;
-                    GridChanged(currentGridController, previousGridController);
-                }
-                else
-                {
-                    // if (currentGridController.GetInstanceID() != environmentColliderData.gridController.GetInstanceID())
-                    if (currentGridController != environmentColliderData.gridController)
+                    if (currentEnvironmentColliderData == null)
                     {
-                        previousGridController = currentGridController;
+                        currentEnvironmentColliderData = environmentColliderData;
+                        EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                    }
+                    else if (previousEnvironmentColliderData != currentEnvironmentColliderData)
+                    {
+                        previousEnvironmentColliderData = currentEnvironmentColliderData;
+                        currentEnvironmentColliderData = environmentColliderData;
+                        EnvironmentColliderDataChanged(currentEnvironmentColliderData, previousEnvironmentColliderData);
+                    }
+
+                    if (currentGridController == null)
+                    {
                         currentGridController = environmentColliderData.gridController;
                         GridChanged(currentGridController, previousGridController);
+                    }
+                    else
+                    {
+                        // if (currentGridController.GetInstanceID() != environmentColliderData.gridController.GetInstanceID())
+                        if (currentGridController != environmentColliderData.gridController)
+                        {
+                            previousGridController = currentGridController;
+                            currentGridController = environmentColliderData.gridController;
+                            GridChanged(currentGridController, previousGridController);
+                        }
                     }
                 }
 
@@ -168,7 +171,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentColliderData = DefineEnvironmentColliderData(collider, true);
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {
@@ -193,7 +196,7 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        var environmentColliderData = DefineEnvironmentColliderData(collider);
+        var environmentColliderData = DefineEnvironmentColliderData(collider, false);
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind == EnvironmentKind.Floor)
         {

@@ -15,6 +15,8 @@ namespace UI
 
         [Header("Кнопка Over")]
         [SerializeField] private CustomButton overButton;
+        [Header("Кнопка CheatsOn")]
+        [SerializeField] private CustomButton cheatsButton;
 
         private bool isStopClass = false, isRun = false;
         //
@@ -32,6 +34,7 @@ namespace UI
             followLvlButton.onClick.AddListener(() => FollowLvl());
             victoryButton.onClick.AddListener(() => StartVictory());
             overButton.onClick.AddListener(() => StartOver());
+            cheatsButton.onClick.AddListener(() => CheatsOn());
         }
         void Start()
         {
@@ -58,6 +61,18 @@ namespace UI
         {
             panel.AudioClick();
             scenes.OpenOverScen();
+        }
+        private void CheatsOn()
+        {
+            Debug.LogWarning("_j CHEATS ON");
+            panel.AudioClick();
+            var playerHealth = FindObjectOfType<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.maxPlayerHealth = 9999;
+                playerHealth.currentPlayerHealth = 9999;
+            }
+            // TryGetComponent
         }
         void Update()
         {

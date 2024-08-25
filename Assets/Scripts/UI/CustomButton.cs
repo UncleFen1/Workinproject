@@ -13,7 +13,7 @@ namespace UI
         public Action OnUp { get { return onUp; } set { onUp = value; } }
         private Action onUp;
 
-        private int sizeOnButton = 2;
+        private int sizeOnButton = 1;
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
