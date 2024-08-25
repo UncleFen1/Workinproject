@@ -145,9 +145,11 @@ namespace Player
             effectAudioSource.clip = footstepsEffectClip;
             effectAudioSource.loop = true;
 
-            scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
-                effectAudioSource.volume = settingsScene.EffectValum;   // VALUM!!!
-            };
+            effectAudioSource.volume = 1f;
+            Debug.LogWarning("footsteps volume set to MAX due to source quite level");
+            // scenes.OnSetSettingsAudioScene += (SettingsScene settingsScene) => {
+            //     effectAudioSource.volume = settingsScene.EffectValum;   // VALUM!!!
+            // };
         }
 
         private void Move()
