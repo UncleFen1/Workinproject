@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GameGrid;
 using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
@@ -21,11 +23,14 @@ public class Shooting : MonoBehaviour
 
     private ISceneExecutor scenes;
     private PlayerRoulette playerRoulette;
+    private List<GridController> gridControllerList;
     [Inject]
-    private void InitBindings(PlayerRoulette pr, ISceneExecutor sceneExecutor)
+    private void InitBindings(PlayerRoulette pr, List<GridController> gcs, ISceneExecutor sceneExecutor)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
+
+        gridControllerList = gcs;
 
         scenes = sceneExecutor;
     }
@@ -127,7 +132,7 @@ public class Shooting : MonoBehaviour
         var bulletInstance = bulletGO.GetComponent<PlayerBullet>();
         if (bulletInstance && bulletInstance.isActiveAndEnabled)
         {
-            bulletInstance.LinkPlayerRoulette(playerRoulette);
+            bulletInstance.LinkPlayerRoulette(playerRoulette, gridControllerList);
         }
         else
         {
