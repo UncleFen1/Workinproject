@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using GameEnvironmentIntersection;
+using GameGrid;
 using Roulettes;
 using UnityEngine;
 
@@ -6,10 +9,13 @@ public class EnemyBullet : MonoBehaviour
     public int damage = 20;
 
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er)
+    private List<GridController> gridControllerList;
+    public void LinkEnemyRoulette(EnemyRoulette er, List<GridController> gcs)
     {
         enemyRoulette = er;
         ApplyRouletteModifiers();
+
+        gridControllerList = gcs;
     }
     void ApplyRouletteModifiers()
     {
@@ -39,6 +45,15 @@ public class EnemyBullet : MonoBehaviour
             {
                 PlayerHealth.TakePlayerDamage(damage);
             }
+            Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        var collider = other.collider;
+        if (SharedEnvironmentIntersection.CheckColliderHitWallOrPillar(collider, gridControllerList))
+        {
             Destroy(gameObject);
         }
     }

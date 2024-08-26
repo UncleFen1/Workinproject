@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GameGrid;
 using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
@@ -21,10 +23,13 @@ public class EnemyShooting : MonoBehaviour
     
     private ISceneExecutor scenes;
     private EnemyRoulette enemyRoulette;
-    public void LinkEnemyRoulette(EnemyRoulette er, ISceneExecutor sceneExecutor)
+    private List<GridController> gridControllerList;
+    public void LinkEnemyRoulette(EnemyRoulette er, List<GridController> gcs, ISceneExecutor sceneExecutor)
     {
         enemyRoulette = er;
         ApplyRouletteModifiers();
+
+        gridControllerList = gcs;
 
         scenes = sceneExecutor;
     }
@@ -141,7 +146,7 @@ public class EnemyShooting : MonoBehaviour
 
         if (bulletInstance && bulletInstance.isActiveAndEnabled)
         {
-            bulletInstance.LinkEnemyRoulette(enemyRoulette);
+            bulletInstance.LinkEnemyRoulette(enemyRoulette, gridControllerList);
         }
         else
         {
