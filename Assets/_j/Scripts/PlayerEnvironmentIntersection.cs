@@ -118,7 +118,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         }
     }
 
-    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider, bool isEnter)
+    EnvironmentColliderData DefineEnvironmentColliderData(Collider2D collider)
     {
         var environmentColliderData = new EnvironmentColliderData
         {
@@ -199,7 +199,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        var environmentColliderData = DefineEnvironmentColliderData(collider, true);
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind != EnvironmentKind.Unknown)
         {
@@ -257,7 +257,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        var environmentColliderData = DefineEnvironmentColliderData(collider, false);
+        var environmentColliderData = DefineEnvironmentColliderData(collider);
         var environmentKind = environmentColliderData.environmentKind;
         if (environmentKind != EnvironmentKind.Unknown)
         {
