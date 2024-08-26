@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Texts;
 
 namespace OldSceneNamespace
@@ -33,6 +34,7 @@ namespace OldSceneNamespace
         Func<int> OnOpenOverScen { get; set; }
         Action<bool> OnPauseGame { get; set; }
         void OpenScenID(int scenID);
+        Task OpenSceneIdWithDelay(int sceneId, float secondsDelay);
         void SetCurrentFlagRoulette(bool _isFlag);
         bool GetCurrentFlagRoulette();
         int GetOpenScenID();

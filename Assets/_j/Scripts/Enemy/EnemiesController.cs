@@ -64,7 +64,7 @@ namespace GameEnemy
 
             // scenes.SetCurrentFlagRoulette(false);
             // this will always return you to lvl2, but first to roulette, logic is here LoadSceneExecutor.cs in SetClass()
-            _ = OpenSceneWithDelay(2);
+            _ = scenes.OpenSceneIdWithDelay(HARDCODED_ROULETTE_SCENE_ID, 2);
             
             // var scene = SceneManager.GetActiveScene();
             // int currentSceneIndex = scenes.GetOpenScenID(); // better to use scene.buildIndex
@@ -81,17 +81,6 @@ namespace GameEnemy
             //     scenes.SetCurrentFlagRoulette(true);
             //     scenes.OpenScenID(currentSceneIndex);    
             // }
-        }
-
-        async Task OpenSceneWithDelay(float secondsDelay)
-        {
-            Debug.LogWarning($"_j OpenSceneWithDelay {secondsDelay} seconds");
-            
-            // await Task.Delay(2000);  // doesn't work in webgl -.-, so need a hack with Task.Yield()
-            float startTime = Time.time;
-            while (Time.time < startTime + secondsDelay) await Task.Yield();
-
-            scenes.OpenScenID(HARDCODED_ROULETTE_SCENE_ID);
         }
 
         #region IEventReceiver

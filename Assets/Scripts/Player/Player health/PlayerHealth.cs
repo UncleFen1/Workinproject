@@ -5,6 +5,8 @@ using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
+    const int HARDCODED_MAIN_MENU_SCENE_ID = 2;
+
     public int maxPlayerHealth = 100;
     public int currentPlayerHealth;
     public GameObject deathPrefab;
@@ -98,5 +100,6 @@ public class PlayerHealth : MonoBehaviour
         
         Destroy(gameObject);
 
+        _ = scenes.OpenSceneIdWithDelay(HARDCODED_MAIN_MENU_SCENE_ID, 2);
     }
 }

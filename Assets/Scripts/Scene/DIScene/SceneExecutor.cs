@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Texts;
 using UnityEngine;
 
@@ -55,6 +56,16 @@ namespace OldSceneNamespace
         {
             SetIDScene(_scenID);
             onOpenSceneID?.Invoke();
+        }
+        public async Task OpenSceneIdWithDelay(int sceneId, float secondsDelay)
+        {
+            Debug.LogWarning($"_j OpenSceneIdWithDelay, id: {sceneId}, delay: {secondsDelay} seconds");
+            
+            // await Task.Delay(2000);  // doesn't work in webgl -.-, so need a hack with Task.Yield()
+            float startTime = Time.time;
+            while (Time.time < startTime + secondsDelay) await Task.Yield();
+
+            OpenScenID(sceneId);
         }
         public int GetOpenScenID()
         {
