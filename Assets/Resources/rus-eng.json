@@ -1,6 +1,56 @@
 {
     "Items": [
         {
+            "NameObject": "AuthorsListText1",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Выходцев Ярослав - Unity-разработчик",
+            "EngText": "Freecdog - Unity-developer"
+        },
+        {
+            "NameObject": "AuthorsListText2",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Губейдулин Сергей - саунддизайнер",
+            "EngText": "Frastwer - sounddesigner"
+        },
+        {
+            "NameObject": "AuthorsListText3",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Дуктовский Илья - композитор",
+            "EngText": "Magnesid - composer"
+        },
+        {
+            "NameObject": "AuthorsListText4",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Лопатюк Андрей - геймдизайнер",
+            "EngText": "Uncle Fen - gamedesigner"
+        },
+        {
+            "NameObject": "AuthorsListText5",
+            "NameScene": "MainMenu2",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "Мехдиева Фидан - 2D-художник",
+            "EngText": "Serena Devi - 2D-artist"
+        },
+        {
             "NameObject": "MissButtonText",
             "NameScene": "SplashScreen0",
             "PoleTxt": {
@@ -77,8 +127,8 @@
                 "instanceID": 0
             },
             "ModeTxt": 0,
-            "RusText": "БОГИ КИДАЮТ КУБЫ",
-            "EngText": "GODS THROW DICES"
+            "RusText": "БУРЯ БЕЗУМИЯ",
+            "EngText": "MADNESS STORM"
         },
         {
             "NameObject": "InfoButtonText",

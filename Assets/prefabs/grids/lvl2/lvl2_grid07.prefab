@@ -1031,7 +1031,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2014,7 +2014,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2171,21 +2171,31 @@ Tilemap:
   m_GameObject: {fileID: 7478339071816563192}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 22, y: 12, z: 0}
+  - first: {x: 29, y: 9, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 5
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 23, y: 12, z: 0}
+  - first: {x: 29, y: 10, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 29, y: 11, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2194,8 +2204,8 @@ Tilemap:
   - first: {x: 24, y: 12, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2303,33 +2313,33 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5c3174f6bf101624f8b781ad160c94f3, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 767296e653a158d47b4964eba7cca263, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: b80b5309648fc884abeb2a406f9c91bd, type: 2}
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 7c00e9dce1e23b54c9d08d01efd360db, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 37a632555384b7b4497debaf76afd9d6, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 4d219f66e92df574999ee8ca4c4d59a6, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: ae238caf581b4fd438aabf7082d5cdfa, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: 0cc2c4a2f98591243bd41aeafbcd580b, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: 40183665b6c50464d854b98e66a45b75, type: 3}
+  - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 2d49a0b7163b70b459c8af8a9c5d2aa9, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 6c6002d7ed303a148bfdbe866caeedeb, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 7e3f4eca1ee0aa044b2b1d7bdcc6f4a0, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 13
+  - m_RefCount: 14
     m_Data:
       e00: 1
       e01: 0
@@ -2348,7 +2358,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 13
+  - m_RefCount: 14
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2467,12 +2477,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 21.988937, y: 23.535013}
+    - - {x: 16.98244, y: 20.986368}
+      - {x: 20.02358, y: 19.533976}
+      - {x: 21.026033, y: 20.071257}
+      - {x: 18.026068, y: 21.531336}
+      - {x: 21.988937, y: 23.535013}
       - {x: 20.993368, y: 24.06018}
       - {x: 11.989193, y: 19.543697}
       - {x: 10.980291, y: 20.04473}
       - {x: 9.983686, y: 19.528536}
-      - {x: 10.986671, y: 19.057093}
-      - {x: 9.003168, y: 18.044298}
-      - {x: 9.97076, y: 17.535683}
+      - {x: 12.037626, y: 18.53247}
   m_UseDelaunayMesh: 0
