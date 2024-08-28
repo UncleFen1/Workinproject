@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followLvlButton: {fileID: 689586268}
-  followSceneId: 9
+  followSceneId: 10
   victoryButton: {fileID: 1234321964}
   overButton: {fileID: 674897355}
   cheatsButton: {fileID: 365597382}

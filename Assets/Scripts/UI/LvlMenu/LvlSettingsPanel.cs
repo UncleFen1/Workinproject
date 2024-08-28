@@ -113,6 +113,13 @@ namespace UI
 
         }
 
+        public void PressReturnButton()
+        {
+            ButtonLvlPanel();
+        }
+        public bool IsReturnButtonActiveAndEnabled()
+        {
+            return reternSettingsButton.isActiveAndEnabled;
+        }
     }
 }
-

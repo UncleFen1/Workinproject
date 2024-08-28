@@ -336,6 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8178737650382934043}
   - component: {fileID: 3640914901888228516}
+  - component: {fileID: 5123880659997455740}
   m_Layer: 9
   m_Name: lvl2_grid00 1
   m_TagString: Untagged
@@ -378,6 +379,24 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 3
   m_CellSwizzle: 0
+--- !u!114 &5123880659997455740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584067466724179594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e73dab6ed29641b285c3d37362c6d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrder: 0
+  floorColliders: []
+  pathColliders: []
+  wallColliders:
+  - {fileID: 3980747336482026979}
+  pillarColliders: []
 --- !u!1 &3680157959130943169
 GameObject:
   m_ObjectHideFlags: 0

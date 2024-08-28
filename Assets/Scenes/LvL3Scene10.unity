@@ -441,7 +441,7 @@ MonoBehaviour:
   modeScreenDropdown: {fileID: 162996462}
   muzSlider: {fileID: 162996461}
   effectSlider: {fileID: 162996460}
-  reternSettingsButton: {fileID: 0}
+  reternSettingsButton: {fileID: 778254515}
 --- !u!114 &109836321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,6 +1617,17 @@ Transform:
   - {fileID: 180372446}
   m_Father: {fileID: 1018927951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &778254515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 919861278620288198, guid: 07a56b2377175dc478550b9c7ce92705, type: 3}
+  m_PrefabInstance: {fileID: 162996458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2461334b672d743b09ec6526dc36c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &891656870
 GameObject:
   m_ObjectHideFlags: 0

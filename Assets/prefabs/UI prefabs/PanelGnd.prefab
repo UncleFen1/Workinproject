@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 1816406809363636253}
   - component: {fileID: 873217934579242729}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: MenuButton SHOULD BE ENABLED
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

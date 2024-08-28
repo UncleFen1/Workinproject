@@ -128,19 +128,18 @@ public class EnemyMovement : MonoBehaviour
 
         if (moveDirection.sqrMagnitude > 0)
         {
-                if (moveDirection.x < 0)
-                {
-                    transform.localScale = new Vector3(-1f, 1f, 1f);
-                }
-                else if (moveDirection.x > 0)
-                {
-                     transform.localScale = new Vector3(1f, 1f, 1f);   
-                }      
-        
+            if (moveDirection.x < 0)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (moveDirection.x > 0)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);   
+            }
+            
             deltaRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
         }
         directionRotation = Quaternion.RotateTowards(transform.rotation, deltaRotation, turnSpeed);
         _rigidbody.MoveRotation(directionRotation);
     }
 }
-

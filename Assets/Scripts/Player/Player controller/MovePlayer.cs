@@ -84,17 +84,19 @@ namespace Player
             {
                 var gameUIPanel = FindObjectOfType<UI.LvlGndPanel>();
                 var menuUIPanel = FindObjectOfType<UI.LvlButtonPanel>();
+                var settingsUIPanel = FindObjectOfType<UI.LvlSettingsPanel>();
 
                 if (gameUIPanel.IsButtonActiveAndEnabled())
                 {
                     gameUIPanel.PressPauseButton();
                 }
-                else
+                else if (menuUIPanel.IsContinueButtonActiveAndEnabled())
                 {
-                    if (menuUIPanel.IsContinueButtonActiveAndEnabled())
-                    {
-                        menuUIPanel.PressContinueLevelButton();
-                    }
+                    menuUIPanel.PressContinueLevelButton();
+                }
+                else if (settingsUIPanel.IsReturnButtonActiveAndEnabled())
+                {
+                    settingsUIPanel.PressReturnButton();
                 }
             }
         }

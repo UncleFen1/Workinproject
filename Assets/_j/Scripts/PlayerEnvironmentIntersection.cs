@@ -68,9 +68,15 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         if (!sortingGroupComponent) Debug.LogError("No sortingGroupComponent given");
     }
 
+    private void ChangeSortingOrder(int sortingOrder)
+    {
+        sortingGroupComponent.sortingOrder = sortingOrder;
+    }
+
     private void GridStepUp(GridController grid)
     {
-        Debug.Log($"_j GridStepUp Add: {grid.name}");
+        Debug.Log($"_j GridStepUp Add: {grid.name}, grid.sortingOrder: {grid.sortingOrder}");
+        ChangeSortingOrder(grid.sortingOrder);
         activeGridControllers.Add(grid.GetInstanceID(), grid);
         ChangeGridWallsColor(grid, grid.sortingOrder, TRANSPARENT_WALL_COLOR);
     }
@@ -82,7 +88,7 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
         foreach (var kv in activeGridControllers)
         {
             // TODO _j it's definitely incorrect
-            sortingGroupComponent.sortingOrder = kv.Value.sortingOrder;
+            ChangeSortingOrder(kv.Value.sortingOrder);
             break;
         }
         ChangeGridWallsColor(grid, grid.sortingOrder, DEFAULT_WALL_COLOR);
