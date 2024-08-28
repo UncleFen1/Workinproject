@@ -10,6 +10,8 @@ public class PlayerHealthBar : MonoBehaviour
 
     private Canvas parentCanvas;
 
+    private float lastUpdate = float.MinValue;
+
     // TODO _j should be done where the Health value is updated, or add events. This code stinks
     void Update()
     {
@@ -37,6 +39,8 @@ public class PlayerHealthBar : MonoBehaviour
     }
     void UpdateHealthBar()
     {
+        if (Time.time < lastUpdate + 0.25f) return;
+
         if (playerHealth != null)
         {
             int visibleSegments = Mathf.RoundToInt((float)playerHealth.currentPlayerHealth / playerHealth.maxPlayerHealth * healthBarImage.Length);
@@ -47,5 +51,7 @@ public class PlayerHealthBar : MonoBehaviour
             }
            
         }
+
+        lastUpdate = Time.time;
     }
 }
