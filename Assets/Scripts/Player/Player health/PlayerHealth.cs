@@ -85,7 +85,7 @@ public class PlayerHealth : MonoBehaviour
     public void HealPlayer(int heal)
     {
         currentPlayerHealth += heal;
-        if (currentPlayerHealth >= 100) currentPlayerHealth = 100;
+        if (currentPlayerHealth >= maxPlayerHealth) currentPlayerHealth = maxPlayerHealth;
         Debug.Log($"Player healed on: {heal}. Current health: {currentPlayerHealth}");
     }
 
