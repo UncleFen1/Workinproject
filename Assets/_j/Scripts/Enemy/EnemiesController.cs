@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GameEventBus;
 using OldSceneNamespace;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace GameEnemy
@@ -10,7 +11,8 @@ namespace GameEnemy
     public class EnemiesController : IEventReceiver<EnemyDieEvent>
     {
         // TODO _j rework all levels switch logic
-        const int HARDCODED_ROULETTE_SCENE_ID = 9;
+        const int HARDCODED_LVL2_SCENE_ID = 9;
+        const int HARDCODED_LVL3_SCENE_ID = 10;
 
         private int monstersToKill = 0;
 
@@ -64,7 +66,13 @@ namespace GameEnemy
 
             // scenes.SetCurrentFlagRoulette(false);
             // this will always return you to lvl2, but first to roulette, logic is here LoadSceneExecutor.cs in SetClass()
-            _ = scenes.OpenSceneIdWithDelay(HARDCODED_ROULETTE_SCENE_ID, 2);
+            var sceneIdToOpen = HARDCODED_LVL2_SCENE_ID;
+            var scene = SceneManager.GetActiveScene();
+            if (scene.name.ToLowerInvariant().Contains("lvl2"))
+            {
+                sceneIdToOpen = HARDCODED_LVL3_SCENE_ID;
+            }
+            _ = scenes.OpenSceneIdWithDelay(sceneIdToOpen, 2);
             
             // var scene = SceneManager.GetActiveScene();
             // int currentSceneIndex = scenes.GetOpenScenID(); // better to use scene.buildIndex
