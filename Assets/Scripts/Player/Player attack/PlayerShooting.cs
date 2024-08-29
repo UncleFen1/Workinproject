@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameGrid;
-using Inputs;
+using GamePlayer;
 using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
@@ -42,19 +42,24 @@ public class Shooting : MonoBehaviour
     private Action onReloadFinished;
 
     private ISceneExecutor scenes;
-    private IInputPlayerExecutor inputs;
     private PlayerRoulette playerRoulette;
+    private PlayerController playerController;
     private List<GridController> gridControllerList;
     [Inject]
-    private void InitBindings(PlayerRoulette pr, List<GridController> gcs, ISceneExecutor sceneExecutor, IInputPlayerExecutor _inputs)
+    private void InitBindings(
+        PlayerRoulette pr,
+        PlayerController pc,
+        List<GridController> gcs,
+        ISceneExecutor sceneExecutor)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
 
+        playerController = pc;
+
         gridControllerList = gcs;
 
         scenes = sceneExecutor;
-        inputs = _inputs;
     }
     void ApplyRouletteModifiers()
     {
@@ -114,30 +119,20 @@ public class Shooting : MonoBehaviour
 
     void OnEnable()
     {
-        if (!isEventInit && !(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
-        {
-            inputs.Enable();
-            inputs.OnStartPressButton += StartPressButton;
-
-            isEventInit = true;
-        }
+        playerController.weaponSwitcher.OnWeaponSwitch += OnWeaponSwitch;
     }
 
     void OnDisable()
     {
-        if (!isEventInit && !(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
-        {
-            inputs.OnStartPressButton -= StartPressButton;
-
-            isEventInit = false;
-        }
+        playerController.weaponSwitcher.OnWeaponSwitch -= OnWeaponSwitch;
     }
 
-    private void StartPressButton(InputButtonData data)
+    void OnWeaponSwitch()
     {
-        if ((data.R - 1f) < 1e-6 && this.gameObject.activeSelf)
+        if (isReloading)
         {
-            StartCoroutine(Reload());
+            StopAllCoroutines();
+            isReloading = false;
         }
     }
 
@@ -165,6 +160,10 @@ public class Shooting : MonoBehaviour
             mousePosition.z = 0;
 
             Attack(mousePosition, false);
+        }
+        if (Input.GetKeyDown(KeyCode.R) && this.gameObject.activeSelf)
+        {
+            StartCoroutine(Reload());
         }
     }
 

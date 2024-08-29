@@ -2699,6 +2699,7 @@ MonoBehaviour:
   shooting: {fileID: 8804997927899083609}
   playerMelee: {fileID: 8858978660397393225}
   playerHealth: {fileID: 7330821240515042511}
+  weaponSwitcher: {fileID: 6074689469420699433}
   cinemachineVirtualCamera: {fileID: 0}
 --- !u!114 &5565661572861553815
 MonoBehaviour:
