@@ -1,9 +1,14 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameGrid;
+using Inputs;
 using OldSceneNamespace;
 using Roulettes;
 using UnityEngine;
 using Zenject;
+
+using Random = UnityEngine.Random;
 
 public class Shooting : MonoBehaviour
 {
@@ -17,15 +22,31 @@ public class Shooting : MonoBehaviour
     public float fireRate = 1f;
     public float nextFireTime = 0f;
 
+    [Range(1, 100)]
+    public int maxBulletsInCartridge = 7;
+    public int currentBulletsInCartridge = 7;
+    [Range(0.01f, 100f)]
+    public float reloadTimeInterval = 2f;
+    private float reloadStartedTime = float.MinValue;
+    private bool isReloading = false;
+
+    private bool isEventInit = false;
+
     [Header("Звуки эффектов")]
     [SerializeField] private AudioClip[] shootEffectClips;
     private AudioSource effectAudioSource;
 
+    public Action OnShoot { get { return onShoot; } set { onShoot = value; } }
+    private Action onShoot;
+    public Action OnReloadFinished { get { return onReloadFinished; } set { onReloadFinished = value; } }
+    private Action onReloadFinished;
+
     private ISceneExecutor scenes;
+    private IInputPlayerExecutor inputs;
     private PlayerRoulette playerRoulette;
     private List<GridController> gridControllerList;
     [Inject]
-    private void InitBindings(PlayerRoulette pr, List<GridController> gcs, ISceneExecutor sceneExecutor)
+    private void InitBindings(PlayerRoulette pr, List<GridController> gcs, ISceneExecutor sceneExecutor, IInputPlayerExecutor _inputs)
     {
         playerRoulette = pr;
         ApplyRouletteModifiers();
@@ -33,6 +54,7 @@ public class Shooting : MonoBehaviour
         gridControllerList = gcs;
 
         scenes = sceneExecutor;
+        inputs = _inputs;
     }
     void ApplyRouletteModifiers()
     {
@@ -90,6 +112,35 @@ public class Shooting : MonoBehaviour
         SetupAudio();
     }
 
+    void OnEnable()
+    {
+        if (!isEventInit && !(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
+        {
+            inputs.Enable();
+            inputs.OnStartPressButton += StartPressButton;
+
+            isEventInit = true;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (!isEventInit && !(Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform))
+        {
+            inputs.OnStartPressButton -= StartPressButton;
+
+            isEventInit = false;
+        }
+    }
+
+    private void StartPressButton(InputButtonData data)
+    {
+        if ((data.R - 1f) < 1e-6 && this.gameObject.activeSelf)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
     void SetupAudio()
     {
         if (effectAudioSource == null)
@@ -107,22 +158,37 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             mousePosition.z = 0;
 
-            Attack(mousePosition);
+            Attack(mousePosition, false);
         }
     }
 
-    public void Attack(Vector3 v3)
+    public void Attack(Vector3 v3, bool isTouchInput)
     {
+        if (currentBulletsInCartridge <= 0)
+        {
+            if (isTouchInput) StartCoroutine(Reload());
+            return;
+        }
+
         if (Time.time < nextFireTime)
         {
             return;
         }
+
+        if (isReloading)
+        {
+            return;
+        }
+
+        currentBulletsInCartridge--;
+
+        onShoot?.Invoke();
 
         int randomValue = Random.Range(0, shootEffectClips.Length);
         effectAudioSource.clip = shootEffectClips[randomValue];
@@ -169,5 +235,23 @@ public class Shooting : MonoBehaviour
         Destroy(bulletGO, maxFlightTime);
 
         nextFireTime = Time.time + 1f / fireRate;
+    }
+
+    private IEnumerator Reload()
+    {
+        if (isReloading)
+        {
+            yield break;
+        }
+
+        isReloading = true;
+        reloadStartedTime = Time.time;
+
+        yield return new WaitForSeconds(reloadTimeInterval);
+
+        currentBulletsInCartridge = maxBulletsInCartridge;
+        isReloading = false;
+        
+        onReloadFinished?.Invoke();
     }
 }
