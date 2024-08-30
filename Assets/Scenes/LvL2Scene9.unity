@@ -369,7 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzClip: {fileID: 8300000, guid: 205fa9041678c4504bc2192f53ba3d0c, type: 3}
   loopMuz: 1
-  effectClip: {fileID: 8300000, guid: 531e25dfc388e964289dc5e53dc1eba2, type: 3}
+  effectClip: {fileID: 8300000, guid: fe3ea3867f1e443b785601761d97d7af, type: 3}
   loopEffect: 0
 --- !u!114 &109836314
 MonoBehaviour:
