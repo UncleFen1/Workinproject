@@ -3,6 +3,7 @@ using Roulettes;
 using OldSceneNamespace;
 using UnityEngine;
 using Zenject;
+using GamePlayer;
 
 namespace Player
 {
@@ -35,11 +36,15 @@ namespace Player
             inputs = _inputs;
         }
 
+        private Animator playerWalkAnimator;
+
         private PlayerRoulette playerRoulette;
         [Inject]
-        private void InitBindings(PlayerRoulette pr) {
+        private void InitBindings(PlayerRoulette pr, PlayerController pc) {
             playerRoulette = pr;
             ApplyRouletteModifiers();
+
+            playerWalkAnimator = pc.walkAnimator;
         }
         void ApplyRouletteModifiers()
         {
@@ -238,12 +243,14 @@ namespace Player
         {
             isMovementStarted = true;
             effectAudioSource.Play();
+            playerWalkAnimator.SetBool("Stop", false);
         }
 
         void OnMovementStop()
         {
             isMovementStarted = false;
             effectAudioSource.Stop();
+            playerWalkAnimator.SetBool("Stop", true);
         }
 
         private void RunUpdate()

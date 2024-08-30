@@ -13,6 +13,7 @@ namespace GamePlayer
         public MeleeAttack playerMelee;
         public PlayerHealth playerHealth;
         public WeaponSwitcher weaponSwitcher;
+        public Animator walkAnimator;
         public CinemachineVirtualCamera cinemachineVirtualCamera;
 
         private PlayerRoulette playerRoulette;

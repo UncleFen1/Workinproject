@@ -3143,7 +3143,6 @@ GameObject:
   - component: {fileID: 5959899636895810618}
   - component: {fileID: 2539616040935828300}
   - component: {fileID: 945167279899126639}
-  - component: {fileID: 8423565717755479800}
   - component: {fileID: 1252574531739961269}
   - component: {fileID: 7052881027568968090}
   - component: {fileID: -6501306108100226392}
@@ -3217,6 +3216,7 @@ MonoBehaviour:
   playerMelee: {fileID: 8858978660397393225}
   playerHealth: {fileID: 7330821240515042511}
   weaponSwitcher: {fileID: 6074689469420699433}
+  walkAnimator: {fileID: 945167279899126639}
   cinemachineVirtualCamera: {fileID: 0}
 --- !u!114 &5565661572861553815
 MonoBehaviour:
@@ -3499,19 +3499,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8423565717755479800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9035803492739541913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba01ecb079839243a3e19f34b33f673, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 945167279899126639}
 --- !u!114 &1252574531739961269
 MonoBehaviour:
   m_ObjectHideFlags: 0
