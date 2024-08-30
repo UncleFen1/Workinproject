@@ -38,6 +38,8 @@ public class Shooting : MonoBehaviour
 
     public Action OnShoot { get { return onShoot; } set { onShoot = value; } }
     private Action onShoot;
+    public Action OnReloadStarted { get { return onReloadStarted; } set { onReloadStarted = value; } }
+    private Action onReloadStarted;
     public Action OnReloadFinished { get { return onReloadFinished; } set { onReloadFinished = value; } }
     private Action onReloadFinished;
 
@@ -245,6 +247,7 @@ public class Shooting : MonoBehaviour
 
         isReloading = true;
         reloadStartedTime = Time.time;
+        onReloadStarted?.Invoke();
 
         yield return new WaitForSeconds(reloadTimeInterval);
 
