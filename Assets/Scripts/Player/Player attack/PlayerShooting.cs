@@ -27,14 +27,19 @@ public class Shooting : MonoBehaviour
     public int currentBulletsInCartridge = 7;
     [Range(0.01f, 100f)]
     public float reloadTimeInterval = 2f;
-    private float reloadStartedTime = float.MinValue;
+    [Range(0.01f, 100f)]
+    public float jamFixingTimeInterval = 5f;
+    [Range(0f, 1f)]
+    public float jammingProbability = 0.333f;
     private bool isReloading = false;
-
-    private bool isEventInit = false;
+    private bool isJammed = false;
+    private bool isJamFixing = false;
 
     [Header("Звуки эффектов")]
     [SerializeField] private AudioClip[] shootEffectClips;
     private AudioSource effectAudioSource;
+
+    public bool IsJammed { get { return isJammed; } }
 
     public Action OnShoot { get { return onShoot; } set { onShoot = value; } }
     private Action onShoot;
@@ -42,6 +47,12 @@ public class Shooting : MonoBehaviour
     private Action onReloadStarted;
     public Action OnReloadFinished { get { return onReloadFinished; } set { onReloadFinished = value; } }
     private Action onReloadFinished;
+    public Action OnJammed { get { return onJammed; } set { onJammed = value; } }
+    private Action onJammed;
+    public Action OnJamFixingStarted { get { return onJamFixingStarted; } set { onJamFixingStarted = value; } }
+    private Action onJamFixingStarted;
+    public Action OnJamFixingFinished { get { return onJamFixingFinished; } set { onJamFixingFinished = value; } }
+    private Action onJamFixingFinished;
 
     private ISceneExecutor scenes;
     private PlayerRoulette playerRoulette;
@@ -136,6 +147,11 @@ public class Shooting : MonoBehaviour
             StopAllCoroutines();
             isReloading = false;
         }
+        if (isJamFixing)
+        {
+            StopAllCoroutines();
+            isJamFixing = false;
+        }
     }
 
     void SetupAudio()
@@ -165,7 +181,14 @@ public class Shooting : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && this.gameObject.activeSelf)
         {
-            StartCoroutine(Reload());
+            if (isJammed)
+            {
+                StartCoroutine(StartCleanJam());
+            }
+            else
+            {
+                StartCoroutine(StartReload());
+            }
         }
     }
 
@@ -173,7 +196,13 @@ public class Shooting : MonoBehaviour
     {
         if (currentBulletsInCartridge <= 0)
         {
-            if (isTouchInput) StartCoroutine(Reload());
+            if (isTouchInput) StartCoroutine(StartReload());
+            return;
+        }
+
+        if (isJammed)
+        {
+            if (isTouchInput) StartCoroutine(StartCleanJam());
             return;
         }
 
@@ -238,15 +267,22 @@ public class Shooting : MonoBehaviour
         nextFireTime = Time.time + 1f / fireRate;
     }
 
-    private IEnumerator Reload()
+    private IEnumerator StartReload()
     {
         if (isReloading)
         {
             yield break;
         }
 
+        // TODO _j realize it's jammed after some delay (less than reloading time)
+        if (Random.Range(0f, 1f) < jammingProbability)
+        {
+            isJammed = true;
+            onJammed?.Invoke();
+            yield break;
+        }
+
         isReloading = true;
-        reloadStartedTime = Time.time;
         onReloadStarted?.Invoke();
 
         yield return new WaitForSeconds(reloadTimeInterval);
@@ -255,5 +291,24 @@ public class Shooting : MonoBehaviour
         isReloading = false;
         
         onReloadFinished?.Invoke();
+    }
+
+    private IEnumerator StartCleanJam()
+    {
+        if (isJamFixing)
+        {
+            yield break;
+        }
+
+        isJamFixing = true;
+        onJamFixingStarted?.Invoke();
+
+        yield return new WaitForSeconds(jamFixingTimeInterval);
+
+        currentBulletsInCartridge = maxBulletsInCartridge;
+        isJamFixing = false;
+        isJammed = false;
+        
+        onJamFixingFinished?.Invoke();
     }
 }
