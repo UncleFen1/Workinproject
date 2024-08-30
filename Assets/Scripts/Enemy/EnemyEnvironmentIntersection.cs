@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using GameGrid;
 using Roulettes;
 using UnityEngine;
@@ -69,20 +70,21 @@ public class EnemyEnvironmentIntersection : MonoBehaviour
 
     private void GridStepUp(GridController grid)
     {
-        Debug.Log($"_j enemy {this.gameObject.name} GridStepUp Add: {grid.name}");
-        ChangeSortingOrder(grid.sortingOrder);
         activeGridControllers.Add(grid.GetInstanceID(), grid);
+        
+        if (activeGridControllers.Count == 1)
+        {
+            ChangeSortingOrder(grid.sortingOrder);
+        }
     }
     
     private void GridLeft(GridController grid)
     {
-        Debug.Log($"_j enemy {this.gameObject.name} GridLeft Remove: {grid.name}");
         activeGridControllers.Remove(grid.GetInstanceID());
-        foreach (var kv in activeGridControllers)
+
+        if (activeGridControllers.Count == 1)
         {
-            // TODO _j it's definitely incorrect
-            ChangeSortingOrder(kv.Value.sortingOrder);
-            break;
+            ChangeSortingOrder(activeGridControllers.First().Value.sortingOrder);
         }
     }
 
