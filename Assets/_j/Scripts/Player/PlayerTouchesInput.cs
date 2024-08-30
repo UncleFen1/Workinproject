@@ -1,6 +1,7 @@
 using System.Collections;
 using Cinemachine;
 using Player;
+using UI;
 using UnityEngine;
 
 namespace GamePlayer
@@ -37,6 +38,14 @@ namespace GamePlayer
                 weaponSwitcher.SwitchWeapon();  // set default pistol
 
                 cinemachineVirtualCamera.m_Lens.OrthographicSize *= 1.5f;
+
+                var lvlGndPanel = FindObjectOfType<LvlGndPanel>();
+                if (lvlGndPanel != null)
+                {
+                    var menuButton = lvlGndPanel?.GetMenuButton();
+                    menuButton.GetComponent<UnityEngine.UI.Image>().enabled = true;
+                    menuButton.GetComponentInChildren<UnityEngine.UI.Text>().enabled = true;
+                }
             }
         }
 

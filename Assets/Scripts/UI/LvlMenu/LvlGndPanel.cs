@@ -63,6 +63,10 @@ namespace UI
         {
             return menuButton.isActiveAndEnabled;
         }
+        public CustomButton GetMenuButton()
+        {
+            return menuButton;
+        }
     }
 }
 
