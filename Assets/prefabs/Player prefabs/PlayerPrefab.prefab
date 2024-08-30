@@ -183,7 +183,8 @@ MonoBehaviour:
   currentBulletsInCartridge: 7
   reloadTimeInterval: 2
   jamFixingTimeInterval: 5
-  jammingProbability: 0.333
+  jammingOnReloadProbability: 0.333
+  jammingOnShootProbability: 0.1
   shootEffectClips:
   - {fileID: 8300000, guid: ec2bae692bc694ea6ae238059c6b8eb6, type: 3}
   - {fileID: 8300000, guid: eecc848fb0b2545378f0eb909cb4a32b, type: 3}

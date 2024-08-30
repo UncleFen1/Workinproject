@@ -30,10 +30,14 @@ public class Shooting : MonoBehaviour
     [Range(0.01f, 100f)]
     public float jamFixingTimeInterval = 5f;
     [Range(0f, 1f)]
-    public float jammingProbability = 0.333f;
+    public float jammingOnReloadProbability = 0.333f;
+    [Range(0f, 1f)]
+    public float jammingOnShootProbability = 0.1f;
     private bool isReloading = false;
     private bool isJammed = false;
     private bool isJamFixing = false;
+    private IEnumerator coroutineReload;
+    private IEnumerator coroutineFixJam;
 
     [Header("Звуки эффектов")]
     [SerializeField] private AudioClip[] shootEffectClips;
@@ -144,12 +148,12 @@ public class Shooting : MonoBehaviour
     {
         if (isReloading)
         {
-            StopAllCoroutines();
+            StopCoroutine(coroutineReload);
             isReloading = false;
         }
         if (isJamFixing)
         {
-            StopAllCoroutines();
+            StopCoroutine(coroutineFixJam);
             isJamFixing = false;
         }
     }
@@ -183,10 +187,12 @@ public class Shooting : MonoBehaviour
         {
             if (isJammed)
             {
-                StartCoroutine(StartCleanJam());
+                coroutineFixJam = StartFixJam();
+                StartCoroutine(coroutineFixJam);
             }
             else
             {
+                coroutineReload = StartReload();
                 StartCoroutine(StartReload());
             }
         }
@@ -196,13 +202,28 @@ public class Shooting : MonoBehaviour
     {
         if (currentBulletsInCartridge <= 0)
         {
-            if (isTouchInput) StartCoroutine(StartReload());
+            if (isTouchInput)
+            {
+                coroutineReload = StartReload();
+                StartCoroutine(coroutineReload);
+            }
             return;
         }
 
         if (isJammed)
         {
-            if (isTouchInput) StartCoroutine(StartCleanJam());
+            if (isTouchInput)
+            {
+                coroutineFixJam = StartFixJam();
+                StartCoroutine(coroutineFixJam);
+            }
+            return;
+        }
+
+        if (Random.Range(0f, 1f) < jammingOnShootProbability)
+        {
+            isJammed = true;
+            onJammed?.Invoke();
             return;
         }
 
@@ -274,16 +295,15 @@ public class Shooting : MonoBehaviour
             yield break;
         }
 
-        // TODO _j realize it's jammed after some delay (less than reloading time)
-        if (Random.Range(0f, 1f) < jammingProbability)
-        {
-            isJammed = true;
-            onJammed?.Invoke();
-            yield break;
-        }
-
         isReloading = true;
         onReloadStarted?.Invoke();
+
+        if (Random.Range(0f, 1f) < jammingOnReloadProbability)
+        {
+            var delayInSeconds = Random.Range(0f, reloadTimeInterval);
+            StartCoroutine(StartDelayBeforeJamAppear(delayInSeconds));
+            yield break;
+        }
 
         yield return new WaitForSeconds(reloadTimeInterval);
 
@@ -293,7 +313,7 @@ public class Shooting : MonoBehaviour
         onReloadFinished?.Invoke();
     }
 
-    private IEnumerator StartCleanJam()
+    private IEnumerator StartFixJam()
     {
         if (isJamFixing)
         {
@@ -310,5 +330,15 @@ public class Shooting : MonoBehaviour
         isJammed = false;
         
         onJamFixingFinished?.Invoke();
+    }
+
+    private IEnumerator StartDelayBeforeJamAppear(float delayInSeconds)
+    {        
+        // if you switch weapon in this interval, then no jam happen, which isn't good
+        yield return new WaitForSeconds(delayInSeconds);
+
+        isReloading = false;
+        isJammed = true;
+        onJammed?.Invoke();
     }
 }
