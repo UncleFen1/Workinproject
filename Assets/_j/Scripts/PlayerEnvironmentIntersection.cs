@@ -6,6 +6,7 @@ using Roulettes;
 using GameGrid;
 using UnityEngine.Tilemaps;
 using UnityEngine.Rendering;
+using System.Linq;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -75,21 +76,22 @@ public class PlayerEnvironmentIntersection : MonoBehaviour
 
     private void GridStepUp(GridController grid)
     {
-        Debug.Log($"_j GridStepUp Add: {grid.name}, grid.sortingOrder: {grid.sortingOrder}");
-        ChangeSortingOrder(grid.sortingOrder);
         activeGridControllers.Add(grid.GetInstanceID(), grid);
+        
+        if (activeGridControllers.Count == 1)
+        {
+            ChangeSortingOrder(grid.sortingOrder);
+        }
         ChangeGridWallsColor(grid, grid.sortingOrder, TRANSPARENT_WALL_COLOR);
     }
     
     private void GridLeft(GridController grid)
     {
-        Debug.Log($"_j GridLeft Remove: {grid.name}");
         activeGridControllers.Remove(grid.GetInstanceID());
-        foreach (var kv in activeGridControllers)
+        
+        if (activeGridControllers.Count == 1)
         {
-            // TODO _j it's definitely incorrect
-            ChangeSortingOrder(kv.Value.sortingOrder);
-            break;
+            ChangeSortingOrder(activeGridControllers.First().Value.sortingOrder);
         }
         ChangeGridWallsColor(grid, grid.sortingOrder, DEFAULT_WALL_COLOR);
     }
