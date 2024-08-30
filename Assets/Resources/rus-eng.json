@@ -519,6 +519,36 @@
             "ModeTxt": 0,
             "RusText": "FollowLvl8Text",
             "EngText": "FollowLvl8Text"
+        },
+        {
+            "NameObject": "ReloadingText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "перезарядка...",
+            "EngText": "reloading..."
+        },
+        {
+            "NameObject": "WeaponJammedText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "заклинил",
+            "EngText": "jammed"
+        },
+        {
+            "NameObject": "WeaponJamFixingText",
+            "NameScene": "LvL1TrainingScene3",
+            "PoleTxt": {
+                "instanceID": 0
+            },
+            "ModeTxt": 0,
+            "RusText": "чиню...",
+            "EngText": "jam fixing..."
         }
     ]
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WeaponSwitcher : MonoBehaviour
@@ -9,6 +10,8 @@ public class WeaponSwitcher : MonoBehaviour
 
     public bool isMeleeActive = true; // Текущее состояние оружия
 
+    public Action OnWeaponSwitch { get { return onWeaponSwitch; } set { onWeaponSwitch = value; } }
+    private Action onWeaponSwitch;
 
     private void Start()
     {
@@ -34,5 +37,7 @@ public class WeaponSwitcher : MonoBehaviour
         // Активируем/деактивируем оружие в зависимости от состояния
         meleeWeapon.gameObject.SetActive(isMeleeActive);
         rangedWeapon.gameObject.SetActive(!isMeleeActive);
+
+        onWeaponSwitch?.Invoke();
     }
 }

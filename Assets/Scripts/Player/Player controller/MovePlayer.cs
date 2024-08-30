@@ -67,7 +67,6 @@ namespace Player
             {
                 inputs.Enable();
                 inputs.OnMoveButton += MoveButton;
-                inputs.OnStartPressButton += StartPressButton;
             }
         }
         private void PauseGame(bool _isRun)
@@ -78,26 +77,23 @@ namespace Player
         {
             inputDirection = data.WASD;
         }
-        private void StartPressButton(InputButtonData data)
+        private void EscButtonPressed()
         {
-            if ((data.Esc - 1f) < 1e-6)
-            {
-                var gameUIPanel = FindObjectOfType<UI.LvlGndPanel>();
-                var menuUIPanel = FindObjectOfType<UI.LvlButtonPanel>();
-                var settingsUIPanel = FindObjectOfType<UI.LvlSettingsPanel>();
+            var gameUIPanel = FindObjectOfType<UI.LvlGndPanel>();
+            var menuUIPanel = FindObjectOfType<UI.LvlButtonPanel>();
+            var settingsUIPanel = FindObjectOfType<UI.LvlSettingsPanel>();
 
-                if (gameUIPanel.IsButtonActiveAndEnabled())
-                {
-                    gameUIPanel.PressPauseButton();
-                }
-                else if (menuUIPanel.IsContinueButtonActiveAndEnabled())
-                {
-                    menuUIPanel.PressContinueLevelButton();
-                }
-                else if (settingsUIPanel.IsReturnButtonActiveAndEnabled())
-                {
-                    settingsUIPanel.PressReturnButton();
-                }
+            if (gameUIPanel.IsButtonActiveAndEnabled())
+            {
+                gameUIPanel.PressPauseButton();
+            }
+            else if (menuUIPanel.IsContinueButtonActiveAndEnabled())
+            {
+                menuUIPanel.PressContinueLevelButton();
+            }
+            else if (settingsUIPanel.IsReturnButtonActiveAndEnabled())
+            {
+                settingsUIPanel.PressReturnButton();
             }
         }
 
@@ -123,6 +119,14 @@ namespace Player
             // TestyWASD();
             Move();
             RunUpdate();
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EscButtonPressed();
+            }
         }
 
         void TestyWASD()
@@ -242,10 +246,6 @@ namespace Player
             effectAudioSource.Stop();
         }
 
-        void Update()
-        {
-
-        }
         private void RunUpdate()
         {
 

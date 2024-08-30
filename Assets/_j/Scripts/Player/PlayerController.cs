@@ -12,6 +12,7 @@ namespace GamePlayer
         public Shooting shooting;
         public MeleeAttack playerMelee;
         public PlayerHealth playerHealth;
+        public WeaponSwitcher weaponSwitcher;
         public CinemachineVirtualCamera cinemachineVirtualCamera;
 
         private PlayerRoulette playerRoulette;
@@ -35,6 +36,9 @@ namespace GamePlayer
 
             if (playerHealth == null) playerHealth = gameObject.GetComponentInChildren<PlayerHealth>(true);
             if (playerHealth == null) Debug.LogError("PlayerHealth component isn't found");
+
+            if (weaponSwitcher == null) weaponSwitcher = gameObject.GetComponentInChildren<WeaponSwitcher>(true);
+            if (weaponSwitcher == null) Debug.LogError("WeaponSwitcher component isn't found");
 
             if (cinemachineVirtualCamera == null) cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>(true);
             if (cinemachineVirtualCamera == null) Debug.LogError("CinemachineVirtualCamera component isn't found");

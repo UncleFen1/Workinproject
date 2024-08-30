@@ -67,7 +67,7 @@ namespace GamePlayer
                     else
                     {
                         var screenVector = new Vector2(Screen.width, Screen.height);
-                        playerRange.Attack(touch.position - (screenVector/2f));
+                        playerRange.Attack(touch.position - (screenVector/2f), true);
                     }
                 }
 
