@@ -16,6 +16,13 @@
       Loading:
       <span id="loadingValue"></span> 
     </div>
+    
+    <div id="canvasControlHolder">
+      <button onclick="let w=100, h=100; const _canvas = document.getElementById('unity-canvas'); _canvas.width=w; _canvas.height=h; canvas.style.width=`${w}px`; canvas.style.height=`${h}px`;">100x100</button>
+      <button onclick="let w=200, h=200; const _canvas = document.getElementById('unity-canvas'); _canvas.width=w; _canvas.height=h; canvas.style.width=`${w}px`; canvas.style.height=`${h}px`;">200x200</button>
+      <button onclick="let w=400, h=400; const _canvas = document.getElementById('unity-canvas'); _canvas.width=w; _canvas.height=h; canvas.style.width=`${w}px`; canvas.style.height=`${h}px`;">400x400</button>
+    </div>
+
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} tabindex="-1"></canvas>
       <div id="unity-loading-bar">
