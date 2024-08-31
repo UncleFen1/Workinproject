@@ -116,10 +116,10 @@ public class BuildScript : MonoBehaviour
         switch (summary.result)
         {
             case BuildResult.Succeeded:
-                Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
+                Debug.Log($"Build succeeded: {summary.totalSize}  bytes, time spent: {summary.totalTime}");
                 break;
             case BuildResult.Failed:
-                Debug.Log("Build failed");
+                Debug.Log($"Build failed, totalErrors: {summary.totalErrors}");
                 break;
             case BuildResult.Unknown:
                 break;

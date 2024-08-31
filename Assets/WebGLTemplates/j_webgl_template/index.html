@@ -12,6 +12,10 @@
 #endif
   </head>
   <body>
+    <div id="loadingHodler">
+      Loading:
+      <span id="loadingValue"></span> 
+    </div>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} tabindex="-1"></canvas>
       <div id="unity-loading-bar">
@@ -137,9 +141,15 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
+          const loadingValueDom = document.getElementById("loadingValue");
+          loadingValueDom.innerText = `${(progress * 100).toString()} %`;
+
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 window.unityInstance = unityInstance;
+
+                const loadingHodlerDom = document.getElementById("loadingHodler");
+                loadingHodlerDom.remove();
 
                 loadingBar.style.display = "none";
 #if SHOW_DIAGNOSTICS
