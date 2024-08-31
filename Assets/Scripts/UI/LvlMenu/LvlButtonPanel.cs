@@ -64,6 +64,7 @@ namespace UI
             panel.GndPanel();
             scenes.PauseGame(false);
             
+            continueLevelButton.GetComponentInParent<Canvas>().sortingOrder = -100;
         }
         private void ReBootLevelButton()
         {

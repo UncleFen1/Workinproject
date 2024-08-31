@@ -36,6 +36,7 @@ namespace UI
         }
         private void ButtonLvlPanel()
         {
+            menuButton.GetComponentInParent<Canvas>().sortingOrder = 100;
             panel.AudioClick();
             panel.ButtonLvlPanel();
             scenes.PauseGame(true);
